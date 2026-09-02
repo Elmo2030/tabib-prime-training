@@ -1,0 +1,22 @@
+# Static site: nothing to build, publish the repo root as-is.
+[build]
+  publish = "."
+  command = ""
+
+# HTML must always be revalidated so a new deploy reaches users immediately.
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Content-Type = "text/html; charset=UTF-8"
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+[[headers]]
+  for = "/"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Images are content-stable — cache them hard so repeat visits are instant.
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
