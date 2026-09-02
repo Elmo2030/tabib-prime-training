@@ -32,7 +32,7 @@
     --bg-2:#0D1319;
     --ink:#EAF7F4;
     --muted:#7F9C97;
-    --muted-2:#5C7570;
+    --muted-2:#6E8681;
     --neon:#33F1DC;
     --neon-soft:rgba(51,241,220,.13);
     --neon-line:rgba(51,241,220,.22);
@@ -109,13 +109,18 @@
   /* ===== slides ===== */
   .slides{position:relative;height:100vh;height:100dvh;z-index:5;}
   .slide{
-    display:none;position:absolute;inset:0;flex-direction:column;justify-content:center;
-    padding:clamp(56px,7vh,100px) clamp(48px,6vw,90px) clamp(48px,7vh,90px);opacity:0;transform:translateY(18px);
+    display:none;position:absolute;inset:0;flex-direction:column;justify-content:safe center;
+    padding:clamp(72px,8vh,100px) clamp(48px,6vw,90px) clamp(92px,10vh,110px);opacity:0;transform:translateY(18px);
+    overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(51,241,220,.35) transparent;
     transition:opacity .55s cubic-bezier(.2,.7,.2,1), transform .55s cubic-bezier(.2,.7,.2,1);
   }
   .slide.active{display:flex;}
   .slide.in{opacity:1;transform:translateY(0);}
-  .slide-scroll{overflow-y:auto;height:100%;padding-left:6px;margin-left:-6px;}
+  .slide-scroll{overflow-y:auto;height:100%;padding-left:6px;margin-left:-6px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(51,241,220,.35) transparent;}
+  .slide::-webkit-scrollbar,.slide-scroll::-webkit-scrollbar{width:8px;}
+  .slide::-webkit-scrollbar-track,.slide-scroll::-webkit-scrollbar-track{background:transparent;}
+  .slide::-webkit-scrollbar-thumb,.slide-scroll::-webkit-scrollbar-thumb{background:rgba(51,241,220,.32);border-radius:100px;}
+  .slide::-webkit-scrollbar-thumb:hover,.slide-scroll::-webkit-scrollbar-thumb:hover{background:rgba(51,241,220,.55);}
   @media (max-width:900px){ .slide{padding:88px 22px 70px;} }
 
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
@@ -401,6 +406,41 @@
   .menu-item .mi-num{font-family:var(--font-mono);font-size:12px;color:var(--muted);width:26px;}
 
   .cta-row{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;}
+
+  /* ===== laptop readability pass ===== */
+  /* Nothing below 12.5px: these were 10-12px, unreadable on a laptop and hopeless on a projector. */
+  .brand-mark .part-tag{font-size:11.5px;}
+  .motif-chip .mnum{font-size:12.5px;}
+  .output-label{font-size:12.5px;}
+  .btn-copy{font-size:12.5px;}
+  .oc-en{font-size:12.5px;}
+  .oc-desc{font-size:13px;line-height:1.65;}
+  .assistant-card .ac-letter{font-size:13px;}
+  .assistant-card .ac-desc{font-size:13px;line-height:1.7;}
+  .challenge-item .ci-desc{font-size:13px;line-height:1.6;}
+  .challenge-item .ci-pts{font-size:12.5px;}
+  .prime-chip .name{font-size:12.5px;}
+  .tag{font-size:12.5px;}
+  .live-badge{font-size:12.5px;}
+  .quad-card .qc-tool{font-size:12.5px;}
+  .quad-card .qc-text{font-size:13px;line-height:1.7;}
+  .sim-tag{font-size:12.5px;}
+  .field label{font-size:12.8px;}
+  .doc-stage .ds-tag{font-size:12.5px;}
+  .doc-stage .ds-desc{font-size:13px;}
+  .evidence-bar .eb-label{font-size:12.8px;}
+  .evidence-bar .eb-fill{font-size:12.5px;height:26px;}
+  .next-chip{font-size:12.5px;}
+  .qr-caption{font-size:12.5px;}
+  .qr-caption .en{font-size:12.5px;}
+  .instructor-badge span{font-size:12.5px;}
+  .level-body span{font-size:13px;line-height:1.65;}
+  .prompt-cat{font-size:12.5px;}
+  /* generic inline <span class="en"> and small <pre> inside cards */
+  /* code blocks and inline latin spans were down at 10-11.5px */
+  pre{font-size:13px;line-height:1.7;}
+  /* inline-flex is blockified when it is a direct flex child of .slide, stretching the pill full width */
+  .slide > .live-badge, .slide > .kicker{align-self:flex-start;}
 </style>
 <noscript><style>
   /* Without JS every slide stays display:none — show them stacked instead of a black screen. */
@@ -409,6 +449,7 @@
   .slide{display:flex !important;position:relative !important;opacity:1 !important;transform:none !important;min-height:100vh;}
   .reveal{opacity:1 !important;transform:none !important;}
   .chrome,.nav-arrows,.counter{display:none !important;}
+
 </style></noscript>
 </head>
 <body>
@@ -562,7 +603,7 @@
               <div class="output-box">
                 <div class="output-head"><span class="output-label">System Instructions — Gemini</span>
                   <button class="btn btn-copy" data-copy-target="gemini-template">نسخ</button></div>
-                <pre id="gemini-template" dir="ltr" style="text-align:left;font-size:11.4px;">
+                <pre id="gemini-template" dir="ltr" style="text-align:left;font-size:13px;">
 # 1. Role &amp; Identity (الهوية والدور)
 أنت مساعد استراتيجي لطبيبة متخصصة في الأمراض الجلدية والتجميل غير الجراحي، تمارس عملها في ليبيا.
 
@@ -638,7 +679,7 @@
         <div class="content-wrap reveal" style="margin-top:14px;">
           <div class="output-box">
             <div class="output-head"><span class="output-label">Master Prompt — Memory Audit, Rebuild &amp; Optimization</span><button class="btn btn-copy" data-copy-target="mem-prompt">نسخ</button></div>
-            <pre id="mem-prompt" dir="ltr" style="text-align:left;font-size:11.5px;max-height:360px;overflow-y:auto;"># MASTER PROMPT — PERSONAL MEMORY AUDIT, REBUILD &amp; OPTIMIZATION
+            <pre id="mem-prompt" dir="ltr" style="text-align:left;font-size:13px;max-height:360px;overflow-y:auto;"># MASTER PROMPT — PERSONAL MEMORY AUDIT, REBUILD &amp; OPTIMIZATION
 I want you to perform a deep **Audit → Rebuild → Optimization** of my AI memory.
 Do NOT treat my memory as a simple collection of facts about me.
 Treat it as a **Personal Cognitive Operating System (PCOS)** whose purpose is to help an AI understand how to work with me more intelligently, consistently, and proactively across long-term conversations.
@@ -1021,7 +1062,7 @@ When uncertain, explicitly mark the information as:
           <div class="callout ok"><b>تنقل الذاكرة لمنصة تانية:</b> بعد ما تاخد النتيجة، انسخ قسم <span class="en">G. OPTIMIZED MEMORY</span> تحديداً — هو المصمم أصلاً يشتغل كملف جاهز، والصقه كـ<span class="en">Custom Instructions</span> في أداة تانية. كذا تبدأ الأداة الجديدة من نفس النقطة بدل ما تشرح نفسك من الصفر.</div>
         </div>
         <div class="content-wrap reveal" style="margin-top:10px;">
-          <p style="font-size:12px;color:var(--muted-2);">أسماء الخانات (<span class="en">Memory</span> / <span class="en">Saved Info</span>) بتتغيّر بسرعة بين الأدوات — راجع الإعدادات بنفسك لو مش لاقيها بالاسم ده بالظبط.</p>
+          <p style="font-size:13px;color:var(--muted-2);">أسماء الخانات (<span class="en">Memory</span> / <span class="en">Saved Info</span>) بتتغيّر بسرعة بين الأدوات — راجع الإعدادات بنفسك لو مش لاقيها بالاسم ده بالظبط.</p>
         </div>
       </div>
     </section>
@@ -1116,7 +1157,7 @@ When uncertain, explicitly mark the information as:
         <div class="content-wrap reveal" style="margin-top:16px;">
           <div class="output-box">
             <div class="output-head"><span class="output-label">PRIME Prompt — NotebookLM Slide Deck</span><button class="btn btn-copy" data-copy-target="ppt-prime-prompt">نسخ</button></div>
-            <pre id="ppt-prime-prompt" dir="ltr" style="text-align:left;font-size:12px;">P — Persona:
+            <pre id="ppt-prime-prompt" dir="ltr" style="text-align:left;font-size:13px;">P — Persona:
 Act as a senior academic presentation designer and medical-education specialist — the kind who builds keynote decks for Oxford University Medical School grand-round lectures. Precise, evidence-based, visually restrained.
 
 R — Role & Instructions:
@@ -1136,7 +1177,7 @@ Exactly [N] slides, [short / default / long] length. State the slide count preci
           <div class="callout ok"><b>ميزة إضافية:</b> بعد التوليد تقدر تطلب تعديلات على نفس العرض بجمل عادية ("خلي شريحة 3 أقصر" مثلاً) — لكن مش تقدر تزود أو تقلل عدد الشرائح بعد كده، فحدد العدد صح من البرومبت الأول. فيه كمان خيار منفصل لاختيار لغة العرض (عربي/إنجليزي) جنب زر التوليد.</div>
         </div>
         <div class="content-wrap reveal" style="margin-top:10px;">
-          <p style="font-size:12px;color:var(--muted-2);">جوجل نفسها بتقول إن العروض دي مولّدة بالذكاء الاصطناعي وممكن فيها معلومة أو رقم غير دقيق — راجع كل رقم أو دراسة تطلع في الشرائح بنفسك قبل ما تعرضها في محاضرة فعلية. الميزة مقيّدة لمستخدمين 18 سنة فأكثر.</p>
+          <p style="font-size:13px;color:var(--muted-2);">جوجل نفسها بتقول إن العروض دي مولّدة بالذكاء الاصطناعي وممكن فيها معلومة أو رقم غير دقيق — راجع كل رقم أو دراسة تطلع في الشرائح بنفسك قبل ما تعرضها في محاضرة فعلية. الميزة مقيّدة لمستخدمين 18 سنة فأكثر.</p>
         </div>
       </div>
     </section>
@@ -1895,7 +1936,7 @@ E: يفهم القارئ بالظبط شنو يعمل، من غير ما يحس 
         <div class="content-wrap reveal">
           <div class="output-box">
             <div class="output-head"><span class="output-label">System Instructions — لجنة تشخيص تفريقي</span><button class="btn btn-copy" data-copy-target="gem-full">نسخ</button></div>
-            <pre id="gem-full" style="font-size:11.5px;"># 1. Role (الدور)
+            <pre id="gem-full" style="font-size:12.8px;"># 1. Role (الدور)
 أنت لجنة تشخيص تفريقي افتراضية، مكوّنة من استشاريين متعددي التخصصات. مهمتك تحليل الحالات المعروضة وترتيب الاحتمالات — لا تعطِ تشخيصاً نهائياً أبداً.
 
 # 2. Instructions (التعليمات)
@@ -1924,7 +1965,7 @@ E: يفهم القارئ بالظبط شنو يعمل، من غير ما يحس 
           </ol>
         </div>
         <div class="content-wrap reveal" style="margin-top:14px;">
-          <p style="font-size:12px;color:var(--muted-2);">المساعد ده أداة مساندة للتفكير — مش بديل عن حكمك السريري ولا عن الفحص المباشر للمريض.</p>
+          <p style="font-size:13px;color:var(--muted-2);">المساعد ده أداة مساندة للتفكير — مش بديل عن حكمك السريري ولا عن الفحص المباشر للمريض.</p>
         </div>
       </div>
     </section>
@@ -2008,7 +2049,7 @@ E: يفهم القارئ بالظبط شنو يعمل، من غير ما يحس 
                 <tr><td>بحث مقيّد بمصادر محكّمة فقط</td><td><b><span class="en">Perplexity — Academic</span></b></td></tr>
               </tbody>
             </table></div>
-            <p style="font-size:12px;color:var(--muted-2);margin-top:12px;">مزايا الأدوات تتغيّر بسرعة — تأكد من القائمة الحالية بنفسك كل فترة.</p>
+            <p style="font-size:13px;color:var(--muted-2);margin-top:12px;">مزايا الأدوات تتغيّر بسرعة — تأكد من القائمة الحالية بنفسك كل فترة.</p>
           </div>
 
           <div class="res-panel" id="r3">
