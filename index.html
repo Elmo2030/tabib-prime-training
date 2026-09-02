@@ -7,11 +7,24 @@
 <meta name="description" content="الذكاء الاصطناعي × الطبيب — إطار PRIME للأطباء ، الجزء الأول.">
 <meta name="color-scheme" content="dark">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080B10'/%3E%3Cpath d='M16 6.5a9.5 9.5 0 100 19 9.5 9.5 0 000-19zm0 3.2a6.3 6.3 0 110 12.6 6.3 6.3 0 010-12.6z' fill='%2333F1DC'/%3E%3C/svg%3E">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preload" as="image" href="img/instructor.jpg">
-<!-- Fonts load non-blocking: a slow/blocked font CDN must never stop the page from rendering. -->
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Changa:wght@500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&amp;display=swap" media="print" onload="this.media='all';this.onload=null">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/changa-arabic-700-normal.woff2">
+<style>
+  /* Self-hosted fonts — no external domain, so a blocked or slow CDN can never affect the page. */
+  @font-face{font-family:'Changa';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/changa-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'Changa';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/changa-arabic-600-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'Changa';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/changa-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'Changa';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/changa-arabic-700-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ibm-plex-mono-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+</style>
 <title>طبيب PRIME</title>
 <style>
   :root{
@@ -30,7 +43,7 @@
     --glass-line:rgba(255,255,255,.09);
     --font-display:"Changa","IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
     --font-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
-    --font-mono:"IBM Plex Mono",ui-monospace,monospace;
+    --font-mono:"IBM Plex Mono","IBM Plex Sans Arabic",ui-monospace,monospace;
   }
   *{box-sizing:border-box;}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);}
@@ -64,6 +77,9 @@
     background:var(--neon-soft);border:1px solid var(--neon-line);padding:6px 14px;border-radius:100px;
     transition:opacity .3s;
   }
+
+  /* On narrow screens the fixed brand mark and the act chip collide; branding is the expendable one. */
+  @media (max-width:700px){ .brand-mark{display:none;} .act-chip{left:auto;right:20px;max-width:calc(100vw - 40px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;} }
 
   .progress-track{position:fixed;top:0;right:0;left:0;height:2px;background:rgba(255,255,255,.06);z-index:32;}
   .progress-fill{height:100%;background:var(--neon);box-shadow:0 0 8px var(--neon-glow);transition:width .5s cubic-bezier(.4,0,.2,1);width:0%;}
