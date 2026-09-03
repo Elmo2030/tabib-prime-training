@@ -6,6 +6,33 @@
 <meta name="theme-color" content="#080B10">
 <meta name="description" content="الذكاء الاصطناعي × الطبيب — إطار PRIME للأطباء ، الجزء الأول.">
 <meta name="color-scheme" content="dark">
+<script>
+/* Runs before anything else. render() calls NodeList.forEach and String.padStart on the
+   very first frame, so on an engine missing either (older Android WebView, the in-app
+   browsers inside Facebook/Instagram/WhatsApp, older Safari) it threw immediately, no
+   slide ever got .active, and every slide stayed display:none — a black screen. */
+(function(){
+  if(window.NodeList && !NodeList.prototype.forEach){ NodeList.prototype.forEach = Array.prototype.forEach; }
+  if(window.HTMLCollection && !HTMLCollection.prototype.forEach){ HTMLCollection.prototype.forEach = Array.prototype.forEach; }
+  if(!String.prototype.padStart){
+    String.prototype.padStart = function(len, pad){
+      var s = String(this); pad = pad === undefined ? ' ' : String(pad);
+      if(s.length >= len || !pad) return s;
+      var out = ''; while(out.length + s.length < len){ out += pad; }
+      return out.slice(0, len - s.length) + s;
+    };
+  }
+  var E = window.Element && Element.prototype;
+  if(E && !E.matches){ E.matches = E.msMatchesSelector || E.webkitMatchesSelector; }
+  if(E && !E.closest && E.matches){
+    E.closest = function(sel){
+      var el = this;
+      while(el && el.nodeType === 1){ if(el.matches(sel)) return el; el = el.parentElement || el.parentNode; }
+      return null;
+    };
+  }
+})();
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080B10'/%3E%3Cpath d='M16 6.5a9.5 9.5 0 100 19 9.5 9.5 0 000-19zm0 3.2a6.3 6.3 0 110 12.6 6.3 6.3 0 010-12.6z' fill='%2333F1DC'/%3E%3C/svg%3E">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/changa-arabic-700-normal.woff2">
@@ -441,6 +468,15 @@
   pre{font-size:13px;line-height:1.7;}
   /* inline-flex is blockified when it is a direct flex child of .slide, stretching the pill full width */
   .slide > .live-badge, .slide > .kicker{align-self:flex-start;}
+
+  /* Last-resort rescue: if the deck script never activates a slide — for ANY reason, not just
+     JS being disabled — stack every slide as a plain scrolling document. A readable page beats
+     a black screen. Applied by the watchdog at the end of <body>. */
+  html.deck-fallback .page{height:auto !important;overflow:visible !important;}
+  html.deck-fallback .slides{height:auto !important;}
+  html.deck-fallback .slide{display:flex !important;position:relative !important;opacity:1 !important;transform:none !important;overflow:visible !important;min-height:auto;padding:40px 22px;border-bottom:1px solid rgba(255,255,255,.07);}
+  html.deck-fallback .reveal{opacity:1 !important;transform:none !important;}
+  html.deck-fallback .chrome,html.deck-fallback .nav-arrows,html.deck-fallback .counter,html.deck-fallback #bgcanvas{display:none !important;}
 </style>
 <noscript><style>
   /* Without JS every slide stays display:none — show them stacked instead of a black screen. */
@@ -2540,6 +2576,25 @@ E: يفهم القارئ بالظبط شنو يعمل، من غير ما يحس 
   frame();
 
   render();
+})();
+</script>
+<script>
+/* Watchdog. The deck hides every slide until the script activates one, so any script failure
+   used to leave a blank page with no way back. This checks whether a slide actually became
+   active and, if not, falls back to the stacked reading layout. */
+(function(){
+  var rescued = false;
+  function rescue(){
+    if(rescued) return;
+    if(document.querySelector('.slide.active')) return;   // deck came up fine
+    rescued = true;
+    var h = document.documentElement;
+    h.className = h.className ? h.className + ' deck-fallback' : 'deck-fallback';
+  }
+  window.addEventListener('error', function(){ setTimeout(rescue, 0); });
+  if(document.readyState === 'complete'){ setTimeout(rescue, 1200); }
+  else { window.addEventListener('load', function(){ setTimeout(rescue, 1200); }); }
+  setTimeout(rescue, 4000);   // covers a failure that never surfaced as an error event
 })();
 </script>
 </body>
