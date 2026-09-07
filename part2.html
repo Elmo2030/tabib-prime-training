@@ -1,0 +1,2195 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#080B10">
+<meta name="description" content="الذكاء الاصطناعي × الطبيب — الجزء الثاني: أدوات الذكاء الاصطناعي في الأمراض الجلدية.">
+<meta name="color-scheme" content="dark">
+<script>
+/* Runs before anything else. render() calls NodeList.forEach and String.padStart on the
+   very first frame, so on an engine missing either (older Android WebView, the in-app
+   browsers inside Facebook/Instagram/WhatsApp, older Safari) it threw immediately, no
+   slide ever got .active, and every slide stayed display:none — a black screen. */
+(function(){
+  if(window.NodeList && !NodeList.prototype.forEach){ NodeList.prototype.forEach = Array.prototype.forEach; }
+  if(window.HTMLCollection && !HTMLCollection.prototype.forEach){ HTMLCollection.prototype.forEach = Array.prototype.forEach; }
+  if(!String.prototype.padStart){
+    String.prototype.padStart = function(len, pad){
+      var s = String(this); pad = pad === undefined ? ' ' : String(pad);
+      if(s.length >= len || !pad) return s;
+      var out = ''; while(out.length + s.length < len){ out += pad; }
+      return out.slice(0, len - s.length) + s;
+    };
+  }
+  var E = window.Element && Element.prototype;
+  if(E && !E.matches){ E.matches = E.msMatchesSelector || E.webkitMatchesSelector; }
+  if(E && !E.closest && E.matches){
+    E.closest = function(sel){
+      var el = this;
+      while(el && el.nodeType === 1){ if(el.matches(sel)) return el; el = el.parentElement || el.parentNode; }
+      return null;
+    };
+  }
+})();
+</script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23080B10'/%3E%3Cpath d='M16 6.5a9.5 9.5 0 100 19 9.5 9.5 0 000-19zm0 3.2a6.3 6.3 0 110 12.6 6.3 6.3 0 010-12.6z' fill='%2333F1DC'/%3E%3C/svg%3E">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="fonts/changa-arabic-700-normal.woff2">
+<style>
+  /* Self-hosted fonts — no external domain, so a blocked or slow CDN can never affect the page. */
+  @font-face{font-family:'Changa';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/changa-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'Changa';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/changa-arabic-600-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'Changa';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/changa-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'Changa';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/changa-arabic-700-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ibm-plex-mono-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+</style>
+<title>طبيب PRIME — الجزء الثاني</title>
+<style>
+  :root{
+    --bg:#080B10;
+    --bg-2:#0D1319;
+    --ink:#EAF7F4;
+    --muted:#7F9C97;
+    --muted-2:#6E8681;
+    --neon:#33F1DC;
+    --neon-soft:rgba(51,241,220,.13);
+    --neon-line:rgba(51,241,220,.22);
+    --neon-glow:rgba(51,241,220,.30);
+    --danger:#FF6E5C;
+    --danger-soft:rgba(255,110,92,.14);
+    --glass:linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
+    --glass-line:rgba(255,255,255,.09);
+    --font-display:"Changa","IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
+    --font-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
+    --font-mono:"IBM Plex Mono","IBM Plex Sans Arabic",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);}
+  .page{
+    background:var(--bg);color:var(--ink);font-family:var(--font-body);
+    direction:rtl;height:100vh;height:100dvh;overflow:hidden;position:relative;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;margin:0;text-wrap:balance;}
+  p{margin:0;}
+  .en{font-family:var(--font-mono);direction:ltr;unicode-bidi:isolate;}
+  ::selection{background:var(--neon-soft);color:var(--ink);}
+  @media (prefers-reduced-motion:reduce){ *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
+
+  canvas#bgcanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.45;}
+
+  /* ===== chrome ===== */
+  .chrome{position:fixed;inset:0;z-index:30;pointer-events:none;}
+  .chrome > *{pointer-events:auto;}
+  .brand-mark{
+    position:fixed;top:22px;right:26px;font-family:var(--font-mono);font-size:12.5px;
+    letter-spacing:.1em;color:var(--muted);display:flex;align-items:center;gap:8px;z-index:31;
+  }
+  .brand-mark b{color:var(--neon);font-weight:600;}
+  .brand-mark .dot{width:5px;height:5px;border-radius:50%;background:var(--neon);box-shadow:0 0 6px var(--neon-glow);}
+  .brand-mark .part-tag{font-size:10px;border:1px solid var(--glass-line);border-radius:100px;padding:2px 9px;color:var(--muted-2);}
+
+  .act-chip{
+    position:fixed;top:20px;left:26px;z-index:31;
+    font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;color:var(--neon);
+    background:var(--neon-soft);border:1px solid var(--neon-line);padding:6px 14px;border-radius:100px;
+    transition:opacity .3s;
+  }
+
+  /* On narrow screens the fixed brand mark and the act chip collide; branding is the expendable one. */
+  @media (max-width:700px){ .brand-mark{display:none;} .act-chip{left:auto;right:20px;max-width:calc(100vw - 40px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;} }
+
+  .progress-track{position:fixed;top:0;right:0;left:0;height:2px;background:rgba(255,255,255,.06);z-index:32;}
+  .progress-fill{height:100%;background:var(--neon);box-shadow:0 0 8px var(--neon-glow);transition:width .5s cubic-bezier(.4,0,.2,1);width:0%;}
+
+  .counter{
+    position:fixed;bottom:24px;right:26px;z-index:31;font-family:var(--font-mono);font-size:13px;color:var(--muted);
+    display:flex;align-items:baseline;gap:4px;
+  }
+  .counter b{color:var(--ink);font-size:16px;}
+
+  .navctl{position:fixed;bottom:20px;left:26px;z-index:31;display:flex;gap:10px;align-items:center;}
+  .nav-btn{
+    width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-line);background:var(--glass);
+    color:var(--ink);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    backdrop-filter:blur(12px);transition:.15s;
+  }
+  .nav-btn:hover{border-color:var(--neon-line);color:var(--neon);box-shadow:0 0 14px -4px var(--neon-glow);}
+  .nav-btn:disabled{opacity:.25;cursor:default;box-shadow:none;}
+  .nav-btn:focus-visible, .menu-btn:focus-visible, .btn:focus-visible{outline:2px solid var(--neon);outline-offset:2px;}
+  .menu-btn{
+    height:44px;border-radius:100px;border:1px solid var(--glass-line);background:var(--glass);
+    color:var(--muted);font-size:12.5px;font-family:var(--font-body);font-weight:600;cursor:pointer;
+    padding:0 18px;backdrop-filter:blur(12px);display:flex;align-items:center;gap:8px;
+  }
+  .menu-btn:hover{color:var(--ink);border-color:var(--neon-line);}
+
+  /* ===== slides ===== */
+  .slides{position:relative;height:100vh;height:100dvh;z-index:5;}
+  .slide{
+    display:none;position:absolute;inset:0;flex-direction:column;justify-content:safe center;
+    padding:clamp(72px,8vh,100px) clamp(48px,6vw,90px) clamp(92px,10vh,110px);opacity:0;transform:translateY(18px);
+    overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(51,241,220,.35) transparent;
+    transition:opacity .55s cubic-bezier(.2,.7,.2,1), transform .55s cubic-bezier(.2,.7,.2,1);
+  }
+  .slide.active{display:flex;}
+  .slide.in{opacity:1;transform:translateY(0);}
+  .slide-scroll{overflow-y:auto;height:100%;padding-left:6px;margin-left:-6px;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(51,241,220,.35) transparent;}
+  .slide::-webkit-scrollbar,.slide-scroll::-webkit-scrollbar{width:8px;}
+  .slide::-webkit-scrollbar-track,.slide-scroll::-webkit-scrollbar-track{background:transparent;}
+  .slide::-webkit-scrollbar-thumb,.slide-scroll::-webkit-scrollbar-thumb{background:rgba(51,241,220,.32);border-radius:100px;}
+  .slide::-webkit-scrollbar-thumb:hover,.slide-scroll::-webkit-scrollbar-thumb:hover{background:rgba(51,241,220,.55);}
+  @media (max-width:900px){ .slide{padding:88px 22px 70px;} }
+
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
+  .slide.in .reveal.show{opacity:1;transform:translateY(0);}
+
+  .kicker{
+    display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;
+    letter-spacing:.1em;color:var(--neon);margin-bottom:18px;
+  }
+  .kicker::before{content:"";width:26px;height:1px;background:var(--neon);box-shadow:0 0 6px var(--neon-glow);}
+
+  .hook{font-size:clamp(25px,3.4vw,44px);line-height:1.32;max-width:21ch;color:var(--ink);}
+  .hook .accent{color:var(--neon);text-shadow:0 0 18px var(--neon-glow);}
+  .sub{font-size:16px;color:var(--muted);max-width:64ch;margin-top:18px;line-height:1.8;}
+
+  .content-wrap{max-width:min(1160px,76vw);width:100%;margin-top:32px;}
+  .content-wrap.wide{max-width:min(1360px,86vw);}
+
+  /* glass card */
+  .glass{
+    background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
+    backdrop-filter:blur(20px) saturate(140%);
+    box-shadow:0 24px 60px -36px rgba(0,0,0,.7);
+  }
+  .glass-pad{padding:22px 26px;}
+
+  /* tables */
+  .table-wrap{overflow-x:auto;border-radius:16px;border:1px solid var(--glass-line);margin-top:16px;}
+  table{border-collapse:collapse;width:100%;font-size:13.6px;min-width:560px;background:rgba(255,255,255,.015);}
+  th,td{padding:13px 16px;text-align:right;border-bottom:1px solid var(--glass-line);vertical-align:top;}
+  thead th{background:rgba(51,241,220,.06);font-family:var(--font-display);font-weight:600;font-size:13px;color:var(--neon);white-space:nowrap;}
+  tbody tr:last-child td{border-bottom:none;}
+  td b{color:var(--neon);}
+
+  /* prime chips */
+  .prime-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
+  @media (max-width:900px){ .prime-grid{grid-template-columns:repeat(2,1fr);} }
+  .prime-chip{padding:20px 16px;text-align:center;}
+  .prime-chip .letter{font-family:var(--font-mono);font-size:32px;font-weight:700;color:var(--neon);text-shadow:0 0 16px var(--neon-glow);display:block;}
+  .prime-chip .name{font-size:11.5px;font-family:var(--font-mono);color:var(--muted);margin-top:4px;}
+  .prime-chip .desc{font-size:13.5px;margin-top:10px;font-weight:600;}
+
+  /* motif chips (THINK / CHOOSE / STRUCTURE / CHALLENGE / VERIFY) */
+  .motif-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;}
+  @media (max-width:900px){ .motif-grid{grid-template-columns:repeat(2,1fr);} }
+  .motif-chip{padding:16px 10px;text-align:center;}
+  .motif-chip .mnum{font-family:var(--font-mono);font-size:10px;color:var(--muted-2);margin-bottom:6px;}
+  .motif-chip .mword{font-family:var(--font-mono);font-size:13.5px;font-weight:700;color:var(--neon);letter-spacing:.04em;}
+  .motif-chip .mgloss{font-size:12.5px;color:var(--muted);margin-top:6px;}
+  .motif-final{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-top:22px;}
+  .motif-final .mf-word{font-family:var(--font-mono);font-size:12.5px;color:var(--neon);border:1px solid var(--neon-line);border-radius:100px;padding:8px 18px;background:var(--neon-soft);}
+
+  /* prompt quote */
+  .prime-quote{padding:20px 24px;font-size:14.5px;line-height:2;}
+  .prime-quote .ln{margin-bottom:10px;}
+  .prime-quote .ln:last-child{margin-bottom:0;}
+  .tag{
+    font-family:var(--font-mono);font-weight:700;font-size:11px;color:#05201C;
+    background:var(--neon);border-radius:5px;padding:2px 8px;margin-inline-end:8px;
+  }
+
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media (max-width:800px){ .compare-grid{grid-template-columns:1fr;} }
+  .compare-col .col-title{font-size:12.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
+  .compare-col.bad .col-title{color:var(--danger);}
+  .compare-col.good .col-title{color:var(--neon);}
+  .compare-col.bad .glass{border-color:rgba(255,110,92,.28);}
+  .compare-col.good .glass{border-color:var(--neon-line);}
+
+  .quad-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  @media (max-width:980px){ .quad-grid{grid-template-columns:1fr 1fr;} }
+  .quad-card{padding:15px 16px;}
+  .quad-card .qc-tool{font-family:var(--font-mono);font-size:11.5px;color:var(--neon);margin-bottom:8px;}
+  .quad-card .qc-text{font-size:12.4px;color:var(--muted);line-height:1.75;}
+
+  .output-box pre, .prompt-mono{
+    margin:0;white-space:pre-wrap;font-family:var(--font-mono);font-size:12.6px;line-height:1.9;
+    direction:rtl;text-align:right;color:var(--ink);
+  }
+  .output-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
+  .output-label{font-size:10.5px;font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+
+  .sim-tag{display:inline-flex;align-items:center;gap:6px;font-family:var(--font-mono);font-size:10px;color:var(--muted-2);border:1px dashed var(--glass-line);border-radius:6px;padding:3px 9px;margin-bottom:9px;}
+
+  .btn{
+    display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-family:var(--font-body);
+    font-weight:700;font-size:13.5px;border-radius:100px;padding:10px 20px;transition:.15s;border:1px solid transparent;
+  }
+  .btn-neon{background:var(--neon);color:#05201C;box-shadow:0 0 16px -6px var(--neon-glow);}
+  .btn-neon:hover{filter:brightness(1.08);}
+  .btn-ghost{background:transparent;color:var(--neon);border-color:var(--neon-line);}
+  .btn-ghost:hover{background:var(--neon-soft);}
+  .btn-copy{font-size:11.5px;padding:6px 13px;background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--glass-line);}
+  .btn-copy:hover{color:var(--ink);}
+  .btn-copy.copied{background:var(--neon);color:#05201C;border-color:var(--neon);}
+
+  .field{margin-bottom:13px;}
+  .field label{display:block;font-size:12px;font-weight:700;color:var(--muted);margin-bottom:6px;}
+  .field input, .field select, .field textarea{
+    width:100%;font-family:var(--font-body);font-size:14px;color:var(--ink);
+    background:rgba(255,255,255,.04);border:1px solid var(--glass-line);border-radius:10px;padding:10px 13px;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{outline:none;border-color:var(--neon);box-shadow:0 0 0 3px var(--neon-soft);}
+  .field textarea{resize:vertical;min-height:50px;}
+  .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;}
+  @media (max-width:640px){ .field-grid{grid-template-columns:1fr;} }
+
+  .live-badge{
+    display:inline-flex;align-items:center;gap:7px;font-family:var(--font-mono);font-size:11px;font-weight:700;
+    letter-spacing:.08em;color:var(--neon);background:var(--neon-soft);border:1px solid var(--neon-line);
+    padding:5px 13px;border-radius:100px;margin-bottom:14px;
+  }
+  .live-dot{width:6px;height:6px;border-radius:50%;background:var(--neon);box-shadow:0 0 6px var(--neon-glow);animation:pulse 1.6s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
+
+  .callout{
+    background:var(--danger-soft);border:1px solid rgba(255,110,92,.35);border-radius:14px;
+    padding:15px 18px;font-size:14px;margin-top:14px;
+  }
+  .callout b{color:var(--danger);}
+  .callout.ok{background:var(--neon-soft);border-color:var(--neon-line);}
+  .callout.ok b{color:var(--neon);}
+
+  .need-btns{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 18px;}
+  .need-btn{
+    font-size:12.6px;font-weight:600;padding:8px 15px;border-radius:100px;
+    border:1px solid var(--glass-line);background:rgba(255,255,255,.03);color:var(--ink);cursor:pointer;
+  }
+  .need-btn.active{background:var(--neon);color:#05201C;border-color:var(--neon);}
+  .output-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
+  @media (max-width:820px){ .output-grid{grid-template-columns:repeat(2,1fr);} }
+  .output-card{padding:16px;transition:.2s;}
+  .output-card.match{border-color:var(--neon-line);box-shadow:0 0 0 2px var(--neon-soft), 0 0 20px -10px var(--neon-glow);}
+  .oc-icon{font-size:22px;}
+  .oc-name{font-weight:700;font-size:13.5px;margin-top:8px;}
+  .oc-en{font-size:10px;color:var(--muted);}
+  .oc-desc{font-size:11.8px;color:var(--muted);margin-top:6px;line-height:1.6;}
+
+  .checklist{display:flex;flex-direction:column;gap:10px;margin-top:8px;}
+  .check-row{display:flex;align-items:flex-start;gap:11px;font-size:14px;padding:12px 14px;cursor:pointer;}
+  .check-row input{margin-top:3px;accent-color:var(--neon);width:16px;height:16px;flex:none;}
+  .check-row.checked{opacity:.45;text-decoration:line-through;}
+
+  .steps-list{list-style:none;padding:0;margin:16px 0 0;counter-reset:step;}
+  .steps-list li{
+    counter-increment:step;position:relative;padding:14px 16px;padding-inline-start:52px;
+    margin-bottom:11px;font-size:13.8px;
+  }
+  .steps-list li::before{
+    content:counter(step);position:absolute;inset-inline-start:14px;top:14px;width:26px;height:26px;border-radius:50%;
+    background:var(--neon);color:#05201C;font-family:var(--font-mono);font-weight:700;font-size:12.5px;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .steps-list b{display:block;margin-bottom:3px;}
+  .steps-compact{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;counter-reset:step;}
+  @media (max-width:820px){ .steps-compact{grid-template-columns:1fr;} }
+  .steps-compact li{margin-bottom:0;padding:12px 14px;padding-inline-start:46px;font-size:12.8px;background:var(--glass);border:1px solid var(--glass-line);border-radius:14px;}
+  .steps-compact li::before{width:22px;height:22px;font-size:11px;top:12px;inset-inline-start:12px;}
+  .steps-compact b{font-size:13.2px;}
+
+  .workflow-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;counter-reset:wf;list-style:none;padding:0;margin:16px 0 0;}
+  @media (max-width:820px){ .workflow-grid{grid-template-columns:1fr;} }
+  .workflow-grid li{counter-increment:wf;position:relative;padding:12px 14px;padding-inline-start:46px;font-size:12.6px;background:var(--glass);border:1px solid var(--glass-line);border-radius:14px;line-height:1.6;}
+  .workflow-grid li::before{content:counter(wf);position:absolute;inset-inline-start:12px;top:12px;width:22px;height:22px;border-radius:50%;background:var(--neon);color:#05201C;font-family:var(--font-mono);font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;}
+  .workflow-grid b{display:block;margin-bottom:2px;}
+
+  .doc-stage-row{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:8px;align-items:center;}
+  @media (max-width:820px){ .doc-stage-row{grid-template-columns:1fr;} }
+  .doc-stage{padding:16px;text-align:center;}
+  .doc-stage .ds-tag{font-family:var(--font-mono);font-size:11px;color:var(--neon);margin-bottom:6px;}
+  .doc-stage .ds-desc{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6;}
+  .doc-arrow{font-size:20px;color:var(--muted);text-align:center;}
+  @media (max-width:820px){ .doc-arrow{transform:rotate(90deg);} }
+
+  .level-list{margin-top:16px;}
+  .level-row{display:flex;align-items:center;gap:16px;padding:13px 18px;border-bottom:1px solid var(--glass-line);}
+  .level-row:last-child{border-bottom:none;}
+  .level-num{font-family:var(--font-mono);font-size:12.5px;color:var(--neon);width:78px;flex:none;}
+  .level-body b{display:block;font-size:13.6px;margin-bottom:2px;}
+  .level-body span{font-size:12.4px;color:var(--muted);}
+  .level-row.teaser{opacity:.8;}
+  .level-row.teaser .level-num{color:var(--danger);}
+
+  .assistant-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  @media (max-width:900px){ .assistant-grid{grid-template-columns:1fr 1fr;} }
+  .assistant-card{padding:16px;}
+  .assistant-card .ac-letter{font-family:var(--font-mono);color:var(--neon);font-size:11.5px;margin-bottom:6px;}
+  .assistant-card .ac-title{font-weight:700;font-size:13.5px;margin-bottom:6px;}
+  .assistant-card .ac-desc{font-size:11.8px;color:var(--muted);line-height:1.7;}
+
+  .evidence-bar-wrap{display:flex;flex-direction:column;gap:7px;margin-top:6px;}
+  .evidence-bar{display:flex;align-items:center;gap:10px;}
+  .evidence-bar .eb-label{font-size:11.8px;width:190px;flex:none;color:var(--muted);}
+  .evidence-bar .eb-fill{height:24px;border-radius:7px;display:flex;align-items:center;padding-inline-start:10px;font-size:10.5px;color:var(--ink);font-family:var(--font-mono);background:var(--neon-soft);border:1px solid var(--neon-line);}
+
+  .quiz-scenario{margin-bottom:20px;}
+  .quiz-scenario:last-child{margin-bottom:0;}
+  .quiz-q{font-size:13.8px;font-weight:700;margin-bottom:10px;line-height:1.7;}
+  .quiz-opts{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px;}
+  .quiz-btn{font-size:12.6px;font-weight:600;padding:8px 16px;border-radius:100px;border:1px solid var(--glass-line);background:rgba(255,255,255,.03);color:var(--ink);cursor:pointer;}
+  .quiz-btn.picked{border-width:2px;}
+  .quiz-btn.correct{border-color:var(--neon);color:var(--neon);background:var(--neon-soft);}
+  .quiz-btn.wrong{border-color:var(--danger);color:var(--danger);background:var(--danger-soft);}
+  .quiz-feedback{display:none;font-size:12.6px;color:var(--muted);padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--glass-line);margin-top:2px;line-height:1.7;}
+  .quiz-feedback.show{display:block;}
+
+  .challenge-item{display:flex;align-items:flex-start;gap:12px;padding:14px 16px;cursor:pointer;}
+  .challenge-item input{margin-top:3px;accent-color:var(--neon);width:16px;height:16px;flex:none;}
+  .challenge-item .ci-body{flex:1;}
+  .challenge-item .ci-title{font-size:13.8px;font-weight:700;}
+  .challenge-item .ci-desc{font-size:12px;color:var(--muted);margin-top:3px;}
+  .challenge-item .ci-pts{font-family:var(--font-mono);font-size:11.5px;color:var(--neon);flex:none;}
+  .challenge-item.checked{opacity:.5;text-decoration:line-through;}
+  .challenge-score{font-family:var(--font-mono);font-size:14px;color:var(--muted);text-align:center;padding:16px;margin-top:6px;}
+  .challenge-score b{font-size:30px;color:var(--neon);}
+
+  .bridge-card{padding:30px;text-align:center;border-color:var(--neon-line);}
+  .next-chip{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:11.5px;color:var(--danger);background:var(--danger-soft);border:1px solid rgba(255,110,92,.35);padding:7px 16px;border-radius:100px;margin-top:16px;}
+
+  /* instructor bio */
+  .instructor-card{padding:30px 32px;}
+  .instructor-layout{display:flex;direction:ltr;gap:32px;align-items:center;flex-wrap:wrap;}
+  .instructor-bio{flex:1 1 380px;min-width:280px;}
+  .instructor-qr{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:11px;margin-inline-start:auto;}
+  .qr-frame{background:#fff;border-radius:16px;padding:14px;box-shadow:0 10px 30px rgba(0,0,0,.4);}
+  .qr-frame img{display:block;width:128px;height:128px;}
+  .qr-caption{font-size:11.5px;color:var(--muted);text-align:center;line-height:1.65;direction:rtl;}
+  .qr-caption .en{display:block;color:var(--neon);font-family:var(--font-mono);font-size:10px;letter-spacing:.03em;margin-top:2px;}
+  @media (max-width:760px){ .instructor-qr{margin-inline-start:0;} }
+  .instructor-name{font-family:var(--font-display);font-size:clamp(24px,3vw,34px);font-weight:700;direction:ltr;text-align:left;}
+  .instructor-role{font-size:14px;color:var(--muted);margin-top:8px;line-height:1.8;direction:ltr;text-align:left;}
+  .instructor-badge{display:flex;width:fit-content;margin-right:auto;margin-left:0;flex-direction:column;gap:2px;margin-top:16px;background:var(--neon-soft);border:1px solid var(--neon-line);border-radius:14px;padding:10px 16px;direction:ltr;text-align:left;}
+  .instructor-badge b{color:var(--neon);font-family:var(--font-mono);font-size:12.5px;}
+  .instructor-badge span{font-size:11px;color:var(--muted);}
+  .instructor-quote{margin-top:20px;padding:18px 22px;border-inline-start:3px solid var(--neon);font-size:14.5px;line-height:1.85;color:var(--ink);direction:ltr;text-align:left;font-style:italic;}
+  .connect-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;direction:ltr;}
+  .connect-link{display:inline-flex;align-items:center;gap:8px;font-size:12.8px;font-weight:700;padding:9px 18px;border-radius:100px;border:1px solid var(--glass-line);background:rgba(255,255,255,.03);color:var(--ink);text-decoration:none;transition:.15s;}
+  .connect-link:hover{border-color:var(--neon-line);color:var(--neon);background:var(--neon-soft);}
+  .has-bg{background-size:cover;background-position:center;background-repeat:no-repeat;}
+  .has-bg::before{content:"";position:absolute;inset:0;background:linear-gradient(to right, rgba(8,11,16,.18), rgba(8,11,16,.6) 52%, rgba(8,11,16,.93) 100%), linear-gradient(0deg, rgba(8,11,16,.55), rgba(8,11,16,0) 42%);pointer-events:none;z-index:0;}
+  .has-bg > *{position:relative;z-index:1;}
+  .instructor-photo-row{display:flex;direction:ltr;justify-content:flex-start;gap:24px;align-items:center;flex-wrap:wrap;}
+  .instructor-photo{width:132px;height:132px;border-radius:50%;object-fit:cover;border:2px solid var(--neon-line);box-shadow:0 0 24px -6px var(--neon-glow), 0 0 0 6px rgba(51,241,220,.05);flex:none;}
+  @media (max-width:640px){ .instructor-photo-row{flex-direction:column;align-items:flex-start;} }
+
+
+  /* act divider */
+  .divider-num{font-family:var(--font-mono);font-size:15px;color:var(--neon);letter-spacing:.1em;margin-bottom:20px;}
+  .divider-title{font-size:clamp(36px,6.4vw,76px);line-height:1.08;}
+  .divider-title .accent{color:var(--neon);text-shadow:0 0 26px var(--neon-glow);}
+  .divider-sub{font-size:16.5px;color:var(--muted);max-width:54ch;margin-top:22px;line-height:1.8;}
+
+  /* resources tabs (generalized tabgroup) */
+  .res-tabs{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;}
+  .res-tab{
+    font-size:13px;font-weight:700;padding:9px 18px;border-radius:100px;cursor:pointer;
+    border:1px solid var(--glass-line);background:rgba(255,255,255,.03);color:var(--muted);
+  }
+  .res-tab.active{background:var(--neon);color:#05201C;border-color:var(--neon);}
+  .res-panel{display:none;}
+  .res-panel.active{display:block;}
+  .prompt-cat{font-family:var(--font-mono);font-size:11.5px;letter-spacing:.06em;color:var(--neon);margin:18px 0 10px;font-weight:700;}
+  .prompt-card{padding:14px 16px;margin-bottom:10px;}
+  .prompt-card .pc-head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:6px;}
+  .pc-title{font-weight:700;font-size:13.6px;}
+  .pc-text{font-size:12.6px;color:var(--muted);}
+
+  /* menu overlay */
+  .menu-overlay{
+    position:fixed;inset:0;z-index:50;background:rgba(6,9,12,.86);backdrop-filter:blur(10px);
+    display:none;opacity:0;transition:opacity .25s;overflow-y:auto;padding:80px 26px;
+  }
+  .menu-overlay.show{display:block;opacity:1;}
+  .menu-inner{max-width:760px;margin:0 auto;}
+  .menu-close{position:fixed;top:24px;left:26px;width:44px;height:44px;border-radius:50%;border:1px solid var(--glass-line);
+    background:var(--glass);color:var(--ink);font-size:18px;cursor:pointer;z-index:51;}
+  .menu-act{font-family:var(--font-mono);font-size:12px;color:var(--neon);letter-spacing:.08em;margin:26px 0 10px;}
+  .menu-item{
+    display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:12px;cursor:pointer;
+    font-size:15px;color:var(--ink);border:1px solid transparent;
+  }
+  .menu-item:hover, .menu-item:focus-visible{background:rgba(255,255,255,.05);border-color:var(--glass-line);outline:none;}
+  .menu-item .mi-num{font-family:var(--font-mono);font-size:12px;color:var(--muted);width:26px;}
+
+  .cta-row{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;}
+
+  /* ===== laptop readability pass ===== */
+  /* Nothing below 12.5px: these were 10-12px, unreadable on a laptop and hopeless on a projector. */
+  .brand-mark .part-tag{font-size:11.5px;}
+  .motif-chip .mnum{font-size:12.5px;}
+  .output-label{font-size:12.5px;}
+  .btn-copy{font-size:12.5px;}
+  .oc-en{font-size:12.5px;}
+  .oc-desc{font-size:13px;line-height:1.65;}
+  .assistant-card .ac-letter{font-size:13px;}
+  .assistant-card .ac-desc{font-size:13px;line-height:1.7;}
+  .challenge-item .ci-desc{font-size:13px;line-height:1.6;}
+  .challenge-item .ci-pts{font-size:12.5px;}
+  .prime-chip .name{font-size:12.5px;}
+  .tag{font-size:12.5px;}
+  .live-badge{font-size:12.5px;}
+  .quad-card .qc-tool{font-size:12.5px;}
+  .quad-card .qc-text{font-size:13px;line-height:1.7;}
+  .sim-tag{font-size:12.5px;}
+  .field label{font-size:12.8px;}
+  .doc-stage .ds-tag{font-size:12.5px;}
+  .doc-stage .ds-desc{font-size:13px;}
+  .evidence-bar .eb-label{font-size:12.8px;}
+  .evidence-bar .eb-fill{font-size:12.5px;height:26px;}
+  .next-chip{font-size:12.5px;}
+  .qr-caption{font-size:12.5px;}
+  .qr-caption .en{font-size:12.5px;}
+  .instructor-badge span{font-size:12.5px;}
+  .level-body span{font-size:13px;line-height:1.65;}
+  .prompt-cat{font-size:12.5px;}
+  /* generic inline <span class="en"> and small <pre> inside cards */
+  /* code blocks and inline latin spans were down at 10-11.5px */
+  pre{font-size:13px;line-height:1.7;}
+  /* inline-flex is blockified when it is a direct flex child of .slide, stretching the pill full width */
+  .slide > .live-badge, .slide > .kicker{align-self:flex-start;}
+
+  /* Last-resort rescue: if the deck script never activates a slide — for ANY reason, not just
+     JS being disabled — stack every slide as a plain scrolling document. A readable page beats
+     a black screen. Applied by the watchdog at the end of <body>. */
+  html.deck-fallback .page{height:auto !important;overflow:visible !important;}
+  html.deck-fallback .slides{height:auto !important;}
+  html.deck-fallback .slide{display:flex !important;position:relative !important;opacity:1 !important;transform:none !important;overflow:visible !important;min-height:auto;padding:40px 22px;border-bottom:1px solid rgba(255,255,255,.07);}
+  html.deck-fallback .reveal{opacity:1 !important;transform:none !important;}
+  html.deck-fallback .chrome,html.deck-fallback .nav-arrows,html.deck-fallback .counter,html.deck-fallback #bgcanvas{display:none !important;}
+</style>
+<noscript><style>
+  /* Without JS every slide stays display:none — show them stacked instead of a black screen. */
+  .page{height:auto !important;overflow:visible !important;}
+  .slides{height:auto !important;}
+  .slide{display:flex !important;position:relative !important;opacity:1 !important;transform:none !important;min-height:100vh;}
+  .reveal{opacity:1 !important;transform:none !important;}
+  .chrome,.nav-arrows,.counter{display:none !important;}
+
+</style></noscript>
+</head>
+<body>
+
+<div class="page" id="pageRoot">
+  <canvas id="bgcanvas"></canvas>
+
+  <div class="chrome">
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="brand-mark"><span class="dot"></span>الذكاء الاصطناعي <b class="en">×</b> الطبيب<span class="part-tag en">PART 2</span></div>
+    <div class="act-chip" id="actChip">افتتاحية</div>
+    <div class="counter"><b id="curNum" class="en">01</b><span class="en" id="totalNum">/44</span></div>
+    <div class="navctl">
+      <button class="nav-btn" id="prevBtn" title="السابق">›</button>
+      <button class="nav-btn" id="nextBtn" title="التالي">‹</button>
+      <button class="menu-btn" id="menuBtn">☰ فهرس الوحدة</button>
+    </div>
+  </div>
+
+  <div class="slides" id="slides">
+    <!-- 1 -->
+    <section class="slide" data-act="افتتاحية">
+      <div class="kicker reveal">الجزء الثاني</div>
+      <h2 class="hook reveal">عرفت <span class="accent">تفكّر</span> مع الذكاء الاصطناعي.<br>اليوم <span class="accent">تشتغل</span> بيه.</h2>
+      <p class="sub reveal">الجزء الأول بنى طريقة التفكير. الجزء الثاني ينزّلها على أدوات جلدية حقيقية — نجربها، نقارنها، ندقّقها، وفي الآخر نطلع بمنتج مهني جاهز.</p>
+      <div class="content-wrap reveal">
+        <div class="compare-grid">
+          <div class="compare-col good">
+            <div class="col-title">الجزء الأول — انتهى</div>
+            <div class="glass glass-pad" style="line-height:1.9;">كيف يفكّر الطبيب مع الذكاء الاصطناعي</div>
+          </div>
+          <div class="compare-col good">
+            <div class="col-title">الجزء الثاني — اليوم</div>
+            <div class="glass glass-pad" style="line-height:1.9;">كيف يشتغل الطبيب بالذكاء الاصطناعي في العيادة</div>
+          </div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>التحوّل المستهدف:</b> من <span class="en">AI USER</span> إلى <span class="en">AI-ENABLED PHYSICIAN</span> — مش حافظ أسماء أدوات، بل قادر يقيّم أي أداة جديدة تنزل السوق بنفسه.</div>
+      </div>
+    </section>
+
+    <!-- 2 -->
+    <section class="slide" data-act="افتتاحية">
+      <div class="slide-scroll">
+      <div class="kicker reveal">استرجاع سريع</div>
+      <h2 class="hook reveal">مش حنعيد الجزء الأول.<br><span class="accent">حنشغّله.</span></h2>
+      <p class="sub reveal">دي الأطر اللي بقت ملكك. اليوم كل واحد فيها بيتحوّل من مفهوم إلى إجراء على أداة حقيقية.</p>
+      <div class="content-wrap wide reveal">
+        <div class="prime-grid">
+          <div class="glass prime-chip"><span class="letter en">T</span><span class="name">THINK</span><div class="desc">حدّد المشكلة السريرية قبل ما تفتح أي أداة</div></div>
+          <div class="glass prime-chip"><span class="letter en">C</span><span class="name">CHOOSE</span><div class="desc">اختر القدرة المناسبة — مش الأداة الأشهر</div></div>
+          <div class="glass prime-chip"><span class="letter en">S</span><span class="name">STRUCTURE</span><div class="desc">ابنِ الطلب بـ <span class="en">PRIME</span></div></div>
+          <div class="glass prime-chip"><span class="letter en">C</span><span class="name">CHALLENGE</span><div class="desc">تحدَّ الافتراضات والنواقص</div></div>
+          <div class="glass prime-chip"><span class="letter en">V</span><span class="name">VERIFY</span><div class="desc">تحقّق من كل ادعاء مهم</div></div>
+        </div>
+        <div class="callout" style="margin-top:16px;"><b>و<span class="en">PRIME</span>:</b> <span class="en">Persona · Role · Instructions · Meaning · Expectations</span> — النهارده حنستخدمها لبناء السياق السريري للحالة، مش لكتابة نص.</div>
+        <div class="callout" style="margin-top:10px;"><b>و<span class="en">VERIFY</span>:</b> <span class="en">Verify · Examine · Recheck · Identify · Find · Your judgment</span> — النهارده حنطبّقها على مخرجات أدوات جلدية، مش على نص عام.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 3 -->
+    <section class="slide" data-act="افتتاحية">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>نشاط افتتاحي — 5 دقائق</div>
+      <h2 class="hook reveal">افتح الـ <span class="accent en">Custom Gem</span> اللي بنيته.</h2>
+      <p class="sub reveal">ده كان واجب الجزء الأول — النشاط 05. مش حنسيبه ورا؛ حنشتغل عليه النهارده كأداة عمل حقيقية.</p>
+      <div class="content-wrap reveal">
+        <ol class="steps-list steps-compact">
+          <li class="glass"><b>افتحه الآن</b>لو ما بنيتوش، افتح أي محادثة عندك من الجزء الأول واستخدمها بدل عنه.</li>
+          <li class="glass"><b>اسأل نفسك سؤالين</b>استخدمته كام مرة من يوم المحاضرة؟ وشنو أول حاجة اتغيّرت في طريقة كتابتك للطلب؟</li>
+          <li class="glass"><b>احتفظ بيه مفتوح</b>حنرجعله في الجزء الأخير عشان نبني بيه العرض التقديمي.</li>
+        </ol>
+        <div class="callout ok" style="margin-top:14px;"><b>سؤال للقاعة:</b> مين استخدم الـ<span class="en">Gem</span> بتاعه في حالة مريض فعلية؟ وشنو اللي ما اشتغلش زي ما توقعت؟</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 4 -->
+    <section class="slide" data-act="افتتاحية">
+      <div class="kicker reveal">خريطة اليوم</div>
+      <h2 class="hook reveal">خمس خطوات جديدة<br>فوق الخمسة القدام.</h2>
+      <div class="content-wrap wide reveal">
+        <div class="prime-grid">
+          <div class="glass prime-chip"><span class="letter en">A</span><span class="name">APPLY</span><div class="desc">نزّل الإطار على أداة حقيقية</div></div>
+          <div class="glass prime-chip"><span class="letter en">C</span><span class="name">COMPARE</span><div class="desc">شغّل نفس الحالة على أكثر من نظام</div></div>
+          <div class="glass prime-chip"><span class="letter en">A</span><span class="name">AUDIT</span><div class="desc">دقّق الأداة قبل ما تثق فيها</div></div>
+          <div class="glass prime-chip"><span class="letter en">C</span><span class="name">CREATE</span><div class="desc">حوّل النتيجة لمنتج مهني</div></div>
+          <div class="glass prime-chip"><span class="letter en">R</span><span class="name">REVIEW</span><div class="desc">راجع وتحمّل المسؤولية</div></div>
+        </div>
+        <div class="table-wrap" style="margin-top:18px;">
+          <table>
+            <thead><tr><th>الوحدة</th><th>الموضوع</th><th>الزمن</th></tr></thead>
+            <tbody>
+              <tr><td><b>1</b></td><td>يرى أم يفهم؟ — الأداة الأولى</td><td>25 د</td></tr>
+              <tr><td><b>2</b></td><td>من الصورة إلى التشخيص التفريقي</td><td>20 د</td></tr>
+              <tr><td><b>3</b></td><td>معركة الذكاء الاصطناعي</td><td>30 د</td></tr>
+              <tr><td><b>4</b></td><td>خريطة الأدوات العشرة</td><td>20 د</td></tr>
+              <tr><td><b>5</b></td><td>مختبر الفشل</td><td>15 د</td></tr>
+              <tr><td><b>6</b></td><td>دقّق ولا تثق</td><td>15 د</td></tr>
+              <tr><td><b>ب</b></td><td>ابنِ عرضًا احترافيًا بأدوات مجانية</td><td>30 د</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5 -->
+    <section class="slide" data-act="افتتاحية">
+      <div class="slide-scroll">
+      <div class="live-badge reveal" style="color:var(--danger);background:var(--danger-soft);border-color:rgba(255,110,92,.35);"><span class="live-dot" style="background:var(--danger);box-shadow:0 0 6px rgba(255,110,92,.6);"></span>إلزامي — اقرأها قبل ما ترفع أي صورة</div>
+      <h2 class="hook reveal">النهارده حنرفع صور.<br><span class="accent">وده يستوجب قواعد.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="compare-grid">
+          <div class="compare-col bad">
+            <div class="col-title">✕ ممنوع تمامًا</div>
+            <div class="glass glass-pad" style="line-height:2;">
+              صورة مريض حقيقي فيها وجه أو وشم أو علامة مميّزة<br>
+              أي اسم أو رقم ملف أو تاريخ ميلاد في الصورة<br>
+              صورة من ملف مريض بدون موافقة مكتوبة<br>
+              رفع الصورة قبل ما تعرف الأداة بتعمل بيها إيه
+            </div>
+          </div>
+          <div class="compare-col good">
+            <div class="col-title">✓ المسموح اليوم</div>
+            <div class="glass glass-pad" style="line-height:2;">
+              صور تعليمية عامة من مصادر مفتوحة<br>
+              صور بموافقة موثّقة ومجرّدة من الهوية<br>
+              قصّ الصورة على الآفة فقط<br>
+              مسح بيانات <span class="en">EXIF</span> — الموقع الجغرافي مخزّن جوه الصورة
+            </div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:16px;"><b>نقطة الجزء الأول اللي بتتفعّل هنا:</b> تجريد الهوية <span class="en">— de-identification</span>. الفرق إن دلوقتي الصورة نفسها بيانات، مش النص بس. الصورة ممكن تحمل موقع التصوير وتاريخه ونوع الجهاز.</div>
+        <div class="callout ok" style="margin-top:10px;"><b>القاعدة الذهبية:</b> اسأل قبل ما ترفع — <span class="en">"Where does this image go, who stores it, and for how long?"</span> لو ما عندكش إجابة، ما ترفعش.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 6 -->
+    <section class="slide" data-act="الوحدة 1 · يرى أم يفهم؟">
+      <div class="divider-num en">UNIT 01 / 06</div>
+      <h2 class="divider-title reveal">هل الذكاء الاصطناعي <span class="accent">يرى</span>؟<br>أم <span class="accent">يفهم</span>؟</h2>
+      <p class="divider-sub reveal">أخطر خلط في أدوات الجلدية: إننا نسمّي كل حاجة "تشخيص". في الحقيقة قدامنا ثلاث قدرات مختلفة تمامًا — ولكل واحدة استخدام وحدود.</p>
+    </section>
+
+    <!-- 7 -->
+    <section class="slide" data-act="الوحدة 1 · يرى أم يفهم؟">
+      <div class="slide-scroll">
+      <div class="kicker reveal">القدرة قبل الأداة</div>
+      <h2 class="hook reveal">"أداة ذكاء اصطناعي جلدية"<br><span class="accent">جملة بلا معنى.</span></h2>
+      <p class="sub reveal">لازم تعرف أي قدرة بالظبط قدامك قبل ما تحكم على المخرج. نفس الصورة تدخل ثلاث أنظمة وتطلع بثلاث أنواع مخرجات مختلفة في طبيعتها.</p>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="glass quad-card"><div class="qc-tool en">RETRIEVAL</div><div class="pc-title">استرجاع بصري</div><div class="qc-text">بيدوّر على صور شبيهة في قاعدة بيانات ويرجّعلك المعلومة المرتبطة بيها. ما بيشخّصش — بيقول "ده شبه ده".</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">CLASSIFICATION</div><div class="pc-title">تصنيف</div><div class="qc-text">مدرّب على فئات محددة سلفًا ويحطّ الصورة في واحدة منها باحتمالية. لو الحالة برّه فئاته — هيجبرها جوه واحدة منهم.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">REASONING</div><div class="pc-title">استدلال</div><div class="qc-text">بياخد سياق سريري ويبني تشخيص تفريقي ويسأل أسئلة متابعة. أقرب للتفكير الطبي — وأكثر عرضة للهلوسة.</div></div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>سؤالك الأول لأي أداة جديدة:</b> "إنت أي واحدة من الثلاثة؟" — لأن نقد المخرج بيتغيّر تمامًا حسب الإجابة. تحاسب أداة استرجاع على إنها ما شخّصتش = خطأ منك أنت.</div>
+        <div class="callout" style="margin-top:10px;"><b>وفيه رابع مخفي:</b> <span class="en">TRIAGE</span> — فرز. مش بيقول إيه المرض، بيقول "ده يستاهل إحالة ولا لأ". وده مقياس نجاحه مختلف تمامًا: الحساسية أهم من الدقة.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 8 -->
+    <section class="slide" data-act="الوحدة 1 · يرى أم يفهم؟">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>أداة تطبيقية — مجانية بالكامل</div>
+      <h2 class="hook reveal"><span class="accent en">Model Dermatology</span></h2>
+      <p class="sub reveal">أقوى أداة مجانية نبدأ بيها — لأنها بتوضّح الفرق بين الاسترجاع والتشخيص بشكل عملي، ولأن عندها دليل منشور نادر في المجال ده.</p>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>البند</th><th>التفصيل</th></tr></thead>
+            <tbody>
+              <tr><td><b>القدرة</b></td><td>استرجاع بصري وتصنيف — <span class="en">image-based retrieval / classification</span></td></tr>
+              <tr><td><b>المدخل</b></td><td>صورة سريرية للآفة</td></tr>
+              <tr><td><b>المخرج</b></td><td>قائمة احتمالات مرتّبة مع صور مرجعية</td></tr>
+              <tr><td><b>التكلفة</b></td><td>مجاني — يشتغل من المتصفح، بدون تثبيت</td></tr>
+              <tr><td><b>الوصول من ليبيا</b></td><td>متاح — متصفح فقط</td></tr>
+              <tr><td><b>الدليل</b></td><td>تجربة عشوائية محكّمة منشورة — أول خوارزمية جلدية تثبت تحسين دقة الأطباء غير المتخصصين</td></tr>
+              <tr><td><b>الحد الأساسي</b></td><td>الصورة وحدها بلا سياق سريري — ما يعرفش المدة ولا الأعراض ولا الأدوية</td></tr>
+              <tr><td><b>متى لا تستخدمها</b></td><td>كمصدر وحيد لقرار استئصال أو خزعة</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout ok" style="margin-top:14px;"><b>موقعها في الإطار:</b> بتخدم مرحلة <span class="en">CHOOSE</span> و<span class="en">CHALLENGE</span> — بتوسّع التشخيص التفريقي وتقترح احتمالات ما خطرتش على بالك. مش بتخدم <span class="en">VERIFY</span> إطلاقًا.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 9 -->
+    <section class="slide" data-act="الوحدة 1 · يرى أم يفهم؟">
+      <div class="slide-scroll">
+      <div class="kicker reveal">الدليل قبل الادعاء</div>
+      <h2 class="hook reveal">ليه بنبدأ <span class="accent">بالأداة اللي عندها دراسة</span>؟</h2>
+      <p class="sub reveal">معظم أدوات الجلدية بتعرض أرقام دقة من الشركة نفسها. القليل جدًا منها اتحطّ في تجربة عشوائية محكّمة.</p>
+      <div class="content-wrap wide reveal">
+        <div class="compare-grid">
+          <div class="compare-col bad">
+            <div class="col-title">ادعاء الشركة — <span class="en">VENDOR CLAIM</span></div>
+            <div class="glass glass-pad" style="line-height:1.95;">"دقة %94 في التعرف على الآفات الجلدية"<br><br>على أي مجموعة بيانات؟ من اختارها؟ أي أنواع بشرة؟ مين موّل الدراسة؟ اتنشرت فين؟</div>
+          </div>
+          <div class="compare-col good">
+            <div class="col-title">دليل منشور — <span class="en">EVIDENCE</span></div>
+            <div class="glass glass-pad" style="line-height:1.95;">تجربة عشوائية محكّمة في مركز جامعي، تقيس هل الأداة <b>تحسّن أداء الطبيب</b> — مش هل الأداة شاطرة لوحدها.</div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:16px;"><b>الفرق الجوهري:</b> السؤال الصحيح مش "الأداة دقيقة قد إيه؟" — السؤال هو <b>"الطبيب + الأداة أحسن من الطبيب لوحده؟"</b> ودي معلومة أصعب بكثير في الحصول عليها، ونادرة.</div>
+        <div class="callout ok" style="margin-top:10px;"><span class="en">[EVIDENCE]</span> نتائج التجربة تشير إلى تحسّن دقة التشخيص عند الأطباء غير المتخصصين — <b>مع بقاء الأداء أقل من لجنة أطباء الجلدية</b>. يعني: مساعد، مش بديل.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 10 -->
+    <section class="slide" data-act="الوحدة 1 · يرى أم يفهم؟">
+      <div class="slide-scroll">
+      <div class="sim-tag en">CASE 01 — INFLAMMATORY</div>
+      <h2 class="hook reveal">الحالة الأولى</h2>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>البند</th><th>المعطى</th></tr></thead>
+            <tbody>
+              <tr><td><b>العمر والجنس</b></td><td>أنثى، 27 سنة</td></tr>
+              <tr><td><b>الموقع</b></td><td>الوجه الباسط للمرفقين والركبتين، وفروة الرأس</td></tr>
+              <tr><td><b>المدة</b></td><td>8 شهور، بتزيد شتاءً</td></tr>
+              <tr><td><b>الأعراض</b></td><td>حكة خفيفة، تقشّر فضّي، بدون ألم</td></tr>
+              <tr><td><b>الأدوية</b></td><td>لا شيء منتظم — استخدمت كريم مرطّب فقط</td></tr>
+              <tr><td><b>التاريخ</b></td><td>الأب عنده حالة جلدية مزمنة مشابهة غير مشخّصة</td></tr>
+              <tr><td><b>الفحص</b></td><td>لويحات حمراء محدّدة الحواف مع قشور</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="margin-top:14px;"><b>ملاحظة للمدرّب:</b> استخدم صورة تعليمية عامة مناسبة للحالة. لا ترفع أي صورة مريض. اعرض الصورة على الشاشة قبل ما توزّع الورقة.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 11 -->
+    <section class="slide" data-act="الوحدة 1 · يرى أم يفهم؟">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>نشاط 06 — 6 دقائق · فردي · بلا أدوات</div>
+      <h2 class="hook reveal">اقفل اللابتوب.<br><span class="accent">فكّر إنت الأول.</span></h2>
+      <p class="sub reveal">دي أهم دقايق في الوحدة. لو شفت مخرج الأداة قبل ما تفكّر، تفكيرك حيتلوّن بيها ومش حتقدر ترجع.</p>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid">
+          <div class="glass quad-card"><div class="qc-tool en">OBSERVATION</div><div class="pc-title">شنو أشوفه فعلًا؟</div><div class="qc-text">وصف بصري بحت. شكل، لون، حدود، توزيع، سطح. بلا أي تفسير.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">INTERPRETATION</div><div class="pc-title">شنو يوحي بيه الشكل؟</div><div class="qc-text">المورفولوجيا دي بتشير لأي نمط مرضي؟</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">DIFFERENTIAL</div><div class="pc-title">الاحتمالات؟</div><div class="qc-text">اكتب 3 على الأقل، مرتّبة، مع سبب الترتيب.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">UNKNOWN</div><div class="pc-title">شنو ناقصني؟</div><div class="qc-text">أي معلومة لو عرفتها تغيّر ترتيبك؟</div></div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>ورقة العمل:</b> <span class="en">Clinical Case Analysis Worksheet</span> — املأ الأربع خانات وحطّ الورقة مقلوبة على الطاولة. مش حنرجعلها إلا بعد ما نشوف مخرج الأداة.</div>
+        <div class="callout" style="margin-top:10px;"><b>الفصل ده من الجزء الأول:</b> ملاحظة / تفسير / استنتاج / مجهول. هنا بنطبّقه على صورة بدل نص.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 12 -->
+    <section class="slide" data-act="الوحدة 1 · يرى أم يفهم؟">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>تطبيق — 8 دقائق · على جهازك</div>
+      <h2 class="hook reveal">دلوقتي بس<br><span class="accent">افتح الأداة.</span></h2>
+      <div class="content-wrap wide reveal">
+        <ol class="steps-list steps-compact">
+          <li class="glass"><b>افتح المتصفح</b>ادخل على <span class="en mono" dir="ltr">modelderm.com</span> — بدون تسجيل، بدون تثبيت.</li>
+          <li class="glass"><b>ارفع صورة الحالة</b>الصورة التعليمية اللي على الشاشة. تأكد إنها مقصوصة على الآفة.</li>
+          <li class="glass"><b>ما تسألش عن التشخيص</b>الأداة دي مش بتجاوب على سؤال. هي بترجّع احتمالات مرتّبة وصور مرجعية.</li>
+          <li class="glass"><b>سجّل أول 3 نتائج</b>اكتبهم في ورقة العمل جنب قائمتك إنت.</li>
+          <li class="glass"><b>لاحظ شنو ما سألش عنه</b>ما سألش عن المدة، ولا الأعراض، ولا التاريخ العائلي. ليه؟</li>
+        </ol>
+        <div class="callout" style="margin-top:14px;"><b>لو النت وقع:</b> المدرّب عنده لقطات شاشة محفوظة للحالة. استمر بالنقاش على اللقطات — التمرين تفكيري، مش تقني.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 13 -->
+    <section class="slide" data-act="الوحدة 1 · يرى أم يفهم؟">
+      <div class="slide-scroll">
+      <div class="kicker reveal">نشاط 06 — الجزء الثاني</div>
+      <h2 class="hook reveal">اقلب الورقة.</h2>
+      <p class="sub reveal">دلوقتي عندنا ثلاث نسخ من التفكير في نفس الحالة. المقارنة بينهم هي الدرس — مش أي واحدة "صح".</p>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="glass quad-card"><div class="qc-tool en">BEFORE AI</div><div class="pc-title">تفكيرك القبلي</div><div class="qc-text">استخدم السياق السريري كله — العمر، المدة، التاريخ العائلي.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">AI OUTPUT</div><div class="pc-title">مخرج الأداة</div><div class="qc-text">استخدم البكسلات فقط. ما عندهاش أي سياق.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">AFTER AI</div><div class="pc-title">تفكيرك البعدي</div><div class="qc-text">هل ضفت احتمال ما كانش في بالك؟ هل شلت واحد؟ ليه؟</div></div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>أسئلة النقاش:</b> مين ضاف احتمال جديد بسبب الأداة؟ ومين <b>شال</b> احتمال بسبب الأداة؟ — التاني ده أخطر بكثير من الأول، وهنرجعله في مختبر الفشل.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 14 -->
+    <section class="slide" data-act="الوحدة 1 · يرى أم يفهم؟">
+      <div class="kicker reveal">خلاصة الوحدة 1</div>
+      <h2 class="hook reveal">ما تسألش<br><span class="accent">"شنو التشخيص؟"</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="compare-grid">
+          <div class="compare-col bad">
+            <div class="col-title">✕ سؤال يوصلك لطريق مسدود</div>
+            <div class="glass glass-pad" style="line-height:2;font-size:15px;">"شنو تشخيص الصورة دي؟"<br><br><span style="font-size:13px;color:var(--muted);">بتحوّل أداة استرجاع لأداة تشخيص في ذهنك إنت — والأداة ما ادّعتش كده أصلًا.</span></div>
+          </div>
+          <div class="compare-col good">
+            <div class="col-title">✓ سؤال يشغّل تفكيرك</div>
+            <div class="glass glass-pad" style="line-height:2;font-size:15px;">"شنو المعلومات البصرية اللي استرجعتها الأداة من الصورة دي؟"<br><br><span style="font-size:13px;color:var(--muted);">بتخليك تقرأ المخرج كمُدخَل لتفكيرك، مش كخلاصة.</span></div>
+          </div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>القاعدة:</b> الأداة بتشوف بكسلات. إنت بتشوف مريض. الفرق ده مش حيتغيّر مهما تطوّرت الأدوات.</div>
+      </div>
+    </section>
+
+    <!-- 15 -->
+    <section class="slide" data-act="الوحدة 2 · من الصورة للتفريقي">
+      <div class="divider-num en">UNIT 02 / 06</div>
+      <h2 class="divider-title reveal">الصورة وحدها<br><span class="accent">نص الحكاية.</span></h2>
+      <p class="divider-sub reveal">في الوحدة اللي فاتت الأداة شافت الصورة بس. دلوقتي حنشوف شنو بيحصل لما ندخل أداة بتسأل أسئلة سريرية — وشنو بيحصل لما نغيّر كمية المعلومة اللي بندّيها.</p>
+    </section>
+
+    <!-- 16 -->
+    <section class="slide" data-act="الوحدة 2 · من الصورة للتفريقي">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>أداة تطبيقية — تجربة مجانية 7 أيام</div>
+      <h2 class="hook reveal"><span class="accent en">VisualDx</span></h2>
+      <p class="sub reveal">أقرب أداة في السوق لطريقة تفكير الطبيب: ما بتكتفيش بالصورة — بتسألك أسئلة سريرية وتبني معاك تشخيص تفريقي.</p>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>البند</th><th>التفصيل</th></tr></thead>
+            <tbody>
+              <tr><td><b>القدرة</b></td><td>دعم قرار سريري — <span class="en">clinical decision support</span> + تحليل صورة</td></tr>
+              <tr><td><b>المدخل</b></td><td>صورة + إجابات على أسئلة سريرية موجّهة</td></tr>
+              <tr><td><b>المخرج</b></td><td>تشخيص تفريقي مبني، مع مكتبة صور ومحتوى سريري</td></tr>
+              <tr><td><b>التكلفة</b></td><td><span class="en">[VENDOR]</span> تجربة مجانية 7 أيام — ثم اشتراك بمستويين</td></tr>
+              <tr><td><b>الوصول من ليبيا</b></td><td>التجربة تحتاج تسجيل — <b>سجّل قبل المحاضرة بيوم</b></td></tr>
+              <tr><td><b>أنواع البشرة</b></td><td>مكتبة صور واسعة عبر أنواع <span class="en">Fitzpatrick</span> المختلفة</td></tr>
+              <tr><td><b>الحد الأساسي</b></td><td>غير مجانية على المدى الطويل — والتجربة تنتهي</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout ok" style="margin-top:14px;"><b>موقعها في الإطار:</b> دي الأداة الوحيدة النهارده اللي بتلمس <span class="en">STRUCTURE</span> — لأنها بتجبرك تدخل السياق السريري بشكل منظّم. وده بالظبط اللي علّمناه في <span class="en">PRIME</span>.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 17 -->
+    <section class="slide" data-act="الوحدة 2 · من الصورة للتفريقي">
+      <div class="slide-scroll">
+      <div class="kicker reveal">تشريح المسار</div>
+      <h2 class="hook reveal">لاحظ إنها <span class="accent">بتسأل</span><br>قبل ما تجاوب.</h2>
+      <div class="content-wrap wide reveal">
+        <ol class="steps-list steps-compact">
+          <li class="glass"><b>1 — الصورة</b>ترفع صورة الآفة.</li>
+          <li class="glass"><b>2 — تحليل أولي</b>الأداة تحدّد نوع الآفة الأساسي.</li>
+          <li class="glass"><b>3 — تأكيد أو تعديل</b><b>إنت</b> تأكّد أو تصحّح تصنيف الآفة. الأداة ما بتفرضش.</li>
+          <li class="glass"><b>4 — أسئلة سريرية</b>الموقع، المدة، الأعراض، التاريخ.</li>
+          <li class="glass"><b>5 — تشخيص تفريقي</b>مبني على الصورة + إجاباتك، مش على الصورة وحدها.</li>
+        </ol>
+        <div class="callout ok" style="margin-top:14px;"><b>الخطوة 3 هي الأهم:</b> نظام بيسمحلك تصحّحه = نظام بيعترف بحدوده. نظام بيدّيك تشخيص فوري من صورة بدون أي سؤال = علامة تحذير، مش علامة تفوّق.</div>
+        <div class="callout" style="margin-top:10px;"><b>سؤال للقاعة:</b> لو الأداة سألتك أسئلة وإنت جاوبت غلط — مين المسؤول عن المخرج؟</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 18 -->
+    <section class="slide" data-act="الوحدة 2 · من الصورة للتفريقي">
+      <div class="slide-scroll">
+      <div class="sim-tag en">CASE 02 — PIGMENTED LESION</div>
+      <h2 class="hook reveal">الحالة الثانية</h2>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>البند</th><th>المعطى</th></tr></thead>
+            <tbody>
+              <tr><td><b>العمر والجنس</b></td><td>ذكر، 52 سنة</td></tr>
+              <tr><td><b>الموقع</b></td><td>أعلى الظهر</td></tr>
+              <tr><td><b>المدة</b></td><td>موجودة من سنين — <b>لكن الزوجة لاحظت تغيّر في آخر 4 شهور</b></td></tr>
+              <tr><td><b>الأعراض</b></td><td>بلا حكة، بلا نزيف، بلا ألم</td></tr>
+              <tr><td><b>الوصف</b></td><td>آفة مصطبغة غير متجانسة اللون، حدودها غير منتظمة، قطرها حوالي 9 ملم</td></tr>
+              <tr><td><b>التاريخ</b></td><td>عمل خارجي لسنين، حروق شمس متكررة في الشباب</td></tr>
+              <tr><td><b>نوع البشرة</b></td><td><span class="en">Fitzpatrick III</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="margin-top:14px;color:var(--danger);"><b>انتبه:</b> كلمة <b>"تغيّر"</b> هي أهم معلومة في الحالة دي كلها — ومفيش أداة تحليل صور تقدر تعرفها من صورة واحدة. اتذكّر النقطة دي، حنبني عليها كتير.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 19 -->
+    <section class="slide" data-act="الوحدة 2 · من الصورة للتفريقي">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>نشاط 07 — 10 دقائق · ثلاث جولات</div>
+      <h2 class="hook reveal">نفس الآفة.<br><span class="accent">ثلاث كميات معلومات.</span></h2>
+      <p class="sub reveal">ده إثبات عملي لمبدأ الجزء الأول: جودة المخرج بتتبع جودة المدخل. شغّل نفس الحالة ثلاث مرات وسجّل الفرق.</p>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="glass quad-card"><div class="qc-tool en">ROUND 1</div><div class="pc-title">صورة فقط</div><div class="qc-text">ارفع الصورة بلا أي كلام. سجّل التشخيص التفريقي اللي طلع.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">ROUND 2</div><div class="pc-title">صورة + سياق حر</div><div class="qc-text">ضيف: "رجل 52 سنة، آفة في الظهر، لاحظ تغيّر من 4 شهور."</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">ROUND 3</div><div class="pc-title">صورة + سياق <span class="en">PRIME</span></div><div class="qc-text">استخدم البرومبت المنظّم في الشريحة الجاية.</div></div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>سجّل في ورقة العمل:</b> عدد التشخيصات في كل جولة · هل ظهر تشخيص خطير في جولة وما ظهرش في التانية · هل تغيّر <b>ترتيب</b> الاحتمالات · هل الأداة طلبت معلومة إضافية.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 20 -->
+    <section class="slide" data-act="الوحدة 2 · من الصورة للتفريقي">
+      <div class="slide-scroll">
+      <div class="kicker reveal">الجولة الثالثة</div>
+      <h2 class="hook reveal"><span class="en">PRIME</span> على حالة جلدية</h2>
+      <p class="sub reveal">ده البرومبت اللي بتلصقه في <span class="en">ChatGPT</span> أو <span class="en">Gemini</span> مع الصورة. لاحظ إن كل حرف من <span class="en">PRIME</span> ليه سطر.</p>
+      <div class="content-wrap wide reveal">
+        <div class="glass glass-pad output-box">
+          <div class="output-head"><span class="output-label en">PROMPT — PASTE AS IS</span><button class="btn btn-copy" data-copy="p2-prime">نسخ</button></div>
+          <pre id="p2-prime" dir="ltr" style="text-align:left;">P — You are a consultant dermatologist reviewing a lesion with a colleague.
+
+R — Do NOT give me a single diagnosis. Build a ranked differential and
+    tell me what would move each item up or down the list.
+
+I — Output exactly three sections:
+    1. What you can determine from the image alone
+    2. What you CANNOT determine from an image and must ask me
+    3. Ranked differential with the discriminating feature for each
+
+M — Case: 52-year-old man. Pigmented lesion, upper back.
+    Present for years, but the patient's wife reports CHANGE over
+    the last 4 months. No itch, no bleeding, no pain.
+    ~9 mm, irregular border, colour not uniform.
+    Years of outdoor work, repeated childhood sunburns.
+    Fitzpatrick III. No personal or family history of melanoma.
+
+E — Success = I finish knowing exactly which additional information
+    or investigation would change my management decision today.
+    Flag explicitly anything you are uncertain about.</pre>
+        </div>
+        <div class="callout ok" style="margin-top:14px;"><b>السطر الحاسم:</b> <span class="en">"What you CANNOT determine from an image"</span> — ده السطر اللي بيحوّل الأداة من مصدر إجابات لشريك تفكير. جرّب شيله وشوف الفرق.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 21 -->
+    <section class="slide" data-act="الوحدة 2 · من الصورة للتفريقي">
+      <div class="slide-scroll">
+      <div class="kicker reveal">خلاصة الوحدة 2</div>
+      <h2 class="hook reveal">الأداة ما اتغيّرتش.<br><span class="accent">إنت اللي اتغيّرت.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>الجولة</th><th>المدخل</th><th>اللي بيحصل عادة في المخرج</th></tr></thead>
+            <tbody>
+              <tr><td><b>1</b></td><td>صورة فقط</td><td>قائمة عامة واسعة، بلا ترتيب مبني على خطورة، وبلا أسئلة متابعة</td></tr>
+              <tr><td><b>2</b></td><td>صورة + سياق حر</td><td>ترتيب أفضل، لكن الأداة بتملأ الفراغات بافتراضات ما قلتهاش</td></tr>
+              <tr><td><b>3</b></td><td>صورة + <span class="en">PRIME</span></td><td>فصل واضح بين المعروف والمجهول، وأسئلة متابعة محددة، وإقرار بعدم اليقين</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>الاستنتاج:</b> فرق الجودة بين الجولة 1 والجولة 3 مش فرق في الذكاء الاصطناعي — ده فرق في <b>مهارة الطبيب</b>. وده بالظبط اللي بندرّبه.</div>
+        <div class="callout" style="margin-top:10px;"><b>تحذير:</b> السياق الأغنى بيدّي مخرج <b>أكثر إقناعًا</b> — مش بالضرورة أكثر صحة. إجابة منظّمة وواثقة أخطر من إجابة مشوّشة، لأنها بتقلّل شكّك.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 22 -->
+    <section class="slide" data-act="الوحدة 3 · المعركة">
+      <div class="divider-num en">UNIT 03 / 06</div>
+      <h2 class="divider-title reveal">نفس الحالة.<br><span class="accent">ثلاثة عقول.</span></h2>
+      <p class="divider-sub reveal">أهم تمرين في الجزء الثاني كله. حناخد حالة واحدة ونشغّلها على ثلاثة أنظمة مختلفة — والسؤال مش مين جاب التشخيص صح.</p>
+    </section>
+
+    <!-- 23 -->
+    <section class="slide" data-act="الوحدة 3 · المعركة">
+      <div class="slide-scroll">
+      <div class="kicker reveal">إطار التمرين</div>
+      <h2 class="hook reveal">السؤال مش "مين صح".<br>السؤال <span class="accent">"كل واحد فكّر إزاي".</span></h2>
+      <p class="sub reveal">لو حوّلنا التمرين لمسابقة دقة، حنطلع بأداة "فائزة" ونثق فيها — وده بالظبط الفخ. الهدف إننا نفهم <b>طبيعة</b> كل نظام.</p>
+      <div class="content-wrap wide reveal">
+        <div class="compare-grid">
+          <div class="compare-col bad">
+            <div class="col-title">✕ الإطار الخاطئ</div>
+            <div class="glass glass-pad" style="line-height:2;">"أنهي أداة جابت التشخيص الصح؟"<br><br><span style="font-size:13px;color:var(--muted);">النتيجة: تثق في أداة واحدة وتبطّل تفكّر. وتعمّم من حالة واحدة.</span></div>
+          </div>
+          <div class="compare-col good">
+            <div class="col-title">✓ الإطار الصحيح</div>
+            <div class="glass glass-pad" style="line-height:2;">"إيه اللي شافه كل نظام، وإيه اللي عماه عنه؟"<br><br><span style="font-size:13px;color:var(--muted);">النتيجة: تفهم حدود كل قدرة وتعرف تختار حسب المهمة.</span></div>
+          </div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>الأنظمة الثلاثة النهارده:</b> <span class="en">Model Dermatology</span> — استرجاع بصري · <span class="en">Aysa</span> — تصنيف موجّه للمستهلك · <span class="en">ChatGPT / Gemini</span> متعدد الوسائط — استدلال لغوي. ثلاث طبائع مختلفة تمامًا.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 24 -->
+    <section class="slide" data-act="الوحدة 3 · المعركة">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>أداة تطبيقية — تطبيق موبايل</div>
+      <h2 class="hook reveal"><span class="accent en">Aysa</span></h2>
+      <p class="sub reveal">مفاجأة مفيدة: <span class="en">Aysa</span> من نفس الشركة اللي عاملة <span class="en">VisualDx</span> — لكنها موجّهة للمستهلك مش للطبيب. والفرق ده هو الدرس.</p>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>البند</th><th>التفصيل</th></tr></thead>
+            <tbody>
+              <tr><td><b>القدرة</b></td><td>فاحص أعراض جلدية بالصورة — <span class="en">consumer symptom checker</span></td></tr>
+              <tr><td><b>المستخدم المقصود</b></td><td><b>المريض</b>، مش الطبيب — نقطة حاسمة في التدقيق</td></tr>
+              <tr><td><b>قاعدة الصور</b></td><td><span class="en">[VENDOR]</span> أكثر من 120 ألف صورة طبية · حوالي 200 حالة · كل أنواع <span class="en">Fitzpatrick</span></td></tr>
+              <tr><td><b>أنواع البشرة</b></td><td>نقطة قوتها الحقيقية — بُنيت على أرشيف صور غني في البشرة الداكنة</td></tr>
+              <tr><td><b>التكلفة</b></td><td><span class="en">[VERIFY]</span> مجانية لفترة تعريفية ثم اشتراك سنوي رمزي — تأكّد قبل المحاضرة</td></tr>
+              <tr><td><b>الدليل</b></td><td><span class="en">[EVIDENCE]</span> دراسة مقطعية منشورة 2024 على 700 مريض — الأرقام في الشريحة الجاية</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="margin-top:14px;"><b>سؤال تدقيق مبكّر:</b> أداة اتصمّمت للمريض — هل ينفع تستخدمها كطبيب؟ الإجابة مش "لا" مباشرة، لكن لازم تعرف إن <b>عتبة الحذر</b> اللي اتبنت فيها مختلفة عن احتياجك.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 25 -->
+    <section class="slide" data-act="الوحدة 3 · المعركة">
+      <div class="slide-scroll">
+      <div class="kicker reveal">دليل منشور</div>
+      <h2 class="hook reveal">%71 إجمالًا.<br><span class="accent">%10 للأورام الخبيثة.</span></h2>
+      <p class="sub reveal">دراسة منشورة في <span class="en">JMIR Dermatology</span> سنة 2024 على 700 مريض. الرقمين دول جنب بعض هما أهم شريحة في الدورة كلها.</p>
+      <div class="content-wrap wide reveal">
+        <div class="evidence-bar-wrap">
+          <div class="evidence-bar"><div class="eb-label">حساسية الاحتمال الأول إجمالًا</div><div class="eb-fill" style="width:71%;">%71</div></div>
+          <div class="evidence-bar"><div class="eb-label">أول ثلاثة احتمالات</div><div class="eb-fill" style="width:86%;">%86.1</div></div>
+          <div class="evidence-bar"><div class="eb-label">كل الثمانية احتمالات</div><div class="eb-fill" style="width:95%;">%95.1</div></div>
+          <div class="evidence-bar"><div class="eb-label">الإصابات الطفيلية</div><div class="eb-fill" style="width:86%;">%85.7</div></div>
+          <div class="evidence-bar"><div class="eb-label">الأمراض الضوئية</div><div class="eb-fill" style="width:33%;background:var(--danger-soft);border-color:rgba(255,110,92,.4);">%33.3</div></div>
+          <div class="evidence-bar"><div class="eb-label">الأورام الخبيثة</div><div class="eb-fill" style="width:10%;background:var(--danger-soft);border-color:rgba(255,110,92,.5);">%10</div></div>
+        </div>
+        <div class="callout" style="margin-top:18px;color:var(--danger);"><b>اقرأ النمط، مش الأرقام:</b> الأداة أقوى ما تكون في الشائع البسيط، وأضعف ما تكون في <b>النادر الخطير</b>. ودي مش مشكلة في <span class="en">Aysa</span> بالذات — ده نمط متكرر في أدوات تحليل الصور عمومًا، لأن التدريب بيتبع توفّر البيانات، والحالات الخطيرة أقل في البيانات.</div>
+        <div class="callout ok" style="margin-top:10px;"><b>الترجمة السريرية:</b> نتيجة "سليمة" من أداة زي دي <b>ما بتطمّنكش</b> على آفة مشبوهة. الأداة بتساعدك تتوسّع في الشائع، مش بتستبعد الخطير.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 26 -->
+    <section class="slide" data-act="الوحدة 3 · المعركة">
+      <div class="slide-scroll">
+      <div class="sim-tag en">CASE 03 — DELIBERATELY AMBIGUOUS</div>
+      <h2 class="hook reveal">الحالة الثالثة —<br><span class="accent">مصمّمة عشان يختلفوا.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>البند</th><th>المعطى</th></tr></thead>
+            <tbody>
+              <tr><td><b>العمر والجنس</b></td><td>أنثى، 41 سنة</td></tr>
+              <tr><td><b>نوع البشرة</b></td><td><span class="en">Fitzpatrick V</span> — بشرة داكنة</td></tr>
+              <tr><td><b>الموقع</b></td><td>الساق اليمنى، سطح واحد</td></tr>
+              <tr><td><b>المدة</b></td><td>3 أسابيع، بتتوسّع تدريجيًا</td></tr>
+              <tr><td><b>الأعراض</b></td><td>سخونة موضعية، ألم خفيف عند اللمس، بلا حمى</td></tr>
+              <tr><td><b>الوصف</b></td><td>لويحة حمامية محدّدة نسبيًا مع تقشّر طرفي</td></tr>
+              <tr><td><b>الأدوية</b></td><td>استخدمت كورتيزون موضعي قوي من صيدلية من أسبوعين — <b>تحسّن ثم ساء</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="margin-top:14px;"><b>ليه دي حالة ممتازة للمعركة:</b> فيها ثلاث فخاخ — تشابه مورفولوجي بين التهابي ومُعدٍ · تأثير الكورتيزون على المظهر · وبشرة داكنة حيث الحمامي أصعب في التقييم البصري. توقّع اختلاف حاد بين الأنظمة.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 27 -->
+    <section class="slide" data-act="الوحدة 3 · المعركة">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>نشاط 08 — 15 دقيقة · مجموعات ثنائية</div>
+      <h2 class="hook reveal">شغّل الحالة على الثلاثة.<br><span class="accent">وسجّل عشر إجابات.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>السؤال</th><th>سجّل لكل نظام</th></tr></thead>
+            <tbody>
+              <tr><td><b>1</b></td><td>شنو اللي لاحظه في الصورة؟</td><td>الملامح البصرية المذكورة</td></tr>
+              <tr><td><b>2</b></td><td>شنو المعلومات اللي طلبها؟</td><td>أسئلة أم لا شيء</td></tr>
+              <tr><td><b>3</b></td><td>شنو اللي تجاهله؟</td><td>الكورتيزون؟ نوع البشرة؟</td></tr>
+              <tr><td><b>4</b></td><td>شنو التشخيص التفريقي؟</td><td>أول ثلاثة بالترتيب</td></tr>
+              <tr><td><b>5</b></td><td>فين اختلفوا؟</td><td>نقطة الاختلاف بالضبط</td></tr>
+              <tr><td><b>6</b></td><td>شنو الدليل اللي قدّمه؟</td><td>مصدر أم لا شيء</td></tr>
+              <tr><td><b>7</b></td><td>شنو الافتراضات اللي عملها؟</td><td>معلومة ما قلتهاش وافترضها</td></tr>
+              <tr><td><b>8</b></td><td>شنو اللي مستحيل يعرفه من صورة؟</td><td>اكتبها صراحة</td></tr>
+              <tr><td><b>9</b></td><td>شنو المعلومة السريرية الناقصة؟</td><td>اللي لو عرفتها تحسم</td></tr>
+              <tr><td><b>10</b></td><td>شنو خطوتك كطبيب؟</td><td>قرارك إنت، مش قرارهم</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout ok" style="margin-top:14px;"><b>ورقة العمل:</b> <span class="en">Dermatology AI Battle Worksheet</span> — ثلاثة أعمدة، عمود لكل نظام، وعشر صفوف. السطر رقم 10 هو اللي بيفرّق الطبيب عن مستخدم التطبيق.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 28 -->
+    <section class="slide" data-act="الوحدة 3 · المعركة">
+      <div class="slide-scroll">
+      <div class="kicker reveal">للمدرّب — استخدمها في التلخيص</div>
+      <h2 class="hook reveal">الأنماط اللي حتتكرر<br><span class="accent">في كل القاعة.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="glass quad-card"><div class="qc-tool en">PATTERN 1</div><div class="pc-title">النظام اللغوي بيتكلم أكتر</div><div class="qc-text">مخرج طويل ومنظّم ومقنع — ودي مش علامة دقة، دي علامة طلاقة لغوية. الطول بيقلّل شكّك بدون مبرر.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">PATTERN 2</div><div class="pc-title">أدوات الصورة بتتجاهل الدواء</div><div class="qc-text">الكورتيزون غيّر المظهر تمامًا — والأداة اللي بتشوف بكسلات فقط ما عندهاش أي طريقة تعرف ده.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">PATTERN 3</div><div class="pc-title">البشرة الداكنة بتقلّل الاتفاق</div><div class="qc-text">الحمامي أصعب في التقييم البصري على <span class="en">Fitzpatrick IV–VI</span> — ولو التدريب كان أغلبه بشرة فاتحة، الفجوة بتكبر.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">PATTERN 4</div><div class="pc-title">محدش قال "ما أعرفش"</div><div class="qc-text">أندر مخرج في أدوات الذكاء الاصطناعي هو الامتناع. الأنظمة مصمّمة تجاوب دايمًا — حتى لما المعلومة مش كافية.</div></div>
+        </div>
+        <div class="callout" style="margin-top:16px;color:var(--danger);"><b>النمط الرابع هو الأخطر:</b> الطبيب الشاطر بيقول "المعلومة مش كافية، محتاج مسحة أو خزعة". النظام بيقول تشخيص. لو أخدت ثقته على إنها يقين — خسرت أهم مهارة عندك.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 29 -->
+    <section class="slide" data-act="الوحدة 3 · المعركة">
+      <div class="slide-scroll">
+      <div class="kicker reveal">خلاصة الوحدة 3</div>
+      <h2 class="hook reveal">المعركة دي كانت<br><span class="accent">الإطار كله في 15 دقيقة.</span></h2>
+      <div class="content-wrap wide reveal">
+        <ol class="steps-list steps-compact">
+          <li class="glass"><b class="en">THINK</b>حدّدت المشكلة السريرية قبل ما تفتح أي أداة — لويحة على بشرة داكنة بعد كورتيزون.</li>
+          <li class="glass"><b class="en">CHOOSE</b>عرفت إن كل نظام له قدرة مختلفة — استرجاع، تصنيف، استدلال.</li>
+          <li class="glass"><b class="en">STRUCTURE</b>دخّلت السياق السريري كامل بدل ما ترمي صورة.</li>
+          <li class="glass"><b class="en">CHALLENGE</b>قارنت الاختلافات وسألت عن الافتراضات والنواقص.</li>
+          <li class="glass"><b class="en">VERIFY</b>حدّدت المعلومة اللي محتاج تتحقّق منها — مسحة، خزعة، أو متابعة.</li>
+        </ol>
+        <div class="callout ok" style="margin-top:16px;"><b>ده مش تمرين على أدوات.</b> ده تمرين على إنك تفضل الطبيب في وسط ثلاث آراء آلية متضاربة. والمهارة دي حتفضل شغالة مع أي أداة تنزل السنة الجاية.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 30 -->
+    <section class="slide" data-act="الوحدة 4 · خريطة الأدوات">
+      <div class="divider-num en">UNIT 04 / 06</div>
+      <h2 class="divider-title reveal">جرّبنا ثلاثة.<br><span class="accent">دي الخريطة كلها.</span></h2>
+      <p class="divider-sub reveal">مش هنشغّل كل واحدة — الوقت ما يسمحش والفايدة قليلة. لكن حتخرج بخريطة كاملة تعرف ترجعلها وتختار منها بعد الدورة.</p>
+    </section>
+
+    <!-- 31 -->
+    <section class="slide" data-act="الوحدة 4 · خريطة الأدوات">
+      <div class="slide-scroll">
+      <div class="kicker reveal">طريقة التنظيم</div>
+      <h2 class="hook reveal">الأدوات بتتغيّر.<br><span class="accent">الطبقات ثابتة.</span></h2>
+      <p class="sub reveal">لو حفظت 10 أسماء، بعد سنة نصّهم يتغيّر. لو حفظت 5 طبقات، تقدر تحطّ أي أداة جديدة في مكانها فورًا.</p>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>الطبقة</th><th>القدرة</th><th>أمثلة</th></tr></thead>
+            <tbody>
+              <tr><td><b>1</b></td><td>دعم قرار سريري</td><td><span class="en">VisualDx · Model Dermatology · DermEngine</span></td></tr>
+              <tr><td><b>2</b></td><td>تنظير الجلد وتحليل الآفة</td><td><span class="en">DermEngine · Moleanalyzer Pro · Dermalyser</span></td></tr>
+              <tr><td><b>3</b></td><td>فرز سرطان الجلد</td><td><span class="en">Skin Analytics · SkinVision · DermaSensor</span></td></tr>
+              <tr><td><b>4</b></td><td>تحليل صور جلدية عام</td><td><span class="en">Skinive · Aysa · ScanSkinAI · Deelo · DermaQ</span></td></tr>
+              <tr><td><b>5</b></td><td>بنية تحتية وتطبيقات متخصصة</td><td><span class="en">Autoderm · AI-ScalpGrader</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>القاعدة اللي اتعلمناها في الجزء الأول:</b> اختر القدرة قبل الأداة. الفرق هنا إن "القدرة" في الجلدية أوضح بكثير — أداة الفرز مش أداة تشخيص، وأداة التنظير مش أداة استرجاع.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 32 -->
+    <section class="slide" data-act="الوحدة 4 · خريطة الأدوات">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>مرور سريع — 6 أدوات · مجانية · جرّبها بعد الدورة</div>
+      <h2 class="hook reveal">مجانية بالكامل.<br><span class="accent">افتحها بنفسك.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid" style="grid-template-columns:repeat(3,1fr);">
+          <div class="glass quad-card"><div class="qc-tool en">MODEL DERMATOLOGY</div><div class="pc-title">استرجاع بصري ✱ جرّبناها</div><div class="qc-text">مجانية · متصفح · بدون تسجيل. مدعومة بتجربة عشوائية محكّمة. أفضل أداة تعليمية مجانية.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">AYSA</div><div class="pc-title">فاحص أعراض ✱ جرّبناها</div><div class="qc-text">تطبيق موبايل. قوّتها في البشرة الداكنة. انتبه: مصمّمة للمريض، وضعيفة في الأورام الخبيثة.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">SKINIVE</div><div class="pc-title">فحص ومتابعة زمنية</div><div class="qc-text"><span class="en">[VENDOR]</span> تحليلات مجانية محدودة للحساب الجديد · موسومة <span class="en">CE</span> كبرمجية طبية. قوّتها في <b>المتابعة عبر الزمن</b> مش الفحص الواحد.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">SCANSKINAI</div><div class="pc-title">فرز بدون تسجيل</div><div class="qc-text"><span class="en">[VERIFY]</span> مجانية بدون حساب · رفع صورة · تغطية واسعة عبر <span class="en">Fitzpatrick I–VI</span>. تصف نفسها كـ<b>فرز</b> لا تشخيص.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">DEELO</div><div class="pc-title">تقييم آفة و<span class="en">ABCDE</span></div><div class="qc-text"><span class="en">[VENDOR]</span> مجانية بالكامل · تقبل صور سريرية وتنظير · تقييم مخاطر وخريطة جسم. تعليمية بامتياز.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">DERMAQ</div><div class="pc-title">أداة ناشئة</div><div class="qc-text"><span class="en">[VERIFY]</span> مجانية · تغطية محدودة نسبيًا · تركّز على أنواع البشرة. استخدمها كتمرين على تقييم أداة جديدة.</div></div>
+        </div>
+        <div class="callout" style="margin-top:14px;"><b>ملاحظة صدق:</b> العلامات <span class="en">[VENDOR]</span> و<span class="en">[VERIFY]</span> مقصودة. دي معلومات من الشركات نفسها أو تحتاج تأكيد قبل كل دورة — الأسعار والتوفّر بيتغيّروا بسرعة في السوق ده.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 33 -->
+    <section class="slide" data-act="الوحدة 4 · خريطة الأدوات">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>مرور سريع — أداتان بتجربة مجانية</div>
+      <h2 class="hook reveal">أقوى أداتين<br><span class="accent">لكن بعدّاد.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="compare-grid">
+          <div class="compare-col good">
+            <div class="col-title"><span class="en">VISUALDX</span> — جرّبناها اليوم</div>
+            <div class="glass glass-pad" style="line-height:1.95;">
+              <b>القدرة:</b> دعم قرار سريري كامل<br>
+              <b>التجربة:</b> <span class="en">[VENDOR]</span> 7 أيام<br>
+              <b>الأقوى فيها:</b> بتسألك أسئلة وتبني تفريقي معاك<br>
+              <b>لمن:</b> الطبيب اللي عايز يقوّي منطق التفريقي
+            </div>
+          </div>
+          <div class="compare-col good">
+            <div class="col-title"><span class="en">DERMENGINE</span> — دراسة حالة</div>
+            <div class="glass glass-pad" style="line-height:1.95;">
+              <b>القدرة:</b> منظومة جلدية رقمية كاملة<br>
+              <b>التجربة:</b> <span class="en">[VENDOR]</span> 30 يومًا<br>
+              <b>الأقوى فيها:</b> ملف مريض · تنظير · مقارنة صور عبر الزمن · تتبّع آفة<br>
+              <b>لمن:</b> العيادة اللي عايزة تبني نظام، مش تستخدم تطبيق
+            </div>
+          </div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>الدرس من <span class="en">DermEngine</span> مش الذكاء الاصطناعي:</b> إن الذكاء الاصطناعي ممكن يكون <b>جزء من بنية العيادة</b> — مش شات بوت منفصل. صورة سريرية تدخل ملف المريض، تتقارن مع صورة قديمة، وتتتبّع آفة عبر شهور. دي نقلة في التفكير.</div>
+        <div class="callout" style="margin-top:10px;color:var(--danger);"><b>تحذير عملي مهم لليبيا:</b> التجارب دي غالبًا بتطلب بطاقة دولية للتسجيل. تأكّد قبل ما تعتمد عليها في يوم المحاضرة — ولو ما نفعتش، فيه بديل مجاني لكل هدف تعليمي هنا.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 34 -->
+    <section class="slide" data-act="الوحدة 4 · خريطة الأدوات">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>مرور سريع — دراسات حالة · لا تسجّل فيها</div>
+      <h2 class="hook reveal">مش حنفتح حساب.<br><span class="accent">بس لازم تعرفها.</span></h2>
+      <p class="sub reveal">دي أدوات تجارية أو تحتاج أجهزة أو نشر مؤسسي. قيمتها التعليمية عالية جدًا، لكن مالهاش لازمة كتجربة فردية في 3 ساعات.</p>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="glass quad-card"><div class="qc-tool en">MOLEANALYZER PRO</div><div class="pc-title">تنظير جلد + ذكاء اصطناعي</div><div class="qc-text">تحليل صور التنظير مع خرائط حرارية ومقارنة زمنية. الدرس: الذكاء الاصطناعي على صورة التنظير غير الذكاء الاصطناعي على الصورة السريرية — مدخل مختلف بالكامل.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">DERMALYSER</div><div class="pc-title">تنظير عبر الموبايل</div><div class="qc-text">جهاز طبي بيحوّل الموبايل لأداة تنظير مدعومة بذكاء اصطناعي. الدرس: لما الذكاء الاصطناعي يتحوّل لجهاز طبي، بيدخل عالم تنظيمي مختلف تمامًا.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">SKIN ANALYTICS DERM</div><div class="pc-title">فرز سرطان الجلد مؤسسي</div><div class="qc-text">مستخدَمة في مسارات إحالة فعلية. الدرس الأهم: <b>الحساسية والنوعية ومسار الإحالة</b> — إزاي نظام فرز بيغيّر شكل الخدمة كلها مش قرار طبيب واحد.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">DERMASENSOR</div><div class="pc-title">مطيافية + ذكاء اصطناعي</div><div class="qc-text"><span class="en">[EVIDENCE]</span> جهاز حاصل على تصريح <span class="en">FDA</span> عبر مسار <span class="en">de novo</span> سنة 2024، ودراسة محورية على أكثر من 1000 مريض بقيادة <span class="en">Mayo Clinic</span> في 22 مركزًا. الدرس: دليل بهذا المستوى نادر جدًا في المجال.</div></div>
+        </div>
+        <div class="callout ok" style="margin-top:14px;"><b>و<span class="en">Autoderm</span> — درس منفصل:</b> مش تطبيق أصلًا، ده <span class="en">API</span> بتبني عليه شركات تانية. يعني ممكن تكون بتستخدم ذكاءها الاصطناعي من جوه تطبيق تاني بدون ما تعرف. حنرجعلها في مختبر الفشل.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 35 -->
+    <section class="slide" data-act="الوحدة 4 · خريطة الأدوات">
+      <div class="slide-scroll">
+      <div class="kicker reveal">المرجع الذي تحتفظ به</div>
+      <h2 class="hook reveal">مفيش أداة "أحسن".<br><span class="accent">فيه أداة أنسب للمهمة.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>الأداة</th><th>القدرة</th><th>التكلفة</th><th>الوصول من ليبيا</th><th>أفضل استخدام</th></tr></thead>
+            <tbody>
+              <tr><td><b class="en">Model Dermatology</b></td><td>استرجاع</td><td>مجاني</td><td>سهل — متصفح</td><td>توسيع التفريقي · تعليم</td></tr>
+              <tr><td><b class="en">Aysa</b></td><td>تصنيف</td><td>مجاني تعريفيًا</td><td>سهل — تطبيق</td><td>بشرة داكنة · تثقيف مريض</td></tr>
+              <tr><td><b class="en">Skinive</b></td><td>فحص ومتابعة</td><td>محدود مجانًا</td><td>سهل</td><td>متابعة آفة عبر الزمن</td></tr>
+              <tr><td><b class="en">ScanSkinAI</b></td><td>فرز</td><td>مجاني</td><td>الأسهل — بلا حساب</td><td>تعليم مفهوم الفرز</td></tr>
+              <tr><td><b class="en">Deelo</b></td><td>تقييم آفة</td><td>مجاني</td><td>سهل</td><td>تمرين <span class="en">ABCDE</span></td></tr>
+              <tr><td><b class="en">DermaQ</b></td><td>تحليل صورة</td><td>مجاني</td><td>سهل</td><td>تمرين تقييم أداة ناشئة</td></tr>
+              <tr><td><b class="en">VisualDx</b></td><td>دعم قرار</td><td>تجربة 7 أيام</td><td>يحتاج تسجيل</td><td>بناء تفريقي منهجي</td></tr>
+              <tr><td><b class="en">DermEngine</b></td><td>منظومة رقمية</td><td>تجربة 30 يومًا</td><td>يحتاج تسجيل</td><td>بناء نظام عيادة</td></tr>
+              <tr><td><b class="en">Moleanalyzer Pro</b></td><td>تنظير</td><td>تجاري</td><td>صعب</td><td>دراسة حالة</td></tr>
+              <tr><td><b class="en">Dermalyser</b></td><td>جهاز تنظير</td><td>تجاري + جهاز</td><td>صعب</td><td>دراسة حالة</td></tr>
+              <tr><td><b class="en">Skin Analytics</b></td><td>فرز مؤسسي</td><td>نشر مؤسسي</td><td>غير متاح فرديًا</td><td>دراسة حالة</td></tr>
+              <tr><td><b class="en">DermaSensor</b></td><td>مطيافية</td><td>جهاز</td><td>غير متاح فرديًا</td><td>دراسة حالة</td></tr>
+              <tr><td><b class="en">Autoderm</b></td><td>بنية تحتية</td><td><span class="en">API</span></td><td>للمطوّرين</td><td>درس تنظيمي</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="margin-top:14px;"><b>لاحظ:</b> مفيش عمود اسمه "الأفضل". لأن الأفضل بيتحدّد بالمهمة — والمهمة بتتحدّد بالمرحلة اللي إنت فيها من <span class="en">THINK → CHOOSE → STRUCTURE → CHALLENGE → VERIFY</span>.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 36 -->
+    <section class="slide" data-act="الوحدة 4 · خريطة الأدوات">
+      <div class="slide-scroll">
+      <div class="kicker reveal">استخدمها بكرة في العيادة</div>
+      <h2 class="hook reveal">ابدأ من المهمة.<br><span class="accent">مش من الأداة.</span></h2>
+      <div class="content-wrap wide reveal">
+        <ol class="steps-list steps-compact">
+          <li class="glass"><b>عايز توسّع تشخيص تفريقي ضاق عندك؟</b><span class="en">Model Dermatology</span> — بترجّع احتمالات بصرية ما خطرتش على بالك. مجانية وسريعة.</li>
+          <li class="glass"><b>عايز تبني تفريقي منهجي بالسياق السريري؟</b><span class="en">VisualDx</span> — الوحيدة اللي بتسألك أسئلة وتبني معاك.</li>
+          <li class="glass"><b>عايز تتابع آفة عبر شهور؟</b><span class="en">Skinive</span> أو <span class="en">DermEngine</span> — المتابعة الزمنية، مش الفحص الواحد.</li>
+          <li class="glass"><b>عايز تفهم مفهوم الفرز وتشرحه؟</b><span class="en">ScanSkinAI</span> — أسهل وصول، وبتصف نفسها كفرز بصراحة.</li>
+          <li class="glass"><b>عايز تشرح <span class="en">ABCDE</span> لطالب أو مريض؟</b><span class="en">Deelo</span> — تقييم بصري مع تفكيك المعايير.</li>
+          <li class="glass"><b>عايز تفكّر بصوت عالي في حالة معقّدة؟</b><span class="en">ChatGPT / Gemini</span> بـ<span class="en">PRIME</span> — استدلال لغوي، مش تحليل صورة. وتحقّق من كل ادعاء.</li>
+          <li class="glass"><b>الآفة مشبوهة فعلًا؟</b>مفيش أداة في القائمة دي بتحسم. <b>خزعة أو إحالة.</b> نقطة.</li>
+        </ol>
+        <div class="callout ok" style="margin-top:14px;"><b>السطر الأخير هو أهم سطر في الوحدة كلها.</b> كل الأدوات فوق بتساعدك تفكّر أحسن. ولا واحدة فيهم بتستبدل الخزعة.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 37 -->
+    <section class="slide" data-act="الوحدة 5 · مختبر الفشل">
+      <div class="divider-num en">UNIT 05 / 06</div>
+      <h2 class="divider-title reveal">دلوقتي<br><span class="accent">نخليها تغلط.</span></h2>
+      <p class="divider-sub reveal">أهم مهارة مش إنك تعرف تشغّل الأداة — إنك تعرف تشوف غلطها. وأخطر غلط هو اللي بيجي في شكل منظّم وواثق.</p>
+    </section>
+
+    <!-- 38 -->
+    <section class="slide" data-act="الوحدة 5 · مختبر الفشل">
+      <div class="slide-scroll">
+      <div class="sim-tag en">FAILURE MODE 01 — SENSITIVITY COLLAPSE</div>
+      <h2 class="hook reveal">شاطرة في الشائع.<br><span class="accent">ضعيفة في القاتل.</span></h2>
+      <p class="sub reveal">رجعنا لأرقام <span class="en">Aysa</span> — مش عشان ننتقد أداة، عشان نشوف نمطًا بيتكرر في كل أدوات الصور تقريبًا.</p>
+      <div class="content-wrap wide reveal">
+        <div class="compare-grid">
+          <div class="compare-col good">
+            <div class="col-title">حيث البيانات وفيرة</div>
+            <div class="glass glass-pad" style="line-height:2;font-size:15px;">إصابات طفيلية — %85.7<br>اضطرابات التقرّن — %85.7<br>حالات التهابية — %82.7<br>عدوى بكتيرية — %81.8</div>
+          </div>
+          <div class="compare-col bad">
+            <div class="col-title">حيث البيانات نادرة والخطر عالٍ</div>
+            <div class="glass glass-pad" style="line-height:2;font-size:15px;">الأمراض الضوئية — %33.3<br><br><b style="font-size:22px;color:var(--danger);">الأورام الخبيثة — %10</b></div>
+          </div>
+        </div>
+        <div class="callout" style="margin-top:18px;"><b>ليه بيحصل ده؟</b> النماذج بتتعلّم من البيانات المتاحة. الحالات الشائعة عندها آلاف الصور، والحالات النادرة الخطيرة عندها مئات. النموذج بيتحسّن حيث البيانات كثيرة — يعني بالظبط حيث إنت <b>ما بتحتاجهوش</b>.</div>
+        <div class="callout ok" style="margin-top:10px;"><b>السؤال:</b> لو الأداة قالتلك "غالبًا حميدة" على آفة إنت شاكك فيها — حتغيّر قرارك؟ لو الإجابة "ممكن"، ارجع للرقم %10.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 39 -->
+    <section class="slide" data-act="الوحدة 5 · مختبر الفشل">
+      <div class="slide-scroll">
+      <div class="sim-tag en">FAILURE MODE 02 — REGULATORY THEATRE</div>
+      <h2 class="hook reveal"><span class="en">Breakthrough Designation</span><br><span class="accent">ليست موافقة.</span></h2>
+      <p class="sub reveal">مثال حقيقي ومتحقَّق منه. اقرأ السطرين وشوف الفرق — ده الفرق اللي بيضيع على %90 من الأطباء.</p>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>المصطلح</th><th>معناه فعلًا</th></tr></thead>
+            <tbody>
+              <tr><td><b class="en">FDA Breakthrough Device Designation</b></td><td>الجهة التنظيمية وافقت تسرّع <b>المراجعة</b>. <b>لا تعني</b> إن الجهاز اتوافق عليه أو ثبتت فعاليته.</td></tr>
+              <tr><td><b class="en">FDA Clearance / De Novo</b></td><td>مرّ فعلًا بمراجعة وسُمح بتسويقه لاستخدام محدد.</td></tr>
+              <tr><td><b class="en">CE Mark — Class I</b></td><td>أدنى فئة مخاطر. في كثير من الحالات <b>تقييم ذاتي من الشركة</b> بدون جهة مستقلة.</td></tr>
+              <tr><td><b class="en">CE Mark — Class IIa فأعلى</b></td><td>يتطلب جهة مُخطَرة مستقلة. مستوى تدقيق أعلى بكثير.</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout" style="margin-top:16px;color:var(--danger);"><span class="en">[EVIDENCE]</span> <b>مثال حي:</b> <span class="en">Autoderm</span> عندها <span class="en">FDA Breakthrough Device Designation</span> — وفي نفس الوقت وثائقها التنظيمية بتقول صراحة إنها <b>في انتظار التصريح، وغير مطروحة للاستخدام السريري في أمريكا</b>. الكلمتين موجودين على نفس الموقع.</div>
+        <div class="callout ok" style="margin-top:10px;"><b>مهارة عملية:</b> أي أداة تقول "<span class="en">FDA</span>" — دوّر على الكلمة اللي بعدها. <span class="en">Cleared</span> · <span class="en">Approved</span> · <span class="en">Designated</span> · <span class="en">Registered</span> — أربع كلمات، أربع معانٍ مختلفة تمامًا.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 40 -->
+    <section class="slide" data-act="الوحدة 5 · مختبر الفشل">
+      <div class="slide-scroll">
+      <div class="sim-tag en">FAILURE MODE 03 — HALLUCINATED CITATION</div>
+      <h2 class="hook reveal">مرجع كامل.<br><span class="accent">غير موجود.</span></h2>
+      <p class="sub reveal">عرض حي — 4 دقائق. المدرّب يلصق البرومبت ده ويعرض النتيجة على الشاشة.</p>
+      <div class="content-wrap wide reveal">
+        <div class="glass glass-pad output-box">
+          <div class="output-head"><span class="output-label en">LIVE DEMO PROMPT</span><button class="btn btn-copy" data-copy="p2-halluc">نسخ</button></div>
+          <pre id="p2-halluc" dir="ltr" style="text-align:left;">Give me three peer-reviewed studies published after 2020 on the
+diagnostic accuracy of smartphone AI applications for melanoma
+detection in Fitzpatrick V-VI skin. For each, give the authors,
+journal, year, sample size, and the reported sensitivity.</pre>
+        </div>
+        <ol class="steps-list steps-compact" style="margin-top:14px;">
+          <li class="glass"><b>الخطوة 1</b>خد النتيجة زي ما هي واعرضها. حتبان مقنعة جدًا — أسماء، مجلات، أرقام.</li>
+          <li class="glass"><b>الخطوة 2</b>افتح <span class="en mono" dir="ltr">pubmed.ncbi.nlm.nih.gov</span> وابحث عن العنوان الأول <b>حرفيًا</b>.</li>
+          <li class="glass"><b>الخطوة 3</b>لو ظهر — ممتاز، تحقّق من الرقم. لو ما ظهرش — ده الدرس.</li>
+          <li class="glass"><b>الخطوة 4</b>ارجع للأداة واسألها: <span class="en" dir="ltr">"I could not find that paper on PubMed. Was it real?"</span> ولاحظ الرد.</li>
+        </ol>
+        <div class="callout" style="margin-top:14px;"><b>لماذا الموضوع ده بالذات؟</b> لأن الأبحاث على البشرة الداكنة <b>قليلة فعلًا</b> — والفجوة في البيانات هي بالظبط المكان اللي النموذج بيملأه باختراع. الهلوسة بتزيد حيث المعرفة الحقيقية بتقلّ.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 41 -->
+    <section class="slide" data-act="الوحدة 5 · مختبر الفشل">
+      <div class="kicker reveal">خلاصة الوحدة 5</div>
+      <h2 class="hook reveal">كنت <span class="accent">حتلاحظ</span><br>لو كنت واثق؟</h2>
+      <div class="content-wrap wide reveal">
+        <div class="callout" style="font-size:16px;line-height:2;"><b>الأخطاء الثلاثة اللي شفناها ما كانتش واضحة:</b><br>
+        رقم %10 كان مدفون في ورقة علمية.<br>
+        كلمة <span class="en">Designation</span> كانت شبه كلمة <span class="en">Approval</span>.<br>
+        المرجع المخترع كان بصيغة مثالية.</div>
+        <div class="callout ok" style="margin-top:16px;"><b>ولا واحد فيهم كان حيبان</b> لو أخدت المخرج على إنه إجابة. كلهم بانوا لأننا سألنا. ودي مهارة، مش موهبة — والوحدة الجاية بتحوّلها لقائمة تقدر تمشي عليها.</div>
+      </div>
+    </section>
+
+    <!-- 42 -->
+    <section class="slide" data-act="الوحدة 6 · دقّق لا تثق">
+      <div class="divider-num en">UNIT 06 / 06</div>
+      <h2 class="divider-title reveal"><span class="accent">DON'T TRUST</span> THE AI.<br>AUDIT THE AI.</h2>
+      <p class="divider-sub reveal">دي الوحدة اللي حتفضل معاك بعد ما تنسى كل أسماء الأدوات. سبعة أسئلة تقدر تطبّقها على أي أداة ذكاء اصطناعي طبية تشوفها في حياتك.</p>
+    </section>
+
+    <!-- 43 -->
+    <section class="slide" data-act="الوحدة 6 · دقّق لا تثق">
+      <div class="slide-scroll">
+      <div class="kicker reveal">بطاقة التدقيق — احتفظ بيها</div>
+      <h2 class="hook reveal">سبعة أسئلة.<br><span class="accent">قبل أي ثقة.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>السؤال</th><th>علامة الخطر</th></tr></thead>
+            <tbody>
+              <tr><td><b>1</b></td><td><b>الاستخدام المقصود</b> — الأداة اتصمّمت تعمل إيه بالظبط؟</td><td>وصف غامض أو "لكل شيء جلدي"</td></tr>
+              <tr><td><b>2</b></td><td><b>الدليل</b> — إيه اللي بيدعم أداءها؟</td><td>أرقام بلا دراسة منشورة</td></tr>
+              <tr><td><b>3</b></td><td><b>التحقّق</b> — اتحقّق منها فين؟ وهل كان مستقلًا؟</td><td>الشركة هي اللي عملت الدراسة الوحيدة</td></tr>
+              <tr><td><b>4</b></td><td><b>الوضع التنظيمي</b> — جهاز طبي؟ أي فئة؟ أي تصريح؟</td><td>خلط <span class="en">Designation</span> بـ<span class="en">Approval</span></td></tr>
+              <tr><td><b>5</b></td><td><b>أنواع البشرة</b> — اتقيّمت على أنواع بشرة متنوعة؟</td><td>ما فيش ذكر لـ<span class="en">Fitzpatrick</span> إطلاقًا</td></tr>
+              <tr><td><b>6</b></td><td><b>الخصوصية</b> — الصورة بتروح فين؟ وبتتخزّن قد إيه؟</td><td>سياسة خصوصية غامضة أو غير موجودة</td></tr>
+              <tr><td><b>7</b></td><td><b>الإشراف البشري</b> — أي قرار بيفضل عندي أنا؟</td><td>الأداة بتقدّم نفسها كقرار نهائي</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>السؤال 7 هو الحاسم.</b> لو ما لقيتش إجابة واضحة عليه في وثائق الأداة — دي وحدها كافية إنك ما تعتمدش عليها في قرار سريري.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 44 -->
+    <section class="slide" data-act="الوحدة 6 · دقّق لا تثق">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>نشاط 09 — 10 دقائق · مجموعات</div>
+      <h2 class="hook reveal">أداة ما شفتهاش قبل كده.<br><span class="accent">دقّقها في 10 دقائق.</span></h2>
+      <p class="sub reveal">ده الامتحان الحقيقي للدورة. مش "هل تعرف الأدوات اللي شرحناها" — بل "هل تقدر تقيّم واحدة ما شرحناهاش".</p>
+      <div class="content-wrap wide reveal">
+        <ol class="steps-list steps-compact">
+          <li class="glass"><b>1 — استلم الأداة</b>المدرّب يوزّع اسم أداة مختلفة على كل مجموعة — من قائمة الأدوات اللي مرّينا عليها سريعًا وما جرّبناهاش.</li>
+          <li class="glass"><b>2 — دوّر على الوثائق</b>موقع الشركة · صفحة الخصوصية · صفحة التنظيم · أي دراسة منشورة.</li>
+          <li class="glass"><b>3 — املأ البطاقة</b>سبعة أسئلة. اكتب "غير موجود" لو ما لقيتش — <b>ودي إجابة مهمة</b>، مش فراغ.</li>
+          <li class="glass"><b>4 — احكم</b>سؤال واحد: هل تغيّر قرار مريض بناءً على مخرج الأداة دي؟ ليه أو ليه لأ؟</li>
+          <li class="glass"><b>5 — اعرض في 60 ثانية</b>كل مجموعة تقول أخطر حاجة لقتها.</li>
+        </ol>
+        <div class="callout" style="margin-top:14px;"><b>ملاحظة للمدرّب:</b> عدد "غير موجود" في القاعة عادة بيصدم المشاركين — ودي أقوى نتيجة ممكن تخرج بيها الوحدة. سجّل العدد على السبورة.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 45 -->
+    <section class="slide" data-act="الوحدة 6 · دقّق لا تثق">
+      <div class="kicker reveal">خلاصة الوحدة 6</div>
+      <h2 class="hook reveal">الأدوات حتتغيّر.<br><span class="accent">البطاقة مش حتتغيّر.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="callout ok" style="font-size:16px;line-height:2;"><b>خرجت من الوحدة دي بحاجة واحدة:</b> قائمة سبعة أسئلة تقدر تطلّعها قدام أي أداة ذكاء اصطناعي طبية — النهارده، أو بعد خمس سنين، أو على أداة لسه ما اتعملتش.</div>
+        <div class="callout" style="margin-top:16px;"><b>والحقيقة اللي لازم تتقال:</b> سوق أدوات الجلدية بالذكاء الاصطناعي فيه أدوات ممتازة بأدلة قوية، وفيه أدوات بتستخدم كلمة "ذكاء اصطناعي" كتسويق. الفرق بينهم مش بيبان من الواجهة — بيبان من الوثائق.</div>
+      </div>
+    </section>
+
+    <!-- 46 -->
+    <section class="slide" data-act="الجزء ب · العرض الاحترافي">
+      <div class="divider-num en">SECTION B — 30 MIN</div>
+      <h2 class="divider-title reveal">تفكيرك السريري<br><span class="accent">يستحق شكلًا مهنيًا.</span></h2>
+      <p class="divider-sub reveal">آخر نص ساعة. مش درس <span class="en">PowerPoint</span> — دي الخطوة الأخيرة من نفس المسار: من مشكلة سريرية، لتفكير منظّم، لمخرج طبي آمن. حنبني عرضًا واحدًا كاملًا، مع بعض، بأدوات مجانية.</p>
+    </section>
+
+    <!-- 47 -->
+    <section class="slide" data-act="الجزء ب · العرض الاحترافي">
+      <div class="slide-scroll">
+      <div class="kicker reveal">إطار الجزء ب</div>
+      <h2 class="hook reveal">نفس الإطار.<br><span class="accent">مخرج مختلف.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>الدقائق</th><th>الخطوة</th><th>المخرج</th></tr></thead>
+            <tbody>
+              <tr><td><b class="en">0–5</b></td><td>الأساس — الموضوع والجمهور والأهداف</td><td>مواصفات مكتوبة</td></tr>
+              <tr><td><b class="en">5–10</b></td><td>المعمار — هيكل العرض</td><td>هيكل بالأقسام</td></tr>
+              <tr><td><b class="en">10–15</b></td><td>شريحة بشريحة</td><td>محتوى كل شريحة</td></tr>
+              <tr><td><b class="en">15–20</b></td><td><b>المراجع المتشكك</b></td><td>قائمة مشاكل</td></tr>
+              <tr><td><b class="en">20–25</b></td><td>الاتجاه البصري</td><td>مخططات وجداول</td></tr>
+              <tr><td><b class="en">25–30</b></td><td>الإخراج النهائي</td><td>عرض جاهز</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>الموضوع اللي حنبنيه سوا:</b> «المقاربة السريرية لمريض بآفة جلدية مصطبغة» — نفس الحالة 2 اللي اشتغلنا عليها. مش موضوع عشوائي؛ ده تحويل شغل النهارده لمنتج.</div>
+        <div class="callout" style="margin-top:10px;"><b>الأداة:</b> <span class="en">Gemini</span> النسخة المجانية. كل برومبت في الشرائح الجاية جاهز للّصق حرفيًا.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 48 -->
+    <section class="slide" data-act="الجزء ب · العرض الاحترافي">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>الدقائق 0–5 · حدّد قبل ما تطلب</div>
+      <h2 class="hook reveal">خمس دقائق تحديد<br><span class="accent">توفّر ساعة تصليح.</span></h2>
+      <p class="sub reveal">أغلب الناس بتفتح الأداة وتقول "اعملي عرض عن كذا" — وتقضي بعدها ساعة تصلّح. حدّد الستة دول الأول.</p>
+      <div class="content-wrap wide reveal">
+        <div class="glass glass-pad output-box">
+          <div class="output-head"><span class="output-label en">STEP 1 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b1">نسخ</button></div>
+          <pre id="p2-b1" dir="ltr" style="text-align:left;">I am preparing a medical talk. Before writing anything, help me lock
+the specification. Ask me any question you need, then output a single
+filled specification block:
+
+TOPIC: Clinical approach to the patient with a pigmented skin lesion
+AUDIENCE: General practitioners and family physicians, Libya
+PRIOR KNOWLEDGE: Comfortable with basic dermatology, not specialists
+DURATION: 25 minutes plus 5 minutes questions
+LEVEL: Practical and clinical, not academic
+CLINICAL PURPOSE: They should leave able to decide, at the bedside,
+  which pigmented lesion needs referral or biopsy today
+CONSTRAINT: Every clinical claim must be one I can verify. Mark any
+  statement you are not certain about with [VERIFY].
+
+Then write exactly 3 learning objectives, each starting with an
+observable verb (identify, differentiate, decide), not "understand".</pre>
+        </div>
+        <div class="callout ok" style="margin-top:14px;"><b>لاحظ السطرين الأخيرين:</b> منع كلمة <span class="en">understand</span> بيجبر الأهداف تبقى قابلة للقياس. وعلامة <span class="en">[VERIFY]</span> هي <span class="en">VERIFY</span> من الجزء الأول داخلة من أول برومبت — مش في الآخر.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 49 -->
+    <section class="slide" data-act="الجزء ب · العرض الاحترافي">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>الدقائق 5–10 · الهيكل قبل المحتوى</div>
+      <h2 class="hook reveal">ابنِ الهيكل.<br><span class="accent">مش الشرائح.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="glass glass-pad output-box">
+          <div class="output-head"><span class="output-label en">STEP 2 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b2">نسخ</button></div>
+          <pre id="p2-b2" dir="ltr" style="text-align:left;">Using the specification above, produce the ARCHITECTURE only.
+No slide content yet.
+
+Output these sections, with a time budget in minutes for each:
+1. Title and framing
+2. Learning objectives
+3. Why this matters clinically — the cost of getting it wrong
+4. Clinical approach — the structured method
+5. Differential diagnosis
+6. One real-shaped case worked through the method
+7. A decision algorithm: when to reassure, when to follow up,
+   when to refer, when to biopsy
+8. Key takeaways — maximum 3
+9. References
+
+Rules:
+- Total time must equal 25 minutes. Show the running total.
+- Section 6 and 7 together must get at least 40% of the time.
+- Tell me which section you would cut first if I only had 15 minutes.</pre>
+        </div>
+        <div class="callout" style="margin-top:14px;"><b>السطر الأخير ذكي جدًا:</b> لما تسأله "شنو تقطع الأول؟" بتكتشف فورًا لو هو نفسه شايف قسم ضعيف — وغالبًا حيكون هو نفس القسم اللي إنت حاسس إنه زيادة.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 50 -->
+    <section class="slide" data-act="الجزء ب · العرض الاحترافي">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>الدقائق 10–15 · المحتوى بقالب ثابت</div>
+      <h2 class="hook reveal">قالب واحد.<br><span class="accent">لكل شريحة.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="glass glass-pad output-box">
+          <div class="output-head"><span class="output-label en">STEP 3 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b3">نسخ</button></div>
+          <pre id="p2-b3" dir="ltr" style="text-align:left;">Now expand the architecture into slides. Use EXACTLY this template
+for every slide, and never break it:
+
+SLIDE [n]
+TITLE: [maximum 6 words]
+MAIN MESSAGE: [one sentence — the single thing they must remember]
+KEY POINTS: [3 to 5 bullets, maximum 12 words each]
+VISUAL: [what image, table, or diagram belongs here]
+SPEAKER NOTES: [what I say out loud — 2 to 3 sentences]
+REFERENCE: [source, or "none needed"]
+
+Hard rules:
+- No slide may exceed 5 bullets. If content needs more, split it.
+- No paragraphs anywhere on a slide.
+- Any clinical claim that needs a source must have one, or be
+  marked [VERIFY] — never left bare.
+- The case slides must show my reasoning steps, not just the answer.</pre>
+        </div>
+        <div class="callout ok" style="margin-top:14px;"><b>القالب الثابت هو السر.</b> من غيره بتطلع شرائح بأطوال وأشكال مختلفة وتقضي وقت في التوحيد. القالب ده هو <span class="en">I — Instructions</span> من <span class="en">PRIME</span> بالظبط.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 51 -->
+    <section class="slide" data-act="الجزء ب · العرض الاحترافي">
+      <div class="slide-scroll">
+      <div class="live-badge reveal" style="color:var(--danger);background:var(--danger-soft);border-color:rgba(255,110,92,.35);"><span class="live-dot" style="background:var(--danger);box-shadow:0 0 6px rgba(255,110,92,.6);"></span>الدقائق 15–20 · أهم خمس دقائق في الجزء ب</div>
+      <h2 class="hook reveal">خلّيه <span class="accent">يهاجم</span><br>اللي هو كتبه.</h2>
+      <p class="sub reveal">دي <span class="en">CHALLENGE</span> من الجزء الأول، مطبّقة على منتجك إنت. الأداة اللي كتبت العرض هي اللي حتنقده — وده بيشتغل بشكل مدهش.</p>
+      <div class="content-wrap wide reveal">
+        <div class="glass glass-pad output-box">
+          <div class="output-head"><span class="output-label en">STEP 4 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b4">نسخ</button></div>
+          <pre id="p2-b4" dir="ltr" style="text-align:left;">Change role completely. You are now a skeptical consultant
+dermatologist and a medical education reviewer. You did not write
+this deck and you have no attachment to it. Your job is to find
+what is wrong with it before an audience of physicians does.
+
+Review the slides you just produced and list, as a numbered table:
+- Unsupported clinical claims
+- Missing information a GP would actually need at the bedside
+- Redundant or skippable slides
+- Poor sequencing — anything introduced before it makes sense
+- Overloaded slides
+- Weak or unmeasurable learning objectives
+- Citation problems, including anything you are not certain exists
+- Statements that could mislead a non-specialist
+
+For each item: slide number, the problem, and a specific fix.
+Do not soften anything. Do not compliment the deck.
+End with the single most dangerous slide in this deck and why.</pre>
+        </div>
+        <div class="callout" style="margin-top:14px;"><b>السطر الأخير هو الذهب:</b> "أخطر شريحة في العرض ده" — بيجبر الأداة تحدّد أولوية بدل ما تدّيك قائمة متساوية. وغالبًا حتفاجئك.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 52 -->
+    <section class="slide" data-act="الجزء ب · العرض الاحترافي">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>الدقائق 20–25 · بصريات تخدم المعنى</div>
+      <h2 class="hook reveal">مخططات.<br><span class="accent">مش زخرفة.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="glass glass-pad output-box">
+          <div class="output-head"><span class="output-label en">STEP 5 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b5">نسخ</button></div>
+          <pre id="p2-b5" dir="ltr" style="text-align:left;">Now the visual direction. For this deck produce:
+
+1. A clinical decision algorithm for the pigmented lesion pathway,
+   written as a text flowchart I can draw. Every branch must end in
+   a concrete action: reassure / photograph and review in 3 months /
+   refer / biopsy now.
+
+2. A comparison table contrasting benign versus concerning features,
+   with one column for what changes my management.
+
+3. For each slide, one specific visual suggestion — say what the
+   image must SHOW, not just "a picture of a lesion".
+
+4. A consistent slide layout: where the title sits, where the message
+   sits, maximum text per slide.
+
+Constraint: do NOT invent statistics to fill a table. If a cell needs
+a number I have not given you, write [VERIFY] instead of a value.</pre>
+        </div>
+        <div class="callout" style="margin-top:14px;color:var(--danger);"><b>تحذير لازم يتقال بصوت عالي:</b> اقتراحات الأداة البصرية <b>مش دقيقة طبيًا بشكل تلقائي</b>. أي خوارزمية سريرية بتطلع منها لازم تراجعها بنفسك خطوة بخطوة قبل ما تعرضها. الشكل المنظّم بيدّي إحساس زائف بالصحة.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 53 -->
+    <section class="slide" data-act="الجزء ب · العرض الاحترافي">
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>الدقائق 25–30 · من نص لعرض</div>
+      <h2 class="hook reveal">حوّله لعرض<br><span class="accent">في خمس دقائق.</span></h2>
+      <div class="content-wrap wide reveal">
+        <ol class="steps-list steps-compact">
+          <li class="glass"><b>الطريق الأسرع — <span class="en">Google Slides</span></b>اطلب من الأداة تديك المحتوى كنص منظّم بعناوين ونقاط، والصقه في <span class="en">Google Slides</span> عبر <span class="en">Outline view</span>. الشرائح بتتولّد تلقائيًا.</li>
+          <li class="glass"><b>الطريق التاني — <span class="en">Gemini</span> في <span class="en">Google Slides</span></b>لو متاح لحسابك، ابنِ مباشرة جوه <span class="en">Slides</span>.</li>
+          <li class="glass"><b>الطريق التالت — <span class="en">Canva</span> المجاني</b>الصق النص في قالب جاهز. أسرع في الشكل، أبطأ في التحكم.</li>
+          <li class="glass"><b>ملاحظات المتحدث</b>ما تنساش تنقل <span class="en">SPEAKER NOTES</span> — دي نص المحاضرة الفعلي، وأغلب الناس بتضيّعها.</li>
+          <li class="glass"><b>المراجعة الأخيرة</b>افتح كل <span class="en">[VERIFY]</span> وحلّها. <b>ولا واحدة تدخل القاعة.</b></li>
+        </ol>
+        <div class="callout ok" style="margin-top:14px;"><b>الواقع:</b> في 25 دقيقة حتطلع بمسودة قوية جدًا — مش بعرض نهائي. الفرق بين المسودة والنهائي هو إنت.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 54 -->
+    <section class="slide" data-act="الجزء ب · العرض الاحترافي">
+      <div class="kicker reveal">خلاصة الجزء ب</div>
+      <h2 class="hook reveal">الذكاء الاصطناعي كتب المسودة.<br><span class="accent">إنت المسؤول عن المحتوى.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid">
+          <div class="glass quad-card"><div class="qc-tool en">DRAFT</div><div class="pc-title">الأداة تبني</div><div class="qc-text">هيكل، محتوى، بصريات، ملاحظات متحدث.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">REVIEW</div><div class="pc-title">الأداة تهاجم</div><div class="qc-text">بدور المراجع المتشكك — تلقى المشاكل قبل الجمهور.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">VERIFY</div><div class="pc-title">إنت تتحقّق</div><div class="qc-text">كل ادعاء سريري، كل مرجع، كل خوارزمية.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">PRESENT</div><div class="pc-title">إنت تتحمّل</div><div class="qc-text">اسمك على العرض. المسؤولية مش بتتفوّض لأداة.</div></div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>ودي نفس دورة الجزء الأول بالظبط:</b> مسودة، مراجعة، نهائي. الفرق الوحيد إن المخرج بقى منتج تعليمي بدل ملاحظة سريرية.</div>
+      </div>
+    </section>
+
+    <!-- 55 -->
+    <section class="slide" data-act="الختام">
+      <div class="slide-scroll">
+      <div class="kicker reveal">الصورة الكاملة</div>
+      <h2 class="hook reveal">عشر خطوات.<br><span class="accent">طبيب واحد مسؤول.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="compare-grid">
+          <div class="compare-col good">
+            <div class="col-title">الجزء الأول — كيف تفكّر</div>
+            <div class="glass glass-pad" style="line-height:2.4;font-size:15px;">
+              <span class="en">THINK</span> — حدّد المشكلة<br>
+              <span class="en">CHOOSE</span> — اختر القدرة<br>
+              <span class="en">STRUCTURE</span> — ابنِ الطلب<br>
+              <span class="en">CHALLENGE</span> — تحدَّ الرد<br>
+              <span class="en">VERIFY</span> — تحقّق
+            </div>
+          </div>
+          <div class="compare-col good">
+            <div class="col-title">الجزء الثاني — كيف تشتغل</div>
+            <div class="glass glass-pad" style="line-height:2.4;font-size:15px;">
+              <span class="en">APPLY</span> — نزّلها على أداة<br>
+              <span class="en">COMPARE</span> — قارن الأنظمة<br>
+              <span class="en">AUDIT</span> — دقّق الأداة<br>
+              <span class="en">CREATE</span> — اصنع منتجًا<br>
+              <span class="en">REVIEW</span> — راجع وتحمّل
+            </div>
+          </div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>لاحظ إن الخطوة العاشرة مش "انشر".</b> هي "راجع وتحمّل". لأن آخر خطوة في أي مسار فيه ذكاء اصطناعي لازم تكون بشرية.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 56 -->
+    <section class="slide" data-act="الختام">
+      <div class="slide-scroll">
+      <div class="kicker reveal">المسار الذي تمشي عليه بكرة</div>
+      <h2 class="hook reveal">من مشكلة سريرية<br><span class="accent">لمخرج آمن.</span></h2>
+      <div class="content-wrap wide reveal">
+        <ol class="steps-list steps-compact">
+          <li class="glass"><b>1 — مشكلة سريرية</b>مريض قدامك، سؤال حقيقي.</li>
+          <li class="glass"><b>2 — فكّر</b>شنو السؤال الحقيقي؟ قبل ما تفتح أي حاجة.</li>
+          <li class="glass"><b>3 — اختر القدرة المناسبة</b>استرجاع؟ تصنيف؟ فرز؟ استدلال؟ ولا خزعة أصلًا؟</li>
+          <li class="glass"><b>4 — ابنِ السياق</b><span class="en">PRIME</span> — الحالة كاملة ومجرّدة من الهوية.</li>
+          <li class="glass"><b>5 — استخدم الأداة</b>واحدة أو أكتر، حسب المهمة.</li>
+          <li class="glass"><b>6 — قارن وتحدَّ</b>فين اختلفوا؟ شنو اللي ما يقدروش يعرفوه؟</li>
+          <li class="glass"><b>7 — تحقّق</b>كل ادعاء مؤثّر على القرار.</li>
+          <li class="glass"><b>8 — طبّق حكمك السريري</b>القرار قرارك. دايمًا.</li>
+          <li class="glass"><b>9 — اصنع مخرجًا آمنًا</b>ملاحظة، خطة، تثقيف مريض، أو محاضرة.</li>
+        </ol>
+        <div class="callout" style="margin-top:14px;"><b>الخطوات 2 و 8 مفيهاش ذكاء اصطناعي إطلاقًا.</b> ودول أهم خطوتين في المسار كله.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 57 -->
+    <section class="slide" data-act="الختام">
+      <div class="slide-scroll">
+      <div class="live-badge reveal" style="color:var(--danger);background:var(--danger-soft);border-color:rgba(255,110,92,.35);"><span class="live-dot" style="background:var(--danger);box-shadow:0 0 6px rgba(255,110,92,.6);"></span>واجب — قبل الجزء الثالث</div>
+      <h2 class="hook reveal">حالة واحدة.<br><span class="accent">ثمان خطوات.</span></h2>
+      <div class="content-wrap wide reveal">
+        <div class="glass glass-pad" style="margin-bottom:14px;line-height:1.9;">
+          <b>الحالة:</b> ذكر 34 سنة، <span class="en">Fitzpatrick IV</span>. بقعة على فروة الرأس مع تساقط شعر موضعي، من 6 أسابيع. بلا ألم، حكة خفيفة. استخدم زيوت وشامبو من الصيدلية. الحدود واضحة نسبيًا وفيه تقشّر خفيف. مفيش حمى ولا تضخّم عقد لمفاوية واضح.
+        </div>
+        <ol class="steps-list steps-compact">
+          <li class="glass"><b>1</b>حلّل الحالة بنفسك — ملاحظة، تفسير، تفريقي، مجهول. قبل أي أداة.</li>
+          <li class="glass"><b>2</b>اختر أداة من الخريطة.</li>
+          <li class="glass"><b>3</b>اكتب <b>ليه</b> اخترتها — أي قدرة محتاجها بالظبط؟</li>
+          <li class="glass"><b>4</b>شغّل الحالة عليها بسياق <span class="en">PRIME</span> كامل.</li>
+          <li class="glass"><b>5</b>قارن مخرجها بتحليلك.</li>
+          <li class="glass"><b>6</b>تحدَّ المخرج — شنو افترضه؟ شنو تجاهله؟</li>
+          <li class="glass"><b>7</b>تحقّق من أهم ادعاءين.</li>
+          <li class="glass"><b>8</b>اكتب ملخص استدلال سريري نهائي — وخطوتك التالية مع المريض.</li>
+        </ol>
+        <div class="callout ok" style="margin-top:14px;"><b>معيار النجاح:</b> مش إنك توصل للتشخيص الصح. إنك تقدر تشرح <b>ليه</b> اخترت الأداة دي، و<b>فين</b> ما وثقتش فيها، و<b>إيه</b> اللي حتتحقّق منه قبل ما تقرّر.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 58 -->
+    <section class="slide" data-act="الختام">
+      <div class="slide-scroll">
+      <div class="kicker reveal">مخرجات التعلّم</div>
+      <h2 class="hook reveal">عشر قدرات.</h2>
+      <div class="content-wrap wide reveal">
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>بعد اليوم تقدر</th></tr></thead>
+            <tbody>
+              <tr><td><b>1</b></td><td>تحدّد القدرة المناسبة لأي مهمة جلدية — استرجاع، تصنيف، فرز، استدلال</td></tr>
+              <tr><td><b>2</b></td><td>تشغّل أدوات جلدية حقيقية بنفسك</td></tr>
+              <tr><td><b>3</b></td><td>تقارن مخرجات أنظمة مختلفة على نفس الحالة</td></tr>
+              <tr><td><b>4</b></td><td>تفرّق بين التعرّف على الصورة والاستدلال السريري</td></tr>
+              <tr><td><b>5</b></td><td>تكتشف أنماط فشل الذكاء الاصطناعي</td></tr>
+              <tr><td><b>6</b></td><td>تدقّق أي أداة طبية بسبعة أسئلة قبل ما تثق فيها</td></tr>
+              <tr><td><b>7</b></td><td>تقيّم الدليل والتحقّق والتنظيم والخصوصية وتمثيل أنواع البشرة</td></tr>
+              <tr><td><b>8</b></td><td>تدمج الذكاء الاصطناعي في استدلالك بدون ما تتنازل عن حكمك</td></tr>
+              <tr><td><b>9</b></td><td>تبني عرضًا طبيًا احترافيًا بأدوات مجانية</td></tr>
+              <tr><td><b>10</b></td><td>تطبّق الإطار كله على أي أداة جديدة تنزل بعد سنة</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="callout ok" style="margin-top:14px;"><b>القدرة رقم 10 هي المقصد الحقيقي.</b> كل الأدوات اللي شفناها النهارده ممكن تتغيّر أو تختفي. الإطار هو اللي بيفضل.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 59 -->
+    <section class="slide" data-act="الختام">
+      <div class="slide-scroll">
+      <div class="kicker reveal">احتفظ بالشريحة دي</div>
+      <h2 class="hook reveal">كل حاجة في مكان واحد.</h2>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid" style="grid-template-columns:repeat(2,1fr);">
+          <div class="glass quad-card"><div class="qc-tool en">FRAMEWORKS</div><div class="pc-title">الأطر الخمسة</div><div class="qc-text"><span class="en">THINK → CHOOSE → STRUCTURE → CHALLENGE → VERIFY</span><br><span class="en">APPLY → COMPARE → AUDIT → CREATE → REVIEW</span><br><span class="en">PRIME</span> · <span class="en">VERIFY</span> · الأسئلة السبعة</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">FREE TOOLS</div><div class="pc-title">ابدأ بيهم</div><div class="qc-text"><span class="en">Model Dermatology · Aysa · Skinive · ScanSkinAI · Deelo · DermaQ</span></div></div>
+          <div class="glass quad-card"><div class="qc-tool en">TRIALS</div><div class="pc-title">سجّل لما تحتاج</div><div class="qc-text"><span class="en">VisualDx</span> — دعم قرار سريري<br><span class="en">DermEngine</span> — منظومة عيادة رقمية</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">THE RULE</div><div class="pc-title">القاعدة الواحدة</div><div class="qc-text">مخرج الذكاء الاصطناعي مش تشخيص. ومش دليل. وثقته مش يقين سريري. المسؤولية تفضل عندك.</div></div>
+        </div>
+        <div class="callout" style="margin-top:14px;"><b>ملاحظة صدق أخيرة:</b> الأسعار والتوفّر والوضع التنظيمي لكل الأدوات دي بتتغيّر بسرعة. أي رقم أو حالة تنظيمية في الدورة دي — <b>راجعها بنفسك</b> قبل ما تعتمد عليها في قرار.</div>
+      </div>
+      </div>
+    </section>
+
+    <!-- 60 -->
+    <section class="slide" data-act="الختام">
+      <div class="kicker reveal">شكرًا</div>
+      <h2 class="hook reveal">الأداة بتشوف بكسلات.<br><span class="accent">إنت بتشوف مريض.</span></h2>
+      <p class="sub reveal">دخلت الجزء الأول عارف تفكّر مع الذكاء الاصطناعي. خارج من الجزء الثاني قادر تشتغل بيه — وتدقّقه، وترفضه لما يستاهل.</p>
+      <div class="content-wrap reveal">
+        <div class="callout ok" style="font-size:17px;line-height:2;"><b>من</b> <span class="en">AI USER</span><br><b>إلى</b> <span class="en">AI-ENABLED PHYSICIAN</span></div>
+        <div class="next-chip" style="margin-top:20px;">NEXT → PART 3</div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="menu-overlay" id="menuOverlay">
+    <button class="menu-close" id="menuClose">✕</button>
+    <div class="menu-inner" id="menuInner"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  var titles = [
+    "الجزء الثاني — من التفكير إلى التطبيق",
+    "أين وصلنا — الجزء الأول في شريحة واحدة",
+    "الواجب — الـ Custom Gem بتاعك",
+    "ما الذي يتغيّر اليوم",
+    "قواعد المعمل — قبل أي صورة",
+    "الوحدة 1 — يرى أم يفهم؟",
+    "ثلاث قدرات — لا تخلط بينها",
+    "الأداة الأولى — Model Dermatology",
+    "الدليل — ماذا تعني تجربة عشوائية محكّمة هنا",
+    "الحالة 1 — طفح التهابي شائع",
+    "نشاط 06 — فكّر قبل الذكاء الاصطناعي",
+    "تطبيق عملي — شغّل الأداة",
+    "المقارنة — أنت، الأداة، ثم أنت",
+    "الدرس — غيّر السؤال",
+    "الوحدة 2 — من الصورة إلى التشخيص التفريقي",
+    "الأداة الثانية — VisualDx",
+    "مسار العمل — لاحظ الترتيب",
+    "الحالة 2 — آفة مصطبغة",
+    "نشاط 07 — تدرّج المعلومة",
+    "البرومبت المنظّم — انسخه حرفيًا",
+    "النتيجة — ما الذي تغيّر",
+    "الوحدة 3 — معركة الذكاء الاصطناعي",
+    "قواعد المعركة — السؤال ليس \"من أصاب\"",
+    "الأداة الثالثة — Aysa",
+    "الرقم الذي يجب أن تحفظه",
+    "الحالة 3 — الحالة الغامضة",
+    "نشاط 08 — ورقة المعركة",
+    "الأنماط المتوقّعة — ماذا سترى",
+    "اربط المعركة بالإطار",
+    "الوحدة 4 — خريطة الأدوات العشرة",
+    "لا تحفظ أسماء — احفظ طبقات",
+    "الست المجانية — مرور سريع",
+    "التجارب المجانية — سجّل قبل ما تحتاجها",
+    "الأربعة المتقدمة — دراسات حالة",
+    "جدول المقارنة الشامل",
+    "شجرة القرار — أي أداة لأي مهمة",
+    "الوحدة 5 — مختبر الفشل",
+    "الفشل الأول — الحساسية تنهار عند الخطر",
+    "الفشل الثاني — كلمة تنظيمية تخدعك",
+    "الفشل الثالث — الاستشهاد المهلوس",
+    "السؤال الذي يجب أن يزعجك",
+    "الوحدة 6 — دقّق ولا تثق",
+    "الأسئلة السبعة",
+    "نشاط 09 — دقّق أداة لم ترها من قبل",
+    "المخرج — بطاقة تمشي معك",
+    "الجزء ب — من المعرفة إلى منتج مهني",
+    "القاعدة قبل ما نبدأ",
+    "0–5 — الأساس",
+    "5–10 — المعمار",
+    "10–15 — شريحة بشريحة",
+    "15–20 — المراجع المتشكك",
+    "20–25 — الاتجاه البصري",
+    "25–30 — الإخراج النهائي",
+    "DRAFT → REVIEW → VERIFY → PRESENT",
+    "التكامل — الجزءان في صورة واحدة",
+    "رحلة الطبيب الكاملة",
+    "التحدي النهائي",
+    "ماذا تخرج به اليوم",
+    "المرجع السريع",
+    "ختام الجزء الثاني"
+  ];
+  var acts = [
+    "افتتاحية",
+    "افتتاحية",
+    "افتتاحية",
+    "افتتاحية",
+    "افتتاحية",
+    "الوحدة 1 · يرى أم يفهم؟",
+    "الوحدة 1 · يرى أم يفهم؟",
+    "الوحدة 1 · يرى أم يفهم؟",
+    "الوحدة 1 · يرى أم يفهم؟",
+    "الوحدة 1 · يرى أم يفهم؟",
+    "الوحدة 1 · يرى أم يفهم؟",
+    "الوحدة 1 · يرى أم يفهم؟",
+    "الوحدة 1 · يرى أم يفهم؟",
+    "الوحدة 1 · يرى أم يفهم؟",
+    "الوحدة 2 · من الصورة للتفريقي",
+    "الوحدة 2 · من الصورة للتفريقي",
+    "الوحدة 2 · من الصورة للتفريقي",
+    "الوحدة 2 · من الصورة للتفريقي",
+    "الوحدة 2 · من الصورة للتفريقي",
+    "الوحدة 2 · من الصورة للتفريقي",
+    "الوحدة 2 · من الصورة للتفريقي",
+    "الوحدة 3 · المعركة",
+    "الوحدة 3 · المعركة",
+    "الوحدة 3 · المعركة",
+    "الوحدة 3 · المعركة",
+    "الوحدة 3 · المعركة",
+    "الوحدة 3 · المعركة",
+    "الوحدة 3 · المعركة",
+    "الوحدة 3 · المعركة",
+    "الوحدة 4 · خريطة الأدوات",
+    "الوحدة 4 · خريطة الأدوات",
+    "الوحدة 4 · خريطة الأدوات",
+    "الوحدة 4 · خريطة الأدوات",
+    "الوحدة 4 · خريطة الأدوات",
+    "الوحدة 4 · خريطة الأدوات",
+    "الوحدة 4 · خريطة الأدوات",
+    "الوحدة 5 · مختبر الفشل",
+    "الوحدة 5 · مختبر الفشل",
+    "الوحدة 5 · مختبر الفشل",
+    "الوحدة 5 · مختبر الفشل",
+    "الوحدة 5 · مختبر الفشل",
+    "الوحدة 6 · دقّق لا تثق",
+    "الوحدة 6 · دقّق لا تثق",
+    "الوحدة 6 · دقّق لا تثق",
+    "الوحدة 6 · دقّق لا تثق",
+    "الجزء ب · العرض الاحترافي",
+    "الجزء ب · العرض الاحترافي",
+    "الجزء ب · العرض الاحترافي",
+    "الجزء ب · العرض الاحترافي",
+    "الجزء ب · العرض الاحترافي",
+    "الجزء ب · العرض الاحترافي",
+    "الجزء ب · العرض الاحترافي",
+    "الجزء ب · العرض الاحترافي",
+    "الجزء ب · العرض الاحترافي",
+    "الختام",
+    "الختام",
+    "الختام",
+    "الختام",
+    "الختام",
+    "الختام"
+  ];
+
+  var slides = Array.prototype.slice.call(document.querySelectorAll('.slide'));
+  var total = slides.length;
+  var current = 0;
+  document.getElementById('totalNum').textContent = '/'+total;
+
+  slides.forEach(function(s){
+    var reveals = s.querySelectorAll('.reveal');
+    reveals.forEach(function(el, i){ el.style.transitionDelay = (i*90)+'ms'; });
+  });
+
+  function render(){
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===current); });
+    var active = slides[current];
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){
+        active.classList.add('in');
+        active.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('show'); });
+      });
+    });
+    document.getElementById('curNum').textContent = String(current+1).padStart(2,'0');
+    document.getElementById('progressFill').style.width = ((current+1)/total*100)+'%';
+    document.getElementById('actChip').textContent = acts[current] || '';
+    document.getElementById('prevBtn').disabled = current===0;
+    document.getElementById('nextBtn').disabled = current===total-1;
+  }
+
+  function clearSlide(i){
+    var s = slides[i];
+    s.classList.remove('in');
+    s.querySelectorAll('.reveal').forEach(function(el){ el.classList.remove('show'); });
+  }
+
+  window.go = function(i){
+    if(i<0 || i>=total || i===current) return;
+    clearSlide(current);
+    current = i;
+    render();
+  };
+  function next(){ if(current<total-1){ clearSlide(current); current++; render(); } }
+  function prev(){ if(current>0){ clearSlide(current); current--; render(); } }
+
+  document.getElementById('nextBtn').addEventListener('click', next);
+  document.getElementById('prevBtn').addEventListener('click', prev);
+  document.addEventListener('keydown', function(e){
+    var t = e.target;
+    var typing = t && (t.tagName==='INPUT' || t.tagName==='TEXTAREA' || t.tagName==='SELECT' || t.isContentEditable);
+    if(typing){
+      if(e.key==='Escape'){ closeMenu(); }
+      return;
+    }
+    if(e.key==='ArrowRight' || e.key===' ' || e.key==='PageDown'){ next(); e.preventDefault(); }
+    else if(e.key==='ArrowLeft' || e.key==='PageUp'){ prev(); e.preventDefault(); }
+    else if(e.key==='Escape'){ closeMenu(); }
+  });
+
+  // touch navigation (RTL: swipe left-to-right pulls in the next slide)
+  var tsX=0, tsY=0, tsT=0, tracking=false;
+  document.addEventListener('touchstart', function(e){
+    if(e.touches.length!==1){ tracking=false; return; }
+    var t=e.target;
+    if(t && t.closest && t.closest('.slide-scroll, input, textarea, select, button, a, .menu-overlay')){ tracking=false; return; }
+    tracking=true; tsX=e.touches[0].clientX; tsY=e.touches[0].clientY; tsT=Date.now();
+  }, {passive:true});
+  document.addEventListener('touchend', function(e){
+    if(!tracking) return;
+    tracking=false;
+    var c=e.changedTouches[0];
+    var dx=c.clientX-tsX, dy=c.clientY-tsY;
+    if(Date.now()-tsT>800) return;
+    if(Math.abs(dx)<60 || Math.abs(dx)<Math.abs(dy)*1.5) return;
+    if(dx>0){ next(); } else { prev(); }
+  }, {passive:true});
+
+  // menu
+  var menuOverlay = document.getElementById('menuOverlay');
+  var menuInner = document.getElementById('menuInner');
+  function buildMenu(){
+    var html = '';
+    var lastAct = null;
+    titles.forEach(function(t,i){
+      if(acts[i] !== lastAct){ html += '<div class="menu-act">'+acts[i]+'</div>'; lastAct = acts[i]; }
+      html += '<div class="menu-item" data-i="'+i+'" tabindex="0"><span class="mi-num en">'+String(i+1).padStart(2,'0')+'</span><span>'+t+'</span></div>';
+    });
+    menuInner.innerHTML = html;
+    menuInner.querySelectorAll('.menu-item').forEach(function(item){
+      item.addEventListener('click', function(){ go(parseInt(item.getAttribute('data-i'),10)); closeMenu(); });
+      item.addEventListener('keydown', function(e){ if(e.key==='Enter'){ go(parseInt(item.getAttribute('data-i'),10)); closeMenu(); } });
+    });
+  }
+  window.openMenu = function(){ menuOverlay.classList.add('show'); };
+  function closeMenu(){ menuOverlay.classList.remove('show'); }
+  document.getElementById('menuBtn').addEventListener('click', openMenu);
+  document.getElementById('menuClose').addEventListener('click', closeMenu);
+  buildMenu();
+
+  // copy buttons
+  document.addEventListener('click', function(e){
+    var btn = e.target.closest('.btn-copy');
+    if(!btn) return;
+    var el = document.getElementById(btn.getAttribute('data-copy-target'));
+    if(!el) return;
+    var text = el.innerText || el.textContent || '';
+    var done = function(){
+      var orig = btn.textContent; btn.textContent='تم ✓'; btn.classList.add('copied');
+      setTimeout(function(){ btn.textContent=orig; btn.classList.remove('copied'); },1500);
+    };
+    try{
+      if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(text).then(done).catch(function(){fallback(text,done);}); }
+      else fallback(text,done);
+    }catch(err){ fallback(text,done); }
+  });
+  function fallback(text,cb){
+    try{ var ta=document.createElement('textarea'); ta.value=text; ta.style.position='fixed'; ta.style.opacity='0';
+      document.body.appendChild(ta); ta.select(); document.execCommand('copy'); document.body.removeChild(ta); cb(); }catch(e){}
+  }
+
+  // generalized matcher (need-btns + output-grid), supports multiple independent instances
+  document.querySelectorAll('.matcher').forEach(function(m){
+    var btns = m.querySelectorAll('.need-btn');
+    var cards = m.querySelectorAll('.output-card');
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        btns.forEach(function(b){ b.classList.toggle('active', b===btn); });
+        cards.forEach(function(c){ c.classList.toggle('match', c.getAttribute('data-key')===btn.getAttribute('data-need')); });
+      });
+    });
+    if(btns[0]) btns[0].click();
+  });
+
+  // generalized tabgroup (res-tabs + res-panel), supports multiple independent instances
+  document.querySelectorAll('.tabgroup').forEach(function(g){
+    var tabs = g.querySelectorAll('.res-tab');
+    var panels = g.querySelectorAll('.res-panel');
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        tabs.forEach(function(t){ t.classList.toggle('active', t===tab); });
+        panels.forEach(function(p){ p.classList.toggle('active', p.id===tab.getAttribute('data-res')); });
+      });
+    });
+  });
+
+  // generic checklist persistence (any .checklist with an id)
+  document.querySelectorAll('.checklist[id]').forEach(function(list){
+    var key = 'ai4doc-'+list.id;
+    var boxes = list.querySelectorAll('input[type=checkbox]');
+    try{
+      var saved = JSON.parse(localStorage.getItem(key)||'{}');
+      boxes.forEach(function(cb,i){
+        var k = cb.getAttribute('data-hw') || String(i);
+        cb.checked = !!saved[k];
+        cb.closest('.check-row').classList.toggle('checked', cb.checked);
+      });
+    }catch(e){}
+    boxes.forEach(function(cb,i){
+      cb.addEventListener('change', function(){
+        cb.closest('.check-row').classList.toggle('checked', cb.checked);
+        try{
+          var s = JSON.parse(localStorage.getItem(key)||'{}');
+          var k = cb.getAttribute('data-hw') || String(i);
+          s[k] = cb.checked;
+          localStorage.setItem(key, JSON.stringify(s));
+        }catch(e){}
+      });
+    });
+  });
+
+  // verify quiz
+  document.querySelectorAll('.quiz-scenario').forEach(function(scn){
+    var btns = scn.querySelectorAll('.quiz-btn');
+    var fb = scn.querySelector('.quiz-feedback');
+    btns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        btns.forEach(function(b){ b.classList.remove('picked','correct','wrong'); });
+        btn.classList.add('picked');
+        btns.forEach(function(b){ if(b.getAttribute('data-correct')==='true') b.classList.add('correct'); });
+        if(btn.getAttribute('data-correct')!=='true') btn.classList.add('wrong');
+        if(fb) fb.classList.add('show');
+      });
+    });
+  });
+
+  // final challenge scoring
+  (function(){
+    var list = document.getElementById('challenge-list');
+    if(!list) return;
+    var items = list.querySelectorAll('.challenge-item');
+    var scoreEl = document.getElementById('challenge-score-num');
+    var KEY = 'ai4doc-final-challenge';
+    function recalc(){
+      var total = 0;
+      items.forEach(function(it){
+        var cb = it.querySelector('input[type=checkbox]');
+        it.classList.toggle('checked', cb.checked);
+        if(cb.checked) total += parseInt(it.getAttribute('data-pts'),10) || 0;
+      });
+      scoreEl.textContent = total;
+    }
+    try{
+      var saved = JSON.parse(localStorage.getItem(KEY)||'{}');
+      items.forEach(function(it){
+        var cb = it.querySelector('input[type=checkbox]');
+        var k = cb.getAttribute('data-ch');
+        cb.checked = !!saved[k];
+      });
+    }catch(e){}
+    items.forEach(function(it){
+      var cb = it.querySelector('input[type=checkbox]');
+      cb.addEventListener('change', function(){
+        recalc();
+        try{
+          var s = JSON.parse(localStorage.getItem(KEY)||'{}');
+          s[cb.getAttribute('data-ch')] = cb.checked;
+          localStorage.setItem(KEY, JSON.stringify(s));
+        }catch(e){}
+      });
+    });
+    recalc();
+  })();
+
+
+  // ===== ambient canvas: neural glow particles =====
+  var canvas = document.getElementById('bgcanvas');
+  var ctx = canvas.getContext('2d');
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var W,H,pts=[];
+  function resize(){ W=canvas.width=innerWidth; H=canvas.height=innerHeight; }
+  resize(); addEventListener('resize', resize);
+  var N = Math.min(50, Math.floor((innerWidth*innerHeight)/32000));
+  for(var i=0;i<N;i++){
+    pts.push({x:Math.random()*W, y:Math.random()*H, vx:(Math.random()-.5)*.16, vy:(Math.random()-.5)*.16, r:Math.random()*1.5+.6});
+  }
+  function frame(){
+    ctx.clearRect(0,0,W,H);
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i];
+      p.x+=p.vx; p.y+=p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+    }
+    for(var i=0;i<pts.length;i++){
+      for(var j=i+1;j<pts.length;j++){
+        var a=pts[i], b=pts[j];
+        var dx=a.x-b.x, dy=a.y-b.y, d=Math.sqrt(dx*dx+dy*dy);
+        if(d<130){
+          ctx.strokeStyle='rgba(51,241,220,'+(0.10*(1-d/130))+')';
+          ctx.lineWidth=1;
+          ctx.beginPath(); ctx.moveTo(a.x,a.y); ctx.lineTo(b.x,b.y); ctx.stroke();
+        }
+      }
+    }
+    for(var i=0;i<pts.length;i++){
+      var p=pts[i];
+      ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle='rgba(51,241,220,.45)'; ctx.fill();
+    }
+    if(!reduceMotion) requestAnimationFrame(frame);
+  }
+  frame();
+
+  render();
+})();
+</script>
+<script>
+/* Watchdog. The deck hides every slide until the script activates one, so any script failure
+   used to leave a blank page with no way back. This checks whether a slide actually became
+   active and, if not, falls back to the stacked reading layout. */
+(function(){
+  var rescued = false;
+  function rescue(){
+    if(rescued) return;
+    if(document.querySelector('.slide.active')) return;   // deck came up fine
+    rescued = true;
+    var h = document.documentElement;
+    h.className = h.className ? h.className + ' deck-fallback' : 'deck-fallback';
+  }
+  window.addEventListener('error', function(){ setTimeout(rescue, 0); });
+  if(document.readyState === 'complete'){ setTimeout(rescue, 1200); }
+  else { window.addEventListener('load', function(){ setTimeout(rescue, 1200); }); }
+  setTimeout(rescue, 4000);   // covers a failure that never surfaced as an error event
+})();
+</script>
+</body>
+</html>
