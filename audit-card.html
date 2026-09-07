@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="بطاقة التدقيق — ثلاث بوابات قبل أي أداة ذكاء اصطناعي طبية: الخصوصية، جودة الصورة، والأسئلة الثمانية. مرافقة لدورة طبيب PRIME.">
+<meta name="theme-color" content="#0D1420">
+<title>بطاقة التدقيق — طبيب PRIME</title>
+<link rel="stylesheet" href="handout.css">
+<style>
+/* ---- page-specific: the three gates ---- */
+.gate{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; break-inside:avoid;
+}
+.gate-head{
+  display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  padding:13px 17px; background:var(--tint); border-bottom:1px solid var(--line);
+}
+.gate-head h3{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700; font-size:16.5px;
+  margin:0; color:var(--ink);
+}
+.gate-head .of{font-size:12px; color:var(--muted); white-space:nowrap;}
+.gate ul{list-style:none; margin:0; padding:6px 0;}
+.gate li{
+  display:flex; align-items:flex-start; gap:11px;
+  padding:9px 17px; font-size:14.5px; line-height:1.75; border-bottom:1px solid var(--tint-2);
+}
+.gate li:last-child{border-bottom:none;}
+.gate li .box{
+  flex:none; width:15px; height:15px; margin-top:5px; border-radius:3.5px;
+  border:1.6px solid var(--line-strong); background:var(--paper);
+}
+.gate li b{color:var(--ink);}
+.gate li .why{display:block; color:var(--muted); font-size:12.8px; line-height:1.6; margin-top:1px;}
+.gate-foot{
+  padding:11px 17px; background:var(--danger-soft); border-top:1px solid rgba(166,53,37,.2);
+  font-size:13.5px; line-height:1.7; color:var(--ink-2);
+}
+.gate-foot b{color:var(--danger);}
+
+/* ---- the eight questions ---- */
+.q8{display:grid; gap:9px; margin:0; padding:0; list-style:none; counter-reset:q;}
+.q8 li{
+  counter-increment:q; background:var(--paper); border:1px solid var(--line);
+  border-radius:var(--radius); padding:13px 52px 13px 15px; position:relative;
+  break-inside:avoid;
+}
+.q8 li::before{
+  content:counter(q); position:absolute; top:12px; right:16px;
+  width:26px; height:26px; border-radius:50%; display:flex;
+  align-items:center; justify-content:center;
+  font-family:'IBM Plex Mono', monospace; font-weight:700; font-size:13px;
+  background:var(--tint); border:1px solid var(--line); color:var(--ink-2);
+}
+.q8 li.key::before{background:var(--primary); border-color:var(--primary); color:#fff;}
+.q8 li.key{border-color:rgba(11,124,112,.35);}
+.q8 .q{display:block; font-weight:700; font-size:15px; color:var(--ink); line-height:1.65;}
+.q8 .flag{
+  display:block; margin-top:6px; font-size:13.2px; line-height:1.7; color:var(--danger);
+  padding-right:16px; position:relative;
+}
+.q8 .flag::before{content:'▲'; position:absolute; right:0; top:1px; font-size:9px;}
+.q8 .ans{
+  display:block; margin-top:9px; border-top:1px dashed var(--line); padding-top:8px;
+  font-size:12px; color:var(--muted);
+}
+.q8 .ans .rule{
+  display:block; height:15px; border-bottom:1px solid var(--line);
+  margin-top:5px;
+}
+
+/* ---- verdict ---- */
+.verdict{
+  background:var(--nav); color:#E8EEF5; border-radius:var(--radius);
+  padding:20px 22px; margin:0; break-inside:avoid;
+}
+.verdict h3{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700; font-size:17px;
+  margin:0 0 10px; color:#35D6C4;
+}
+.verdict p{margin:0 0 10px; font-size:15px; line-height:1.9; color:#C7D3DE;}
+.verdict p:last-child{margin-bottom:0;}
+.verdict b{color:#F2F6FA;}
+
+@media print{
+  .gate{box-shadow:none;}
+  .gate li{padding:5px 12px; font-size:9.5pt; line-height:1.5;}
+  .gate li .why{font-size:8pt;}
+  .q8 li{padding:8px 44px 8px 12px;}
+  .q8 .q{font-size:10pt;}
+  .q8 .flag{font-size:8.5pt;}
+  .verdict{background:#fff; color:var(--ink); border:1.5pt solid var(--nav);}
+  .verdict h3{color:var(--primary);}
+  .verdict p{color:var(--ink-2);}
+  .verdict b{color:var(--ink);}
+  .page-break{break-before:page;}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="brand">TABIB PRIME · HANDOUT 02</p>
+    <h1>بطاقة التدقيق</h1>
+    <p>ثلاث بوابات بتعدّي عليها قبل أي أداة ذكاء اصطناعي طبية. الأدوات حتتغيّر — البطاقة دي مش حتتغيّر. اطبعها على ورقة، وحطّها في العيادة.</p>
+    <span class="stamp">اطبعها على وجهين · صفحة واحدة لكل بوابة</span>
+    <div class="actions">
+      <button class="btn solid" type="button" onclick="window.print()">اطبع أو احفظ PDF</button>
+      <a class="btn" href="toolkit.html">دليل الأدوات</a>
+      <a class="btn" href="part2.html">شرائح الجزء الثاني</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="note info">
+    <span class="lab">◈ الترتيب مش عشوائي</span>
+    <b>البوابة 1 قبل ما ترفع · البوابة 2 قبل ما تصدّق المخرج · البوابة 3 قبل ما تعتمد على الأداة أصلًا.</b>
+    لو وقفت في أي بوابة، ما تعدّيش للي بعدها.
+  </div>
+
+  <!-- ============ GATE 1 ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>البوابة الأولى — الخصوصية</h2>
+      <span class="sec-count">قبل أي رفع · 9 بنود</span>
+    </div>
+    <p class="sec-note">الصورة نفسها بيانات، مش النص بس. الصورة ممكن تحمل موقع التصوير وتاريخه ونوع الجهاز.</p>
+
+    <div class="gate">
+      <div class="gate-head">
+        <h3>تجريد الهوية والمسار</h3>
+        <span class="of">9 / 9 مطلوبة</span>
+      </div>
+      <ul>
+        <li><span class="box"></span><span><b>قابلية التعرّف</b> — مفيش أي شيء يعرّف المريض في الصورة ولا في اسم الملف</span></li>
+        <li><span class="box"></span><span><b>تجريد الهوية</b> — وجه، وشم، مجوهرات، علامة مميّزة — اتشالت</span></li>
+        <li><span class="box"></span><span><b>البيانات الوصفية</b> — <span class="en">EXIF</span> اتمسحت<span class="why">الموقع الجغرافي وتاريخ التصوير مخزّنين جوّه ملف الصورة نفسه</span></span></li>
+        <li><span class="box"></span><span><b>الإذن</b> — فيه موافقة حيث دي مطلوبة</span></li>
+        <li><span class="box"></span><span><b>مكان المعالجة</b> — عارف الصورة بتتعالج فين: على الجهاز ولا على سيرفر خارجي</span></li>
+        <li><span class="box"></span><span><b>التخزين</b> — عارف مين بيخزّنها وفي أي بلد</span></li>
+        <li><span class="box"></span><span><b>مدة الاحتفاظ</b> — عارف بتفضل قد إيه، وينفع تتمسح</span></li>
+        <li><span class="box"></span><span><b>التدريب</b> — عارف هل ممكن تُستخدم في تدريب النماذج</span></li>
+        <li><span class="box"></span><span><b>ملاءمة البيئة</b> — الأداة دي مناسبة أصلًا لبيانات سريرية</span></li>
+      </ul>
+      <div class="gate-foot">
+        <b>القاعدة الذهبية:</b> اسأل قبل ما ترفع —
+        <span class="en">«Where does this image go, who stores it, and for how long?»</span>
+        <b>أي بند ما عندكش إجابة عليه — ما ترفعش.</b>
+      </div>
+    </div>
+
+    <div class="note stop" style="margin-top:16px;">
+      <span class="lab">✕ ممنوع تمامًا</span>
+      صورة مريض حقيقي فيها وجه أو وشم أو علامة مميّزة · أي اسم أو رقم ملف أو تاريخ ميلاد داخل الصورة ·
+      صورة من ملف مريض بدون موافقة مكتوبة · رفع الصورة قبل ما تعرف الأداة بتعمل بيها إيه.
+    </div>
+  </section>
+
+  <!-- ============ GATE 2 ============ -->
+  <section class="page-break">
+    <div class="sec-head">
+      <h2>البوابة الثانية — جودة الصورة</h2>
+      <span class="sec-count">دقيقتان · 10 بنود</span>
+    </div>
+    <p class="sec-note">أغلب «أخطاء الذكاء الاصطناعي» اللي بتشوفها هي في الحقيقة <b>أخطاء تصوير</b>. <span class="en">Garbage in</span> — مخرج غير موثوق.</p>
+
+    <div class="gate">
+      <div class="gate-head">
+        <h3>المدخل قبل الحكم على المخرج</h3>
+        <span class="of">10 / 10 مطلوبة</span>
+      </div>
+      <ul>
+        <li><span class="box"></span><span><b>التركيز</b> — الآفة حادة، مش ضبابية</span></li>
+        <li><span class="box"></span><span><b>الإضاءة</b> — متجانسة بلا ظل قاطع على الآفة</span></li>
+        <li><span class="box"></span><span><b>التعريض</b> — مش محروقة ولا مظلمة</span></li>
+        <li><span class="box"></span><span><b>المقياس</b> — مرجع قياس في الإطار لو ممكن</span></li>
+        <li><span class="box"></span><span><b>الاتجاه</b> — واضح فين أعلى الآفة</span></li>
+        <li><span class="box"></span><span><b>مجال الرؤية</b> — الآفة + جلد سليم حواليها</span></li>
+        <li><span class="box"></span><span><b>التشويش</b> — بلا انعكاس ولا مرهم لامع</span></li>
+        <li><span class="box"></span><span><b>نوع الصورة</b> — عارف: سريرية ولا تنظير؟<span class="why">أداة مبنية لواحدة منهم ممكن ما تقبلش التانية أصلًا</span></span></li>
+        <li><span class="box"></span><span><b>وضوح الآفة</b> — الحواف والسطح باينين</span></li>
+        <li><span class="box"></span><span><b>ملاءمة المهمة</b> — الصورة تكفي للسؤال اللي بتسأله</span></li>
+      </ul>
+      <div class="gate-foot">
+        <b>انتبه للعكس:</b> صورة ممتازة <b>ما بتضمنش</b> مخرج صحيح. جودة الصورة شرط لازم — مش شرط كافٍ.
+        الأداة ممكن تغلط على أنضف صورة عندك.
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GATE 3 ============ -->
+  <section class="page-break">
+    <div class="sec-head">
+      <h2>البوابة الثالثة — الأسئلة الثمانية</h2>
+      <span class="sec-count">قبل أي ثقة</span>
+    </div>
+    <p class="sec-note">دي البوابة اللي بتمشي معاك. تقدر تطلّعها قدّام أي أداة ذكاء اصطناعي طبية — النهارده، أو بعد خمس سنين، أو على أداة لسه ما اتعملتش. <b>لو ما لقيتش إجابة، اكتب «غير موجود» — ودي إجابة مهمة، مش فراغ.</b></p>
+
+    <ol class="q8">
+      <li>
+        <span class="q">الاستخدام المقصود — الأداة اتصمّمت تعمل إيه بالظبط؟</span>
+        <span class="flag">وصف غامض أو «لكل شيء جلدي»</span>
+        <span class="ans">إجابتك<span class="rule"></span></span>
+      </li>
+      <li>
+        <span class="q">الدليل — إيه اللي بيدعم أداءها؟</span>
+        <span class="flag">أرقام بلا دراسة منشورة</span>
+        <span class="ans">إجابتك<span class="rule"></span></span>
+      </li>
+      <li>
+        <span class="q">التحقّق — اتحقّق منها فين؟ وهل كان مستقلًا؟</span>
+        <span class="flag">الشركة هي اللي عملت الدراسة الوحيدة</span>
+        <span class="ans">إجابتك<span class="rule"></span></span>
+      </li>
+      <li>
+        <span class="q">الوضع التنظيمي — جهاز طبي؟ أي فئة؟ أي تصريح؟</span>
+        <span class="flag">خلط <span class="en">Designation</span> بـ<span class="en">Approval</span> — كلمتان مختلفتان تمامًا</span>
+        <span class="ans">إجابتك<span class="rule"></span></span>
+      </li>
+      <li>
+        <span class="q">التمثيل — أي مرضى وأنواع بشرة وحالات وأجهزة وبيئات كانت ممثَّلة؟</span>
+        <span class="flag">ما فيش ذكر لتركيبة العيّنة إطلاقًا</span>
+        <span class="ans">إجابتك<span class="rule"></span></span>
+      </li>
+      <li>
+        <span class="q">الخصوصية — البيانات بتروح فين؟ وبتتخزّن قد إيه؟ وبتُستخدم في التدريب؟</span>
+        <span class="flag">سياسة خصوصية غامضة أو غير موجودة</span>
+        <span class="ans">إجابتك<span class="rule"></span></span>
+      </li>
+      <li class="key">
+        <span class="q">الإشراف البشري — فين المفروض أتدخّل أنا؟</span>
+        <span class="flag">الأداة بتقدّم نفسها كقرار نهائي</span>
+        <span class="ans">إجابتك<span class="rule"></span></span>
+      </li>
+      <li class="key">
+        <span class="q">الحدود وأنماط الفشل — إمتى النظام ده بيفشل أو يبقى غير موثوق؟</span>
+        <span class="flag">ما بتذكرش أي حدود — <b>أخطر إجابة على الإطلاق</b></span>
+        <span class="ans">إجابتك<span class="rule"></span></span>
+      </li>
+    </ol>
+
+    <div class="note" style="margin-top:16px; border-right-color:var(--primary); background:var(--primary-soft); border-color:rgba(11,124,112,.28);">
+      <span class="lab" style="color:var(--primary);">✓ السؤالان 7 و 8 هما الحاسمان</span>
+      أداة ما بتقولش فين تتدخّل، ولا بتعترف بحدودها — <b>دي وحدها كافية</b> إنك ما تعتمدش عليها في قرار سريري.
+    </div>
+  </section>
+
+  <!-- ============ VERDICT ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>الحكم — سؤال واحد</h2>
+      <span class="sec-count">بعد الثلاث بوابات</span>
+    </div>
+    <div class="verdict">
+      <h3>هل تغيّر قرار مريض بناءً على مخرج الأداة دي؟</h3>
+      <p>اكتب <b>ليه</b> — أو <b>ليه لأ</b>. الإجابة نفسها أهم من الاختيار.</p>
+      <p>سوق أدوات الجلدية بالذكاء الاصطناعي فيه أدوات ممتازة بأدلة قوية، وفيه أدوات بتستخدم كلمة «ذكاء اصطناعي» كتسويق.
+      <b>الفرق بينهم مش بيبان من الواجهة — بيبان من الوثائق.</b></p>
+      <p>ومخرج الذكاء الاصطناعي <b>مش تشخيص</b>، ومش <b>دليل</b>، وثقته المعروضة <b>مش يقين سريري</b>.
+      المسؤولية تفضل عندك.</p>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      دورة <b>طبيب <span class="en">PRIME</span></b> — الجزء الثاني · الملحق الثاني.<br>
+      <a href="toolkit.html">دليل الأدوات الثلاثة عشر</a> · <a href="part2.html">شرائح الجزء الثاني</a> · <a href="index.html">شرائح الجزء الأول</a>
+    </p>
+  </footer>
+
+</div>
+</body>
+</html>

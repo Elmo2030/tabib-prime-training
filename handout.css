@@ -1,0 +1,257 @@
+/* ===== TABIB PRIME — shared handout stylesheet ==========================
+   Used by toolkit.html and audit-card.html. The deck (index.html /
+   part2.html) keeps its own dark projection styles; this is the paper
+   counterpart — same six semantic roles, inverted ground.
+   ==================================================================== */
+  @font-face{font-family:'Changa';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/changa-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'Changa';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/changa-arabic-600-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'Changa';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/changa-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'Changa';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/changa-arabic-700-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-arabic-600-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-latin-700-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Sans Arabic';font-style:normal;font-weight:700;font-display:swap;src:url('fonts/ibm-plex-sans-arabic-arabic-700-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:400;font-display:swap;src:url('fonts/ibm-plex-mono-latin-400-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+  @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+
+/* ===== TABIB PRIME — handout palette ================================
+   The deck is dark because it is projected. A handout is read on paper
+   and on a phone in daylight, so it inverts: ink on white, with the same
+   six semantic roles carried over so the two artefacts read as one set.
+   ==================================================================== */
+:root{
+  --paper:#FFFFFF;
+  --tint:#F5F8FA;
+  --tint-2:#EDF2F6;
+  --ink:#101B27;
+  --ink-2:#33475C;
+  --muted:#55697A;
+  --line:#DBE3EA;
+  --line-strong:#C2CFDA;
+  --primary:#0A6F64;
+  --primary-soft:#E4F3F1;
+  --accent:#795C1C;
+  --accent-soft:#F6F0E1;
+  --danger:#A63525;
+  --danger-soft:#FBEBE8;
+  --info:#2A5F8F;
+  --info-soft:#E8F0F7;
+  --nav:#0D1420;
+  --radius:12px;
+  --shadow:0 1px 2px rgba(16,27,39,.05), 0 6px 18px rgba(16,27,39,.05);
+}
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0; background:var(--tint); color:var(--ink);
+  font-family:'IBM Plex Sans Arabic', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  font-size:16px; line-height:1.85;
+  -webkit-font-smoothing:antialiased;
+}
+.en, .mono{direction:ltr; unicode-bidi:isolate;}
+.en{font-family:'IBM Plex Sans Arabic', system-ui, sans-serif; font-weight:600; letter-spacing:.01em;}
+.mono{font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:400;}
+a{color:var(--primary); text-decoration:none; border-bottom:1px solid rgba(11,124,112,.35);}
+a:hover{border-bottom-color:var(--primary);}
+a:focus-visible{outline:2px solid var(--primary); outline-offset:3px; border-radius:3px;}
+
+/* ---------- shell ---------- */
+.wrap{max-width:1080px; margin:0 auto; padding:0 20px 72px;}
+header.masthead{
+  background:var(--nav); color:#E8EEF5; padding:44px 0 38px; margin-bottom:34px;
+  border-bottom:3px solid var(--primary);
+}
+.masthead .wrap{padding-bottom:0;}
+.brand{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700;
+  font-size:13px; letter-spacing:.22em; color:#35D6C4; margin:0 0 12px;
+  direction:ltr; unicode-bidi:isolate; text-align:right;
+}
+h1{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700;
+  font-size:clamp(26px,5vw,40px); line-height:1.3; margin:0 0 12px; color:#F2F6FA;
+}
+.masthead p{margin:0; color:#A8B6C6; font-size:15px; max-width:62ch;}
+.stamp{
+  display:inline-block; margin-top:18px; padding:6px 14px; border-radius:999px;
+  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.16);
+  font-size:12.5px; color:#C3D0DC;
+}
+
+/* ---------- section ---------- */
+section{margin:0 0 40px;}
+.sec-head{
+  display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+  padding-bottom:12px; margin-bottom:20px; border-bottom:2px solid var(--line-strong);
+}
+h2{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700;
+  font-size:clamp(19px,3.4vw,25px); margin:0; color:var(--ink); line-height:1.35;
+}
+.sec-count{
+  font-size:12.5px; color:var(--muted); background:var(--tint-2);
+  border:1px solid var(--line); border-radius:999px; padding:3px 11px; white-space:nowrap;
+}
+.sec-note{margin:0 0 22px; color:var(--ink-2); font-size:15px; max-width:74ch;}
+
+/* ---------- tool card ---------- */
+.tools{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px;}
+@media (max-width:820px){.tools{grid-template-columns:1fr;}}
+.tool{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; display:flex; flex-direction:column;
+  break-inside:avoid;
+}
+/* Without a screenshot the slot is a short monogram strip — a big empty 16/9
+   box reads as a broken image. Adding `has-shot` (done when the real file
+   lands) opens it back up to full 16/9 for the photo. */
+.shot{
+  position:relative; height:74px; background:var(--tint-2);
+  border-bottom:1px solid var(--line); overflow:hidden;
+}
+.shot.has-shot{height:auto; aspect-ratio:16/9;}
+/* the tile sits underneath; a real screenshot paints over it */
+.shot .tile{
+  position:absolute; inset:0; display:flex; flex-direction:column;
+  align-items:center; justify-content:center; gap:0;
+  background:
+    linear-gradient(135deg, var(--tint-2) 0%, var(--paper) 100%);
+}
+.shot .tile b{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700; font-size:26px;
+  color:var(--muted); direction:ltr; unicode-bidi:isolate; letter-spacing:.14em;
+}
+.shot .tile span{display:none;}
+.shot.has-shot .tile span{
+  display:block; font-size:12px; color:var(--muted); letter-spacing:.14em;
+}
+.shot img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:top center; display:block;
+}
+.tool-body{padding:16px 18px 18px; display:flex; flex-direction:column; gap:10px; flex:1;}
+.tool-top{display:flex; align-items:flex-start; justify-content:space-between; gap:10px;}
+.tool-name{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700; font-size:18px;
+  color:var(--ink); direction:ltr; unicode-bidi:isolate; line-height:1.3;
+}
+.layer{
+  flex:none; font-size:12px; color:var(--ink-2); background:var(--tint);
+  border:1px solid var(--line); border-radius:6px; padding:2px 8px; white-space:nowrap;
+}
+.does{font-size:14.5px; color:var(--ink-2); margin:0; line-height:1.8;}
+.does b{color:var(--ink);}
+.limit{
+  font-size:13.5px; line-height:1.75; color:var(--ink-2); margin:0;
+  background:var(--danger-soft); border-right:3px solid var(--danger);
+  border-radius:0 7px 7px 0; padding:9px 12px;
+}
+.limit b{color:var(--danger);}
+.meta{
+  display:flex; flex-wrap:wrap; gap:6px; margin-top:auto; padding-top:4px;
+}
+.chip{
+  font-size:11.5px; padding:3px 9px; border-radius:6px;
+  background:var(--tint); border:1px solid var(--line); color:var(--ink-2);
+}
+.chip.free{background:var(--primary-soft); border-color:rgba(11,124,112,.28); color:var(--primary);}
+.chip.paid{background:var(--accent-soft); border-color:rgba(138,106,34,.28); color:var(--accent);}
+.chip.hard{background:var(--danger-soft); border-color:rgba(166,53,37,.24); color:var(--danger);}
+.link-row{
+  display:flex; align-items:center; gap:8px; padding-top:10px; margin-top:2px;
+  border-top:1px dashed var(--line); font-size:13.5px;
+}
+.link-row .lbl{color:var(--muted); font-size:12px; flex:none;}
+.link-row a, .link-row .nolink{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:13px;
+  direction:ltr; unicode-bidi:isolate; word-break:break-all;
+}
+.nolink{color:var(--muted); border-bottom:1px dotted var(--line-strong);}
+
+/* ---------- callouts ---------- */
+.note{
+  border-radius:var(--radius); padding:14px 16px; font-size:14.5px; line-height:1.85;
+  background:var(--paper); border:1px solid var(--line); border-right:4px solid var(--line-strong);
+  margin:0 0 18px;
+}
+.note b{color:var(--ink);}
+.note.warn{background:var(--accent-soft); border-color:rgba(138,106,34,.3); border-right-color:var(--accent);}
+.note.warn b{color:var(--accent);}
+.note.stop{background:var(--danger-soft); border-color:rgba(166,53,37,.28); border-right-color:var(--danger);}
+.note.stop b{color:var(--danger);}
+.note.info{background:var(--info-soft); border-color:rgba(42,95,143,.26); border-right-color:var(--info);}
+.note.info b{color:var(--info);}
+.note .lab{
+  display:block; font-family:'Changa', system-ui, sans-serif; font-weight:700;
+  font-size:12px; letter-spacing:.08em; margin-bottom:6px; opacity:.9;
+}
+
+/* ---------- decision list ---------- */
+ol.decide{list-style:none; counter-reset:d; margin:0; padding:0; display:grid; gap:10px;}
+ol.decide li{
+  counter-increment:d; background:var(--paper); border:1px solid var(--line);
+  border-radius:var(--radius); padding:14px 16px 14px 16px; position:relative;
+  font-size:14.5px; line-height:1.8; break-inside:avoid;
+}
+ol.decide li::before{
+  content:counter(d); position:absolute; top:14px; left:16px;
+  font-family:'IBM Plex Mono', monospace; font-size:12px; color:var(--line-strong); font-weight:700;
+}
+ol.decide li q{quotes:none; display:block; font-weight:700; color:var(--ink); margin-bottom:3px;}
+ol.decide li .ans{color:var(--ink-2);}
+ol.decide li.final{background:var(--danger-soft); border-color:rgba(166,53,37,.3);}
+ol.decide li.final q{color:var(--danger);}
+
+/* ---------- table ---------- */
+.table-wrap{overflow-x:auto; border:1px solid var(--line); border-radius:var(--radius); background:var(--paper);}
+table{border-collapse:collapse; width:100%; min-width:620px; font-size:14px;}
+th,td{padding:10px 13px; text-align:right; border-bottom:1px solid var(--line); vertical-align:top;}
+th{background:var(--tint); font-weight:700; font-size:12.5px; color:var(--ink-2); white-space:nowrap;}
+tr:last-child td{border-bottom:none;}
+td b{direction:ltr; unicode-bidi:isolate; display:inline-block;}
+
+/* ---------- footer ---------- */
+footer{
+  margin-top:46px; padding-top:22px; border-top:2px solid var(--line-strong);
+  font-size:13.5px; color:var(--muted); line-height:1.9;
+}
+footer .rule{
+  background:var(--nav); color:#E8EEF5; border-radius:var(--radius);
+  padding:18px 20px; margin-bottom:20px; font-size:15px; line-height:1.9;
+}
+footer .rule b{color:#35D6C4;}
+
+.actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px;}
+.btn{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700; font-size:14px;
+  padding:10px 18px; border-radius:9px; border:1px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.08); color:#E8EEF5; cursor:pointer;
+  text-decoration:none; border-bottom-width:1px;
+}
+.btn.solid{background:#35D6C4; color:#08201D; border-color:#35D6C4;}
+.btn:focus-visible{outline:2px solid #35D6C4; outline-offset:3px;}
+
+/* ---------- print ---------- */
+@media print{
+  @page{size:A4; margin:14mm 12mm;}
+  body{background:#fff; font-size:10.5pt; line-height:1.65;}
+  header.masthead{background:#fff; color:var(--ink); padding:0 0 14px; margin-bottom:20px;
+    border-bottom:2.5pt solid var(--primary);}
+  h1{color:var(--ink); font-size:22pt;}
+  .masthead p{color:var(--ink-2);}
+  .brand{color:var(--primary);}
+  .stamp{background:none; border:1px solid var(--line); color:var(--ink-2);}
+  .actions{display:none;}
+  .wrap{max-width:none; padding:0;}
+  .tools{grid-template-columns:repeat(2,1fr); gap:8mm;}
+  .tool{box-shadow:none;}
+  .shot{height:56px;}
+  .shot.has-shot{height:auto; aspect-ratio:16/10;}
+  section{page-break-inside:auto;}
+  .sec-head{page-break-after:avoid;}
+  footer .rule{background:#fff; color:var(--ink); border:1.5pt solid var(--nav);}
+  footer .rule b{color:var(--primary);}
+  a{color:var(--ink); border-bottom:none;}
+}
