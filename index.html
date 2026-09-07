@@ -263,6 +263,26 @@
     background:var(--neon);border-radius:5px;padding:2px 8px;margin-inline-end:8px;
   }
 
+  /* ===== §20 battle panels ==============================================
+     Three systems, one identical structure, so the eye compares rows rather
+     than hunting. The physician's own column is deliberately set apart: it is
+     a decision, not a fourth opinion to be averaged in. */
+  .battle-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:16px;}
+  @media (max-width:980px){ .battle-grid{grid-template-columns:1fr;} }
+  .battle-panel{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px 17px;box-shadow:var(--shadow-1);}
+  .battle-panel .bp-sys{font-family:var(--font-mono);font-size:12px;letter-spacing:.07em;color:var(--muted);}
+  .battle-panel .bp-cap{font-size:12.5px;color:var(--primary);margin-top:3px;font-weight:700;}
+  .battle-panel dl{margin:14px 0 0;}
+  .battle-panel dt{font-family:var(--font-mono);font-size:12.5px;letter-spacing:.05em;color:var(--muted);margin-top:12px;}
+  .battle-panel dt:first-of-type{margin-top:0;}
+  .battle-panel dd{margin:4px 0 0;font-size:13px;color:var(--text-2);line-height:1.7;}
+  .verdict{
+    margin-top:18px;padding:20px 22px;border-radius:16px;
+    background:var(--bg-2);border:1px solid var(--border);border-inline-start:4px solid var(--primary);
+  }
+  .verdict .v-label{font-family:var(--font-mono);font-size:12px;letter-spacing:.07em;color:var(--primary);}
+  .verdict .v-q{font-family:var(--font-display);font-size:21px;font-weight:700;margin-top:8px;}
+
   .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
   @media (max-width:800px){ .compare-grid{grid-template-columns:1fr;} }
   .compare-col .col-title{font-size:12.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
@@ -370,6 +390,31 @@
   .check-row{display:flex;align-items:flex-start;gap:11px;font-size:14px;padding:12px 14px;cursor:pointer;}
   .check-row input{margin-top:3px;accent-color:var(--neon);width:16px;height:16px;flex:none;}
   .check-row.checked{opacity:.45;text-decoration:line-through;}
+
+  /* ===== gate =============================================================
+     A checklist that reports a state. Used for the image-quality and privacy
+     checkpoints: the physician ticks what they have actually confirmed and
+     the gate answers back. Passing it never means the output is reliable —
+     only that the input is fit to submit. That wording is enforced in the
+     copy, not just implied. */
+  .gate{display:grid;grid-template-columns:1.25fr .75fr;gap:16px;align-items:start;margin-top:16px;}
+  @media (max-width:900px){ .gate{grid-template-columns:1fr;} }
+  .gate .checklist{margin-top:0;}
+  .gate .check-row{border-radius:11px;background:var(--surface);border:1px solid var(--border);padding:9px 13px;font-size:13.2px;}
+  .gate .checklist{gap:7px;}
+  .gate .check-row.checked{opacity:1;text-decoration:none;border-color:var(--success-line);background:var(--success-soft);}
+  .gate-status{
+    position:sticky;top:0;padding:20px 18px;border-radius:16px;text-align:center;
+    background:var(--surface);border:1px solid var(--border);border-top:3px solid var(--muted-2);
+    transition:background .25s, border-color .25s;
+  }
+  .gate-status .gs-count{font-family:var(--font-mono);font-size:30px;font-weight:700;color:var(--ink);display:block;direction:ltr;unicode-bidi:isolate;}
+  .gate-status .gs-label{font-size:13.5px;font-weight:700;margin-top:8px;display:block;color:var(--muted);}
+  .gate-status .gs-note{font-size:12.8px;color:var(--muted);margin-top:9px;display:block;line-height:1.7;}
+  .gate-status.partial{border-top-color:var(--warning);background:var(--warning-soft);}
+  .gate-status.partial .gs-label{color:var(--warning);}
+  .gate-status.pass{border-top-color:var(--success);background:var(--success-soft);}
+  .gate-status.pass .gs-label{color:var(--success);}
 
   .steps-list{list-style:none;padding:0;margin:16px 0 0;counter-reset:step;}
   .steps-list li{
@@ -2343,6 +2388,15 @@ E: يفهم القارئ بالظبط شنو يعمل، من غير ما يحس 
     document.getElementById('curNum').textContent = String(current+1).padStart(2,'0');
     document.getElementById('progressFill').style.width = ((current+1)/total*100)+'%';
     document.getElementById('actChip').textContent = acts[current] || '';
+    // §31 position within the current unit, not just position in the deck —
+    // "7 of 10 in the AI Battle" is what a learner actually wants to know.
+    var chip = document.getElementById('actChip');
+    var act = acts[current], from = current, to = current;
+    while(from > 0 && acts[from-1] === act) from--;
+    while(to < total-1 && acts[to+1] === act) to++;
+    // the position is a latin numeric expression inside an RTL chip; wrap it in
+    // isolates so the bidi algorithm cannot reorder it into 11/8
+    if(to > from){ chip.textContent = act + ' · \u2066' + (current-from+1) + '/' + (to-from+1) + '\u2069'; }
     document.getElementById('prevBtn').disabled = current===0;
     document.getElementById('nextBtn').disabled = current===total-1;
   }
@@ -2571,6 +2625,33 @@ E: يفهم القارئ بالظبط شنو يعمل، من غير ما يحس 
         }catch(e){}
       });
     });
+  });
+
+  // §16 §17 gate state: reports how many checks are confirmed, and says plainly
+  // that a full gate means the INPUT is fit to submit — never that the output
+  // can be trusted.
+  document.querySelectorAll('.gate').forEach(function(gate){
+    var boxes  = gate.querySelectorAll('input[type=checkbox]');
+    var status = gate.querySelector('.gate-status');
+    if(!status || !boxes.length) return;
+    var countEl = status.querySelector('.gs-count');
+    var labelEl = status.querySelector('.gs-label');
+    var noteEl  = status.querySelector('.gs-note');
+    var pass    = status.getAttribute('data-pass')    || 'جاهزة للإرسال';
+    var partial = status.getAttribute('data-partial') || 'ناقصة — راجع المتبقّي';
+    var empty   = status.getAttribute('data-empty')   || 'ابدأ الفحص';
+    var note    = status.getAttribute('data-note')    || '';
+    function render(){
+      var done = 0;
+      boxes.forEach(function(b){ if(b.checked) done++; });
+      if(countEl) countEl.textContent = done + ' / ' + boxes.length;
+      status.classList.remove('partial','pass');
+      if(done === boxes.length){ status.classList.add('pass'); if(labelEl) labelEl.textContent = pass; if(noteEl) noteEl.textContent = note; }
+      else if(done > 0){ status.classList.add('partial'); if(labelEl) labelEl.textContent = partial; if(noteEl) noteEl.textContent = ''; }
+      else { if(labelEl) labelEl.textContent = empty; if(noteEl) noteEl.textContent = ''; }
+    }
+    boxes.forEach(function(b){ b.addEventListener('change', render); });
+    render();
   });
 
   // verify quiz

@@ -1,7 +1,8 @@
 <!--SLIDE|افتتاحية|الجزء الثاني — من التفكير إلى التطبيق-->
 <!--BG|p2-bg-title-->
-      <div class="kicker reveal">الجزء الثاني</div>
+      <div class="kicker reveal">الجزء الثاني · <span class="en">AI FOR DERMATOLOGY</span></div>
       <h2 class="hook reveal">عرفت <span class="accent">تفكّر</span> مع الذكاء الاصطناعي.<br>اليوم <span class="accent">تشتغل</span> بيه.</h2>
+      <p class="sub reveal" style="font-family:var(--font-mono);font-size:13.5px;color:var(--primary);letter-spacing:.04em;margin-bottom:14px;">FROM IMAGE <span style="color:var(--muted-2);">→</span> EVIDENCE <span style="color:var(--muted-2);">→</span> CLINICAL JUDGMENT</p>
       <p class="sub reveal">الجزء الأول بنى طريقة التفكير. الجزء الثاني ينزّلها على أدوات جلدية حقيقية — نجربها، نقارنها، ندقّقها، وفي الآخر نطلع بمنتج مهني جاهز.</p>
       <div class="content-wrap reveal">
         <div class="compare-grid">
@@ -105,21 +106,24 @@
           </div>
         </div>
         <div class="callout info" data-label="◈ خصوصية" style="margin-top:16px;"><b>نقطة الجزء الأول اللي بتتفعّل هنا:</b> تجريد الهوية <span class="en">— de-identification</span>. الفرق إن دلوقتي الصورة نفسها بيانات، مش النص بس. الصورة ممكن تحمل موقع التصوير وتاريخه ونوع الجهاز.</div>
-        <div class="callout info" data-label="◈ خصوصية" style="margin-top:10px;"><b>القاعدة الذهبية:</b> اسأل قبل ما ترفع — <span class="en">"Where does this image go, who stores it, and for how long?"</span> لو ما عندكش إجابة، ما ترفعش.</div>
-        <div class="table-wrap" style="margin-top:16px;">
-          <table>
-            <thead><tr><th>#</th><th>بوابة الخصوصية — اسأل الثمانية دول قبل أي رفع</th></tr></thead>
-            <tbody>
-              <tr><td><b>1</b></td><td>فيه أي معلومة تعرّف المريض في الصورة أو اسم الملف؟</td></tr>
-              <tr><td><b>2</b></td><td>اتعملها تجريد هوية فعلي — وجه، وشم، مجوهرات، <span class="en">EXIF</span>؟</td></tr>
-              <tr><td><b>3</b></td><td>فيه إذن أو موافقة حيث دي مطلوبة؟</td></tr>
-              <tr><td><b>4</b></td><td>الصورة بتتعالج فين — على الجهاز ولا على سيرفر خارجي؟</td></tr>
-              <tr><td><b>5</b></td><td>مين بيخزّنها؟ وفي أي بلد؟</td></tr>
-              <tr><td><b>6</b></td><td>بتتخزّن قد إيه؟ وينفع تتمسح؟</td></tr>
-              <tr><td><b>7</b></td><td>ممكن تُستخدم في تدريب النماذج؟</td></tr>
-              <tr><td><b>8</b></td><td>الأداة دي مناسبة أصلًا لبيانات سريرية؟</td></tr>
-            </tbody>
-          </table>
+        <div class="callout info" data-label="◈ لا إجابة = لا رفع" style="margin-top:10px;"><b>القاعدة الذهبية:</b> اسأل قبل ما ترفع — <span class="en">"Where does this image go, who stores it, and for how long?"</span> لو ما عندكش إجابة، ما ترفعش.</div>
+                <div class="gate">
+          <div class="checklist" id="p2-gate-privacy">
+            <label class="check-row glass"><input type="checkbox" data-hw="ident"><span><b>قابلية التعرّف</b> — مفيش أي شيء يعرّف المريض في الصورة ولا في اسم الملف</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="deid"><span><b>تجريد الهوية</b> — وجه، وشم، مجوهرات، علامة مميّزة — اتشالت</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="exif"><span><b>البيانات الوصفية</b> — <span class="en">EXIF</span> اتمسحت — الموقع وتاريخ التصوير جوه الملف</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="consent"><span><b>الإذن</b> — فيه موافقة حيث دي مطلوبة</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="where"><span><b>مكان المعالجة</b> — عارف الصورة بتتعالج فين — جهاز ولا سيرفر خارجي</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="store"><span><b>التخزين</b> — عارف مين بيخزّنها وفي أي بلد</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="retain"><span><b>مدة الاحتفاظ</b> — عارف بتفضل قد إيه، وينفع تتمسح</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="train"><span><b>التدريب</b> — عارف هل ممكن تُستخدم في تدريب النماذج</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="fit"><span><b>ملاءمة البيئة</b> — الأداة دي مناسبة أصلًا لبيانات سريرية</span></label>
+          </div>
+          <div class="gate-status" data-pass="تقدر ترفع" data-partial="ناقصة — لسه ما ترفعش" data-empty="ابدأ الفحص" data-note="أي بند ما عندكش إجابة عليه — ما ترفعش.">
+            <span class="gs-count">0 / 9</span>
+            <span class="gs-label">ابدأ الفحص</span>
+            <span class="gs-note"></span>
+          </div>
         </div>
         <div class="callout info" data-label="◈ تجهيز مسبق" style="margin-top:14px;"><b>متطلبات قبل المحاضرة — للمدرّب:</b> ابعتها للمشاركين قبل المحاضرة بيوم على الأقل.<br>
         <b>1</b> — ثبّت تطبيق <span class="en">Model Dermatol</span> من متجر تطبيقات جهازك.<br>
@@ -142,10 +146,30 @@
       <p class="sub reveal">لازم تعرف أي قدرة بالظبط قدامك قبل ما تحكم على المخرج. نفس الصورة تدخل أربع أنظمة وتطلع بأربع أنواع مخرجات مختلفة في طبيعتها — ومعايير الحكم على كل نوع مختلفة.</p>
       <div class="content-wrap wide reveal">
         <div class="quad-grid">
-          <div class="glass quad-card"><div class="qc-tool en">1 — RETRIEVAL</div><div class="pc-title">استرجاع</div><div class="qc-text">بيلاقي معلومة أو حالات شبيهة أو أمثلة مرتبطة. ما بيشخّصش — بيقول "ده شبه ده".</div></div>
-          <div class="glass quad-card"><div class="qc-tool en">2 — CLASSIFICATION</div><div class="pc-title">تصنيف</div><div class="qc-text">بيصنّف اللي قدامه حسب فئات الاستخدام المقصود للأداة. لو الحالة برّه فئاته — هيجبرها جوه واحدة منهم.</div></div>
-          <div class="glass quad-card"><div class="qc-tool en">3 — REASONING</div><div class="pc-title">استدلال</div><div class="qc-text">بيجمع السياق السريري والاحتمالات لدعم استدلال منظّم. بيسأل أسئلة متابعة — وأكثر عرضة للهلوسة.</div></div>
-          <div class="glass quad-card"><div class="qc-tool en">4 — TRIAGE</div><div class="pc-title">فرز</div><div class="qc-text">بيدعم ترتيب الأولوية أو تقدير الخطورة — <b>حيث الأداة مصمّمة ومُتحقَّق منها لده تحديدًا</b>. مقياس نجاحه مختلف: الحساسية قبل الدقة.</div></div>
+          iv class="glass quad-card"><div class="qc-tool en">1 — RETRIEVAL</div><div class="pc-title">استرجاع</div>
+            <dl style="margin:10px 0 0;">
+              <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);">المدخل</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">صورة أو سؤال</dd>
+              <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin-top:8px;">المخرج</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">معلومة أو حالات شبيهة</dd>
+              <dt style="font-family:var(--font-mono);font-size:11.5px;color:var(--warning);margin-top:8px;">الحد</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">ما بيشخّصش — بيقول "ده شبه ده"</dd>
+            </dl></div>
+          <div class="glass quad-card"><div class="qc-tool en">2 — CLASSIFICATION</div><div class="pc-title">تصنيف</div>
+            <dl style="margin:10px 0 0;">
+              <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);">المدخل</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">صورة، أحيانًا + بيانات</dd>
+              <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin-top:8px;">المخرج</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">فئة باحتمالية</dd>
+              <dt style="font-family:var(--font-mono);font-size:11.5px;color:var(--warning);margin-top:8px;">الحد</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">الحالة برّه فئاته بتتجبر جوه واحدة منهم</dd>
+            </dl></div>
+          <div class="glass quad-card"><div class="qc-tool en">3 — REASONING</div><div class="pc-title">استدلال</div>
+            <dl style="margin:10px 0 0;">
+              <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);">المدخل</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">نص + سياق سريري + صورة</dd>
+              <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin-top:8px;">المخرج</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">استدلال منظّم وأسئلة متابعة</dd>
+              <dt style="font-family:var(--font-mono);font-size:11.5px;color:var(--warning);margin-top:8px;">الحد</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">الأكثر عرضة للهلوسة والطلاقة المضلّلة</dd>
+            </dl></div>
+          <div class="glass quad-card"><div class="qc-tool en">4 — TRIAGE</div><div class="pc-title">فرز</div>
+            <dl style="margin:10px 0 0;">
+              <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);">المدخل</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">صورة ضمن مسار محدّد</dd>
+              <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin-top:8px;">المخرج</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">أولوية أو تقدير خطورة</dd>
+              <dt style="font-family:var(--font-mono);font-size:11.5px;color:var(--warning);margin-top:8px;">الحد</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">صالح فقط حيث اتحقّق منه لده تحديدًا</dd>
+            </dl></div>
         </div>
         <div class="callout ok" style="margin-top:16px;"><b>سؤالك الأول لأي أداة جديدة:</b> "إنت أي واحدة من الأربعة؟" — لأن نقد المخرج بيتغيّر تمامًا حسب الإجابة. تحاسب أداة استرجاع على إنها ما شخّصتش = خطأ منك إنت.</div>
         <div class="callout danger" data-label="⚠ تحذير" style="margin-top:10px;"><b>ما تفترضش إن كل أداة بتعمل الأربعة.</b> أغلب الأدوات بتعمل واحدة أو اتنين. والأداة اللي بتدّعي إنها بتعمل الأربعة — دي علامة تحذير مش علامة تفوّق.</div>
@@ -267,17 +291,25 @@
       <h2 class="hook reveal"><span class="en">Garbage in</span><br><span class="accent">مخرج غير موثوق.</span></h2>
       <p class="sub reveal">قبل ما ترفع أي صورة لأي أداة، عدّي على العشرة دول. أغلب "أخطاء الذكاء الاصطناعي" اللي بتشوفها في الحقيقة أخطاء تصوير.</p>
       <div class="content-wrap wide reveal">
-        <div class="quad-grid" style="grid-template-columns:repeat(5,1fr);">
-          <div class="glass quad-card"><div class="pc-title">التركيز</div><div class="qc-text">الآفة حادة مش ضبابية</div></div>
-          <div class="glass quad-card"><div class="pc-title">الإضاءة</div><div class="qc-text">متجانسة بلا ظل قاطع</div></div>
-          <div class="glass quad-card"><div class="pc-title">التعريض</div><div class="qc-text">مش محروقة ولا مظلمة</div></div>
-          <div class="glass quad-card"><div class="pc-title">المقياس</div><div class="qc-text">مرجع قياس لو ممكن</div></div>
-          <div class="glass quad-card"><div class="pc-title">الاتجاه</div><div class="qc-text">واضح فين الأعلى</div></div>
-          <div class="glass quad-card"><div class="pc-title">مجال الرؤية</div><div class="qc-text">الآفة + جلد سليم حواليها</div></div>
-          <div class="glass quad-card"><div class="pc-title">التشويش</div><div class="qc-text">بلا انعكاس أو مرهم لامع</div></div>
-          <div class="glass quad-card"><div class="pc-title">نوع الصورة</div><div class="qc-text">سريرية ولا تنظير؟</div></div>
-          <div class="glass quad-card"><div class="pc-title">وضوح الآفة</div><div class="qc-text">الحواف والسطح باينين</div></div>
-          <div class="glass quad-card"><div class="pc-title">الجودة العامة</div><div class="qc-text">تنفع تتعرض على شاشة</div></div>
+                <div class="gate">
+          <div class="checklist" id="p2-gate-image">
+            <label class="check-row glass"><input type="checkbox" data-hw="focus"><span><b>التركيز</b> — الآفة حادة، مش ضبابية</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="light"><span><b>الإضاءة</b> — متجانسة بلا ظل قاطع على الآفة</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="expo"><span><b>التعريض</b> — مش محروقة ولا مظلمة</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="scale"><span><b>المقياس</b> — مرجع قياس في الإطار لو ممكن</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="orient"><span><b>الاتجاه</b> — واضح فين أعلى الآفة</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="fov"><span><b>مجال الرؤية</b> — الآفة + جلد سليم حواليها</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="artifact"><span><b>التشويش</b> — بلا انعكاس ولا مرهم لامع</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="type"><span><b>نوع الصورة</b> — عارف: سريرية ولا تنظير؟</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="lesion"><span><b>وضوح الآفة</b> — الحواف والسطح باينين</span></label>
+            <label class="check-row glass"><input type="checkbox" data-hw="fit"><span><b>ملاءمة المهمة</b> — الصورة تكفي للسؤال اللي بتسأله</span></label>
+          </div>
+          <div class="gate-status" data-pass="المدخل صالح للإرسال" data-partial="ناقصة — راجع المتبقّي" data-empty="ابدأ الفحص" data-note="صالح للإرسال ≠ المخرج موثوق. البوابة بتحكم على المدخل بس.">
+            <span class="gs-count">0 / 10</span>
+            <span class="gs-label">ابدأ الفحص</span>
+            <span class="gs-note"></span>
+          </div>
+        </div><div class="qc-text">تنفع تتعرض على شاشة</div></div>
         </div>
         <div class="callout danger" data-label="⚠ تحذير" style="margin-top:16px;"><b>لكن انتبه للعكس:</b> صورة ممتازة <b>ما بتضمنش</b> مخرج صحيح. جودة الصورة شرط لازم — مش شرط كافٍ. الأداة ممكن تغلط على أنضف صورة عندك.</div>
       </div>
@@ -589,22 +621,43 @@ E — Success = I finish knowing exactly which additional information
       <div class="live-badge reveal"><span class="live-dot"></span>نشاط 08 — 15 دقيقة · مجموعات ثنائية</div>
       <h2 class="hook reveal">شغّل الحالة على الثلاثة.<br><span class="accent">وسجّل عشر إجابات.</span></h2>
       <div class="content-wrap wide reveal">
-        <div class="table-wrap">
-          <table>
-            <thead><tr><th>#</th><th>السؤال</th><th>سجّل لكل نظام</th></tr></thead>
-            <tbody>
-              <tr><td><b>1</b></td><td>شنو اللي لاحظه في الصورة؟</td><td>الملامح البصرية المذكورة</td></tr>
-              <tr><td><b>2</b></td><td>شنو المعلومات اللي طلبها؟</td><td>أسئلة أم لا شيء</td></tr>
-              <tr><td><b>3</b></td><td>شنو اللي تجاهله؟</td><td>الكورتيزون؟ نوع البشرة؟</td></tr>
-              <tr><td><b>4</b></td><td>شنو التشخيص التفريقي؟</td><td>أول ثلاثة بالترتيب</td></tr>
-              <tr><td><b>5</b></td><td>فين اختلفوا؟</td><td>نقطة الاختلاف بالضبط</td></tr>
-              <tr><td><b>6</b></td><td>شنو الدليل اللي قدّمه؟</td><td>مصدر أم لا شيء</td></tr>
-              <tr><td><b>7</b></td><td>شنو الافتراضات اللي عملها؟</td><td>معلومة ما قلتهاش وافترضها</td></tr>
-              <tr><td><b>8</b></td><td>شنو اللي مستحيل يعرفه من صورة؟</td><td>اكتبها صراحة</td></tr>
-              <tr><td><b>9</b></td><td>شنو المعلومة السريرية الناقصة؟</td><td>اللي لو عرفتها تحسم</td></tr>
-              <tr><td><b>10</b></td><td>شنو خطوتك كطبيب؟</td><td>قرارك إنت، مش قرارهم</td></tr>
-            </tbody>
-          </table>
+        <div class="battle-grid">
+          <div class="battle-panel">
+            <div class="bp-sys en">SYSTEM A — MODEL DERMATOLOGY</div>
+            <div class="bp-cap">استرجاع</div>
+            <dl>
+              <dt>شنو شافه؟</dt><dd>الملامح البصرية اللي ذكرها</dd>
+              <dt>شنو فاته؟</dt><dd>الكورتيزون؟ نوع البشرة؟ المدة؟</dd>
+              <dt>شنو اقترحه؟</dt><dd>أول ثلاثة بالترتيب</dd>
+              <dt>شنو فضل غير مؤكّد؟</dt><dd>اللي قال عنه إنه ما يقدرش يحسمه</dd>
+            </dl>
+          </div>
+          <div class="battle-panel">
+            <div class="bp-sys en">SYSTEM B — AYSA</div>
+            <div class="bp-cap">تصنيف</div>
+            <dl>
+              <dt>شنو شافه؟</dt><dd>الملامح البصرية اللي ذكرها</dd>
+              <dt>شنو فاته؟</dt><dd>الكورتيزون؟ نوع البشرة؟ المدة؟</dd>
+              <dt>شنو اقترحه؟</dt><dd>أول ثلاثة بالترتيب</dd>
+              <dt>شنو فضل غير مؤكّد؟</dt><dd>اللي قال عنه إنه ما يقدرش يحسمه</dd>
+            </dl>
+          </div>
+          <div class="battle-panel">
+            <div class="bp-sys en">SYSTEM C — CHATGPT / GEMINI</div>
+            <div class="bp-cap">استدلال</div>
+            <dl>
+              <dt>شنو شافه؟</dt><dd>الملامح البصرية اللي ذكرها</dd>
+              <dt>شنو فاته؟</dt><dd>الكورتيزون؟ نوع البشرة؟ المدة؟</dd>
+              <dt>شنو اقترحه؟</dt><dd>أول ثلاثة بالترتيب</dd>
+              <dt>شنو فضل غير مؤكّد؟</dt><dd>اللي قال عنه إنه ما يقدرش يحسمه</dd>
+            </dl>
+          </div>
+        </div>
+        <div class="verdict">
+          <div class="v-label en">YOUR CALL — NOT A FOURTH OPINION</div>
+          <div class="v-q">إنت شنو حتعمل؟</div>
+          <div class="callout" style="margin-top:12px;"><b>حدّد ثلاثة:</b> فين اختلفوا ولماذا · شنو المعلومة السريرية اللي لسه ناقصة · شنو خطوتك التالية مع المريض.</div>
+          <div class="callout warn" data-label="△ انتبه" style="margin-top:10px;">قرارك <b>مش متوسّط</b> الثلاثة، ومش أغلبية. لو الثلاثة اتفقوا على حاجة غلط، اتفاقهم ما بيخليهاش صح.</div>
         </div>
         <div class="callout ok" style="margin-top:14px;"><b>ورقة العمل:</b> <span class="en">Dermatology AI Battle Worksheet</span> — ثلاثة أعمدة، عمود لكل نظام، وعشر صفوف. السطر رقم 10 هو اللي بيفرّق الطبيب عن مستخدم التطبيق.</div>
       </div>
@@ -623,6 +676,24 @@ E — Success = I finish knowing exactly which additional information
         </div>
         <div class="callout danger" data-label="⚠ تحذير" style="margin-top:16px;"><b>النمط الرابع هو الأخطر:</b> الطبيب الشاطر بيقول "المعلومة مش كافية، محتاج مسحة أو خزعة". النظام بيقول تشخيص. لو أخدت ثقته على إنها يقين — خسرت أهم مهارة عندك.</div>
       </div>
+      </div>
+
+<!--SLIDE|الوحدة 3 · المعركة|فخ الثقة — الطلاقة ليست دقة-->
+      <div class="kicker reveal">فخ يتكرر في كل مقارنة</div>
+      <h2 class="hook reveal"><span class="accent en">CONFIDENCE</span> ≠ <span class="accent en">ACCURACY</span></h2>
+      <p class="sub reveal">النظام اللي بيتكلم أكتر وأوضح وأمتن لغويًا بيبان أصح — وده مالوش أي علاقة بصحته.</p>
+      <div class="content-wrap wide reveal">
+        <div class="compare-grid">
+          <div class="compare-col bad">
+            <div class="col-title">اللي بيقنعك</div>
+            <div class="glass glass-pad" style="line-height:2;">مخرج طويل ومنظّم<br>لغة واثقة بلا تردّد<br>مصطلحات دقيقة<br>ترتيب مرقّم ومحكم<br>بلا أي "ما أعرفش"</div>
+          </div>
+          <div class="compare-col good">
+            <div class="col-title">اللي يستاهل ثقتك</div>
+            <div class="glass glass-pad" style="line-height:2;">ادعاء تقدر تتحقّق منه<br>مصدر تقدر تفتحه<br>إقرار صريح بعدم اليقين<br>سؤال عن معلومة ناقصة<br>حدود معلنة</div>
+          </div>
+        </div>
+        <div class="callout warn" data-label="△ القاعدة" style="margin-top:16px;"><b>الطلاقة اللغوية مهارة في توليد النص — مش دليل على صحة المحتوى.</b> النموذج اتدرّب يبقى مقنع، مش يبقى صح. والاتنين مش نفس الشيء.</div>
       </div>
 
 <!--SLIDE|الوحدة 3 · المعركة|اربط المعركة بالإطار-->
@@ -925,7 +996,7 @@ journal, year, sample size, and the reported sensitivity.</pre>
 
 <!--SLIDE|الجزء ب · العرض الاحترافي|إضافي — صناعة محتوى طبي بالذكاء الاصطناعي-->
 <!--BG|p2-bg-bonus-->
-      <div class="divider-num en">BONUS — 30 MIN</div>
+      <div class="divider-num en">BONUS LAB — 30 MIN</div>
       <h2 class="divider-title reveal">تفكيرك السريري<br><span class="accent">يستحق شكلًا مهنيًا.</span></h2>
       <p class="divider-sub reveal">آخر نص ساعة — <b>قسم إضافي</b>. مش مسار تشخيصي تاني، ومش درس <span class="en">PowerPoint</span>. ده مسار عمل عام بينفع في أي موضوع: من فكرة، لتفكير منظّم، لمخرج مهني تتحمّل مسؤوليته. حنبنيه مع بعض بأدوات مجانية.</p>
 
