@@ -55,24 +55,70 @@
 <title>طبيب PRIME</title>
 <style>
   :root{
-    --bg:#080B10;
-    --bg-2:#0D1319;
-    --ink:#EAF7F4;
-    --muted:#7F9C97;
-    --muted-2:#6E8681;
-    --neon:#33F1DC;
-    --neon-soft:rgba(51,241,220,.13);
-    --neon-line:rgba(51,241,220,.22);
-    --neon-glow:rgba(51,241,220,.30);
-    --danger:#FF6E5C;
-    --danger-soft:rgba(255,110,92,.14);
-    --glass:linear-gradient(160deg, rgba(255,255,255,.055), rgba(255,255,255,.015));
-    --glass-line:rgba(255,255,255,.09);
+    /* ===== TABIB PRIME design tokens =====================================
+       One palette, six semantic roles. Ground is a deep clinical navy rather
+       than near-black: it lifts the elevated surfaces so cards read as depth
+       instead of glow. The teal stays as the brand anchor but is desaturated
+       and demoted to PRIMARY only — it no longer doubles as success, accent
+       and every highlight at once. Every text/background pair below clears
+       WCAG AA (measured, not assumed).
+       ------------------------------------------------------------------ */
+
+    /* surfaces */
+    --bg:#0D1420;                 /* page ground                          */
+    --bg-2:#111A28;               /* deeper panels, overlays              */
+    --surface:#141D2B;            /* resting card                         */
+    --surface-2:#1A2434;          /* elevated card, hover                 */
+
+    /* neutral text scale — cool, untinted, so long Arabic stays comfortable */
+    --ink:#E8EEF5;                /* primary text    — 16.0:1             */
+    --text-2:#A8B6C6;             /* secondary text  —  9.0:1             */
+    --muted:#8798A9;              /* muted text      —  6.2:1             */
+    --muted-2:#6E8093;            /* metadata        —  4.6:1             */
+
+    /* brand primary — navigation, progress, primary action, key terms */
+    --primary:#35D6C4;            /* 10.3:1                               */
+    --primary-hover:#4EE3D2;
+    --secondary:#6FA8DC;          /* supporting, selected states —  7.4:1 */
+    --accent:#C9A96B;             /* sparing: key concepts       —  8.3:1 */
+
+    /* semantic states — never colour alone; always paired with a label */
+    --success:#4ED8A0;            /* verified, correct           — 10.4:1 */
+    --warning:#E8B44C;            /* caution, [VERIFY], risk     —  9.9:1 */
+    --danger:#FF7A6B;             /* wrong, unsafe               —  7.3:1 */
+    --info:#6FA8DC;               /* privacy, neutral notice     —  7.4:1 */
+
+    --success-soft:rgba(78,216,160,.11);  --success-line:rgba(78,216,160,.30);
+    --warning-soft:rgba(232,180,76,.11);  --warning-line:rgba(232,180,76,.30);
+    --danger-soft:rgba(255,122,107,.11);  --danger-line:rgba(255,122,107,.30);
+    --info-soft:rgba(111,168,220,.11);    --info-line:rgba(111,168,220,.30);
+
+    /* borders */
+    --border:rgba(255,255,255,.10);
+    --border-strong:rgba(255,255,255,.17);
+
+    /* depth, not decoration */
+    --shadow-1:0 1px 2px rgba(0,0,0,.30), 0 2px 8px rgba(0,0,0,.20);
+    --shadow-2:0 2px 4px rgba(0,0,0,.34), 0 8px 24px rgba(0,0,0,.28);
+
+    /* ---- compatibility aliases: the deck's existing rules and the inline
+       styles inside slide markup still speak the old names. Re-pointing them
+       here re-skins every component at once instead of scattering new colour
+       values through two thousand lines of CSS. ---------------------------- */
+    --neon:var(--primary);
+    --neon-soft:rgba(53,214,196,.12);
+    --neon-line:rgba(53,214,196,.26);
+    --neon-glow:rgba(53,214,196,.16);   /* was .30 — glow halved           */
+    --glass:linear-gradient(160deg, rgba(255,255,255,.045), rgba(255,255,255,.012));
+    --glass-line:var(--border);
     --font-display:"Changa","IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
     --font-body:"IBM Plex Sans Arabic","Segoe UI",Tahoma,Arial,sans-serif;
     --font-mono:"IBM Plex Mono","IBM Plex Sans Arabic",ui-monospace,monospace;
   }
   *{box-sizing:border-box;}
+  /* §22 keyboard focus was invisible before: nothing declared a focus ring. */
+  :focus-visible{outline:2px solid var(--primary);outline-offset:3px;border-radius:6px;}
+  .btn:focus-visible, .nav-btn:focus-visible, .menu-btn:focus-visible{outline-offset:4px;}
   body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--font-body);}
   .page{
     background:var(--bg);color:var(--ink);font-family:var(--font-body);
@@ -80,12 +126,17 @@
     -webkit-font-smoothing:antialiased;
   }
   h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;margin:0;text-wrap:balance;}
+  /* Arabic needs more leading than Latin at the same size; the body scale was
+     tuned for headlines and left long paragraphs tight. */
+  .sub{line-height:1.95;}
+  .divider-sub{line-height:1.95;}
+  p, li, td{text-wrap:pretty;}
   p{margin:0;}
   .en{font-family:var(--font-mono);direction:ltr;unicode-bidi:isolate;}
   ::selection{background:var(--neon-soft);color:var(--ink);}
   @media (prefers-reduced-motion:reduce){ *{animation-duration:.001ms !important; transition-duration:.001ms !important;} }
 
-  canvas#bgcanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.45;}
+  canvas#bgcanvas{position:fixed;inset:0;width:100%;height:100%;z-index:0;opacity:.16;}
 
   /* ===== chrome ===== */
   .chrome{position:fixed;inset:0;z-index:30;pointer-events:none;}
@@ -95,7 +146,7 @@
     letter-spacing:.1em;color:var(--muted);display:flex;align-items:center;gap:8px;z-index:31;
   }
   .brand-mark b{color:var(--neon);font-weight:600;}
-  .brand-mark .dot{width:5px;height:5px;border-radius:50%;background:var(--neon);box-shadow:0 0 6px var(--neon-glow);}
+  .brand-mark .dot{width:5px;height:5px;border-radius:50%;background:var(--primary);}
   .brand-mark .part-tag{font-size:10px;border:1px solid var(--glass-line);border-radius:100px;padding:2px 9px;color:var(--muted-2);}
 
   .act-chip{
@@ -109,7 +160,7 @@
   @media (max-width:700px){ .brand-mark{display:none;} .act-chip{left:auto;right:20px;max-width:calc(100vw - 40px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;} }
 
   .progress-track{position:fixed;top:0;right:0;left:0;height:2px;background:rgba(255,255,255,.06);z-index:32;}
-  .progress-fill{height:100%;background:var(--neon);box-shadow:0 0 8px var(--neon-glow);transition:width .5s cubic-bezier(.4,0,.2,1);width:0%;}
+  .progress-fill{height:100%;background:var(--primary);transition:width .5s cubic-bezier(.4,0,.2,1);width:0%;}
 
   .counter{
     position:fixed;bottom:24px;right:26px;z-index:31;font-family:var(--font-mono);font-size:13px;color:var(--muted);
@@ -123,7 +174,7 @@
     color:var(--ink);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;
     backdrop-filter:blur(12px);transition:.15s;
   }
-  .nav-btn:hover{border-color:var(--neon-line);color:var(--neon);box-shadow:0 0 14px -4px var(--neon-glow);}
+  .nav-btn:hover{border-color:var(--border-strong);color:var(--ink);background:var(--surface-2);}
   .nav-btn:disabled{opacity:.25;cursor:default;box-shadow:none;}
   .nav-btn:focus-visible, .menu-btn:focus-visible, .btn:focus-visible{outline:2px solid var(--neon);outline-offset:2px;}
   .menu-btn{
@@ -157,10 +208,10 @@
     display:inline-flex;align-items:center;gap:8px;font-family:var(--font-mono);font-size:12.5px;
     letter-spacing:.1em;color:var(--neon);margin-bottom:18px;
   }
-  .kicker::before{content:"";width:26px;height:1px;background:var(--neon);box-shadow:0 0 6px var(--neon-glow);}
+  .kicker::before{content:"";width:26px;height:1px;background:var(--primary);}
 
   .hook{font-size:clamp(25px,3.4vw,44px);line-height:1.32;max-width:21ch;color:var(--ink);}
-  .hook .accent{color:var(--neon);text-shadow:0 0 18px var(--neon-glow);}
+  .hook .accent{color:var(--primary);}
   .sub{font-size:16px;color:var(--muted);max-width:64ch;margin-top:18px;line-height:1.8;}
 
   .content-wrap{max-width:min(1160px,76vw);width:100%;margin-top:32px;}
@@ -168,10 +219,13 @@
 
   /* glass card */
   .glass{
-    background:var(--glass);border:1px solid var(--glass-line);border-radius:18px;
-    backdrop-filter:blur(20px) saturate(140%);
-    box-shadow:0 24px 60px -36px rgba(0,0,0,.7);
+    background:var(--surface);border:1px solid var(--border);border-radius:16px;
+    box-shadow:var(--shadow-1);
   }
+  /* one hover treatment for every interactive card, so elevation means the
+     same thing everywhere instead of each component inventing its own */
+  .quiz-btn:hover, .need-btn:hover, .res-tab:hover, .menu-item:hover,
+  .challenge-item:hover, .check-row:hover{background:var(--surface-2);}
   .glass-pad{padding:22px 26px;}
 
   /* tables */
@@ -186,7 +240,7 @@
   .prime-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;}
   @media (max-width:900px){ .prime-grid{grid-template-columns:repeat(2,1fr);} }
   .prime-chip{padding:20px 16px;text-align:center;}
-  .prime-chip .letter{font-family:var(--font-mono);font-size:32px;font-weight:700;color:var(--neon);text-shadow:0 0 16px var(--neon-glow);display:block;}
+  .prime-chip .letter{font-family:var(--font-mono);font-size:32px;font-weight:700;color:var(--primary);display:block;}
   .prime-chip .name{font-size:11.5px;font-family:var(--font-mono);color:var(--muted);margin-top:4px;}
   .prime-chip .desc{font-size:13.5px;margin-top:10px;font-weight:600;}
 
@@ -214,7 +268,7 @@
   .compare-col .col-title{font-size:12.5px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;}
   .compare-col.bad .col-title{color:var(--danger);}
   .compare-col.good .col-title{color:var(--neon);}
-  .compare-col.bad .glass{border-color:rgba(255,110,92,.28);}
+  .compare-col.bad .glass{border-color:var(--danger-line);}
   .compare-col.good .glass{border-color:var(--neon-line);}
 
   .quad-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
@@ -224,9 +278,13 @@
   .quad-card .qc-text{font-size:12.4px;color:var(--muted);line-height:1.75;}
 
   .output-box pre, .prompt-mono{
-    margin:0;white-space:pre-wrap;font-family:var(--font-mono);font-size:12.6px;line-height:1.9;
+    margin:0;white-space:pre-wrap;font-family:var(--font-mono);font-size:13px;line-height:2;
     direction:rtl;text-align:right;color:var(--ink);
   }
+  /* §15 a prompt is something the physician copies and runs, so it gets its
+     own darker well with a primary edge rather than looking like page text */
+  .output-box{background:var(--bg-2);border-inline-start:3px solid var(--primary);}
+  .output-box .output-label{color:var(--primary);}
   .output-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;}
   .output-label{font-size:10.5px;font-family:var(--font-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
 
@@ -236,10 +294,10 @@
     display:inline-flex;align-items:center;gap:8px;cursor:pointer;font-family:var(--font-body);
     font-weight:700;font-size:13.5px;border-radius:100px;padding:10px 20px;transition:.15s;border:1px solid transparent;
   }
-  .btn-neon{background:var(--neon);color:#05201C;box-shadow:0 0 16px -6px var(--neon-glow);}
-  .btn-neon:hover{filter:brightness(1.08);}
-  .btn-ghost{background:transparent;color:var(--neon);border-color:var(--neon-line);}
-  .btn-ghost:hover{background:var(--neon-soft);}
+  .btn-neon{background:var(--primary);color:#06231F;box-shadow:var(--shadow-1);font-weight:700;}
+  .btn-neon:hover{background:var(--primary-hover);}
+  .btn-ghost{background:transparent;color:var(--primary);border-color:var(--neon-line);}
+  .btn-ghost:hover{background:var(--neon-soft);border-color:var(--primary);}
   .btn-copy{font-size:11.5px;padding:6px 13px;background:rgba(255,255,255,.06);color:var(--muted);border:1px solid var(--glass-line);}
   .btn-copy:hover{color:var(--ink);}
   .btn-copy.copied{background:var(--neon);color:#05201C;border-color:var(--neon);}
@@ -260,16 +318,38 @@
     letter-spacing:.08em;color:var(--neon);background:var(--neon-soft);border:1px solid var(--neon-line);
     padding:5px 13px;border-radius:100px;margin-bottom:14px;
   }
-  .live-dot{width:6px;height:6px;border-radius:50%;background:var(--neon);box-shadow:0 0 6px var(--neon-glow);animation:pulse 1.6s infinite;}
+  .live-dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 1.6s infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.3;}}
 
+  /* ===== notice system ==================================================
+     Five roles, one shape. The default is now a NEUTRAL note. Previously every
+     plain callout was tinted red, so forty ordinary asides on Part 2 read as
+     warnings and the genuine warnings lost all their force. Each variant
+     carries an optional glyph label as well as a colour, so the state survives
+     greyscale, projection and colour-vision differences.
+     ------------------------------------------------------------------- */
   .callout{
-    background:var(--danger-soft);border:1px solid rgba(255,110,92,.35);border-radius:14px;
-    padding:15px 18px;font-size:14px;margin-top:14px;
+    background:var(--surface);border:1px solid var(--border);border-radius:14px;
+    border-inline-start:3px solid var(--border-strong);
+    padding:15px 18px;font-size:14px;margin-top:14px;line-height:1.85;
   }
-  .callout b{color:var(--danger);}
-  .callout.ok{background:var(--neon-soft);border-color:var(--neon-line);}
-  .callout.ok b{color:var(--neon);}
+  .callout b{color:var(--ink);}
+  .callout[data-label]::before{
+    content:attr(data-label);font-family:var(--font-mono);font-size:11.5px;
+    letter-spacing:.06em;display:block;margin-bottom:7px;color:var(--muted);
+  }
+
+  .callout.ok{background:var(--success-soft);border-color:var(--success-line);border-inline-start-color:var(--success);}
+  .callout.ok b, .callout.ok[data-label]::before{color:var(--success);}
+
+  .callout.warn{background:var(--warning-soft);border-color:var(--warning-line);border-inline-start-color:var(--warning);}
+  .callout.warn b, .callout.warn[data-label]::before{color:var(--warning);}
+
+  .callout.info{background:var(--info-soft);border-color:var(--info-line);border-inline-start-color:var(--info);}
+  .callout.info b, .callout.info[data-label]::before{color:var(--info);}
+
+  .callout.danger{background:var(--danger-soft);border-color:var(--danger-line);border-inline-start-color:var(--danger);}
+  .callout.danger b, .callout.danger[data-label]::before{color:var(--danger);}
 
   .need-btns{display:flex;flex-wrap:wrap;gap:9px;margin:14px 0 18px;}
   .need-btn{
@@ -280,7 +360,7 @@
   .output-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;}
   @media (max-width:820px){ .output-grid{grid-template-columns:repeat(2,1fr);} }
   .output-card{padding:16px;transition:.2s;}
-  .output-card.match{border-color:var(--neon-line);box-shadow:0 0 0 2px var(--neon-soft), 0 0 20px -10px var(--neon-glow);}
+  .output-card.match{border-color:var(--primary);box-shadow:0 0 0 2px var(--neon-soft), var(--shadow-1);}
   .oc-icon{font-size:22px;}
   .oc-name{font-weight:700;font-size:13.5px;margin-top:8px;}
   .oc-en{font-size:10px;color:var(--muted);}
@@ -390,14 +470,14 @@
   .has-bg::before{content:"";position:absolute;inset:0;background:linear-gradient(to right, rgba(8,11,16,.18), rgba(8,11,16,.6) 52%, rgba(8,11,16,.93) 100%), linear-gradient(0deg, rgba(8,11,16,.55), rgba(8,11,16,0) 42%);pointer-events:none;z-index:0;}
   .has-bg > *{position:relative;z-index:1;}
   .instructor-photo-row{display:flex;direction:ltr;justify-content:flex-start;gap:24px;align-items:center;flex-wrap:wrap;}
-  .instructor-photo{width:132px;height:132px;border-radius:50%;object-fit:cover;border:2px solid var(--neon-line);box-shadow:0 0 24px -6px var(--neon-glow), 0 0 0 6px rgba(51,241,220,.05);flex:none;}
+  .instructor-photo{width:132px;height:132px;border-radius:50%;object-fit:cover;border:2px solid var(--border-strong);box-shadow:var(--shadow-2);flex:none;}
   @media (max-width:640px){ .instructor-photo-row{flex-direction:column;align-items:flex-start;} }
 
 
   /* act divider */
   .divider-num{font-family:var(--font-mono);font-size:15px;color:var(--neon);letter-spacing:.1em;margin-bottom:20px;}
   .divider-title{font-size:clamp(36px,6.4vw,76px);line-height:1.08;}
-  .divider-title .accent{color:var(--neon);text-shadow:0 0 26px var(--neon-glow);}
+  .divider-title .accent{color:var(--primary);}
   .divider-sub{font-size:16.5px;color:var(--muted);max-width:54ch;margin-top:22px;line-height:1.8;}
 
   /* resources tabs (generalized tabgroup) */
@@ -417,7 +497,7 @@
 
   /* menu overlay */
   .menu-overlay{
-    position:fixed;inset:0;z-index:50;background:rgba(6,9,12,.86);backdrop-filter:blur(10px);
+    position:fixed;inset:0;z-index:50;background:rgba(9,14,22,.90);backdrop-filter:blur(10px);
     display:none;opacity:0;transition:opacity .25s;overflow-y:auto;padding:80px 26px;
   }
   .menu-overlay.show{display:block;opacity:1;}
@@ -429,7 +509,10 @@
     display:flex;align-items:center;gap:14px;padding:13px 16px;border-radius:12px;cursor:pointer;
     font-size:15px;color:var(--ink);border:1px solid transparent;
   }
-  .menu-item:hover, .menu-item:focus-visible{background:rgba(255,255,255,.05);border-color:var(--glass-line);outline:none;}
+  .menu-item:hover{background:var(--surface-2);border-color:var(--border-strong);}
+  /* the index is keyboard-navigable, so it must keep a visible ring — the
+     previous rule set outline:none on focus and silently removed it */
+  .menu-item:focus-visible{background:var(--surface-2);border-color:var(--primary);outline:2px solid var(--primary);outline-offset:2px;}
   .menu-item .mi-num{font-family:var(--font-mono);font-size:12px;color:var(--muted);width:26px;}
 
   .cta-row{display:flex;gap:12px;margin-top:34px;flex-wrap:wrap;}
@@ -1311,7 +1394,7 @@ Exactly [N] slides, [short / default / long] length. State the slide count preci
             <div class="evidence-bar"><span class="eb-label">تجارب سريرية عشوائية محكومة</span><div class="eb-fill" style="width:76%;"></div></div>
             <div class="evidence-bar"><span class="eb-label">دراسات مرصودة (Cohort / Case-control)</span><div class="eb-fill" style="width:52%;"></div></div>
             <div class="evidence-bar"><span class="eb-label">رأي خبير أو تقرير حالة</span><div class="eb-fill" style="width:30%;"></div></div>
-            <div class="evidence-bar"><span class="eb-label">رد ذكاء اصطناعي (بدون مصدر يرجع له)</span><div class="eb-fill" style="width:12%;background:var(--danger-soft);border-color:rgba(255,110,92,.35);color:var(--danger);">ليس دليلاً بحد ذاته</div></div>
+            <div class="evidence-bar"><span class="eb-label">رد ذكاء اصطناعي (بدون مصدر يرجع له)</span><div class="eb-fill" style="width:12%;background:var(--danger-soft);border-color:var(--danger-line);color:var(--danger);">ليس دليلاً بحد ذاته</div></div>
           </div>
         </div>
         <div class="content-wrap reveal" style="margin-top:14px;">
@@ -2033,7 +2116,7 @@ E: يفهم القارئ بالظبط شنو يعمل، من غير ما يحس 
     <!-- 38 : Activity 5 / Homework -->
     <section class="slide">
       <div class="kicker reveal">للمحاضرة القادمة</div>
-      <div class="live-badge reveal" style="color:var(--danger);background:var(--danger-soft);border-color:rgba(255,110,92,.35);"><span class="live-dot" style="background:var(--danger);box-shadow:0 0 6px rgba(255,110,92,.6);"></span>مهمة منزلية</div>
+      <div class="live-badge reveal" style="color:var(--danger);background:var(--danger-soft);border-color:var(--danger-line);"><span class="live-dot" style="background:var(--danger);box-shadow:0 0 6px rgba(255,110,92,.6);"></span>مهمة منزلية</div>
       <h2 class="hook reveal">جهّز نفسك لأقوى أداة <span class="accent">حنبنيها سوا</span></h2>
       <p class="sub reveal">صمّم <span class="en">Custom Gem</span> لإدارة صفحة السوشيال ميديا لعيادتك — حنبنيه مباشرة في المحاضرة الجاية، بنفس منطق العناصر الستة.</p>
       <div class="content-wrap reveal">
