@@ -42,8 +42,14 @@ for k in range(1, len(parts), 3):
 
 slides_html = []
 for n, (a, body) in enumerate(zip(acts, bodies), 1):
-    slides_html.append('\n    <!-- %d -->\n    <section class="slide" data-act="%s">%s\n    </section>\n'
-                       % (n, a, body))
+    # a leading <!--BG|name--> line puts a section background on that slide
+    bg = re.match(r'\s*<!--BG\|([a-z0-9-]+)-->', body)
+    extra = ''
+    if bg:
+        extra = ' has-bg" style="background-image:url(\'img/%s.jpg\')' % bg.group(1)
+        body = body[bg.end():]
+    slides_html.append('\n    <!-- %d -->\n    <section class="slide%s" data-act="%s">%s\n    </section>\n'
+                       % (n, extra, a, body))
 
 # Part 1's engine also wires up widgets that live inside Part 1's own slides and bind by
 # element id (su-*, dr-*, sp-*, sqdt-*). Those ids do not exist here, so the binding throws
