@@ -70,10 +70,12 @@
               <tr><td><b>4</b></td><td>خريطة الأدوات العشرة</td><td>20 د</td></tr>
               <tr><td><b>5</b></td><td>مختبر الفشل</td><td>15 د</td></tr>
               <tr><td><b>6</b></td><td>دقّق ولا تثق</td><td>15 د</td></tr>
-              <tr><td><b>ب</b></td><td>ابنِ عرضًا احترافيًا بأدوات مجانية</td><td>30 د</td></tr>
+              <tr><td><b>ب</b></td><td>إضافي — ابنِ عرضًا احترافيًا بأدوات مجانية</td><td>30 د</td></tr>
+              <tr><td><b>—</b></td><td><b>وقت مرن</b> — تسجيل، مشاكل نت، نقاش، أسئلة، استراحة</td><td><b>25 د</b></td></tr>
             </tbody>
           </table>
         </div>
+        <div class="callout" style="margin-top:14px;"><b>الأنشطة المجدولة = 155 دقيقة. الجلسة = 180 دقيقة.</b> الـ25 دقيقة الباقية مقصودة ومحجوزة — مش هامش وهمي. الدورات اللي بتجدول 180 من 180 بتتأخر دايمًا من أول وحدة.</div>
       </div>
 
 <!--SLIDE|افتتاحية|قواعد المعمل — قبل أي صورة-->
@@ -103,11 +105,26 @@
         </div>
         <div class="callout" style="margin-top:16px;"><b>نقطة الجزء الأول اللي بتتفعّل هنا:</b> تجريد الهوية <span class="en">— de-identification</span>. الفرق إن دلوقتي الصورة نفسها بيانات، مش النص بس. الصورة ممكن تحمل موقع التصوير وتاريخه ونوع الجهاز.</div>
         <div class="callout ok" style="margin-top:10px;"><b>القاعدة الذهبية:</b> اسأل قبل ما ترفع — <span class="en">"Where does this image go, who stores it, and for how long?"</span> لو ما عندكش إجابة، ما ترفعش.</div>
+        <div class="table-wrap" style="margin-top:16px;">
+          <table>
+            <thead><tr><th>#</th><th>بوابة الخصوصية — اسأل الثمانية دول قبل أي رفع</th></tr></thead>
+            <tbody>
+              <tr><td><b>1</b></td><td>فيه أي معلومة تعرّف المريض في الصورة أو اسم الملف؟</td></tr>
+              <tr><td><b>2</b></td><td>اتعملها تجريد هوية فعلي — وجه، وشم، مجوهرات، <span class="en">EXIF</span>؟</td></tr>
+              <tr><td><b>3</b></td><td>فيه إذن أو موافقة حيث دي مطلوبة؟</td></tr>
+              <tr><td><b>4</b></td><td>الصورة بتتعالج فين — على الجهاز ولا على سيرفر خارجي؟</td></tr>
+              <tr><td><b>5</b></td><td>مين بيخزّنها؟ وفي أي بلد؟</td></tr>
+              <tr><td><b>6</b></td><td>بتتخزّن قد إيه؟ وينفع تتمسح؟</td></tr>
+              <tr><td><b>7</b></td><td>ممكن تُستخدم في تدريب النماذج؟</td></tr>
+              <tr><td><b>8</b></td><td>الأداة دي مناسبة أصلًا لبيانات سريرية؟</td></tr>
+            </tbody>
+          </table>
+        </div>
         <div class="callout" style="margin-top:14px;"><b>متطلبات قبل المحاضرة — للمدرّب:</b> ابعتها للمشاركين قبل المحاضرة بيوم على الأقل.<br>
         <b>1</b> — ثبّت تطبيق <span class="en">Model Dermatol</span> من متجر تطبيقات جهازك.<br>
         <b>2</b> — سجّل في تجربة <span class="en">VisualDx</span> المجانية.<br>
         <b>3</b> — هات جهاز فيه نت، ويفضّل موبايل ولابتوب مع بعض.<br>
-        <b>البديل لو التثبيت ما نفعش:</b> <span class="en mono" dir="ltr">scanskinai</span> بيشتغل من المتصفح بدون تسجيل ولا تثبيت — يكفي للمشاركة في كل التمارين.</div>
+        <b>البديل لو التثبيت ما نفعش:</b> <span class="en mono" dir="ltr">scanskinai.com</span> بيشتغل من المتصفح بدون تثبيت، والفحص الأول بدون حساب — يكفي للمشاركة في التمرين.</div>
       </div>
       </div>
 
@@ -116,19 +133,36 @@
       <h2 class="divider-title reveal">هل الذكاء الاصطناعي <span class="accent">يرى</span>؟<br>أم <span class="accent">يفهم</span>؟</h2>
       <p class="divider-sub reveal">أخطر خلط في أدوات الجلدية: إننا نسمّي كل حاجة "تشخيص". في الحقيقة قدامنا ثلاث قدرات مختلفة تمامًا — ولكل واحدة استخدام وحدود.</p>
 
-<!--SLIDE|الوحدة 1 · يرى أم يفهم؟|ثلاث قدرات — لا تخلط بينها-->
+<!--SLIDE|الوحدة 1 · يرى أم يفهم؟|أربع قدرات — لا تخلط بينها-->
       <div class="slide-scroll">
       <div class="kicker reveal">القدرة قبل الأداة</div>
       <h2 class="hook reveal">"أداة ذكاء اصطناعي جلدية"<br><span class="accent">جملة بلا معنى.</span></h2>
-      <p class="sub reveal">لازم تعرف أي قدرة بالظبط قدامك قبل ما تحكم على المخرج. نفس الصورة تدخل ثلاث أنظمة وتطلع بثلاث أنواع مخرجات مختلفة في طبيعتها.</p>
+      <p class="sub reveal">لازم تعرف أي قدرة بالظبط قدامك قبل ما تحكم على المخرج. نفس الصورة تدخل أربع أنظمة وتطلع بأربع أنواع مخرجات مختلفة في طبيعتها — ومعايير الحكم على كل نوع مختلفة.</p>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid">
+          <div class="glass quad-card"><div class="qc-tool en">1 — RETRIEVAL</div><div class="pc-title">استرجاع</div><div class="qc-text">بيلاقي معلومة أو حالات شبيهة أو أمثلة مرتبطة. ما بيشخّصش — بيقول "ده شبه ده".</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">2 — CLASSIFICATION</div><div class="pc-title">تصنيف</div><div class="qc-text">بيصنّف اللي قدامه حسب فئات الاستخدام المقصود للأداة. لو الحالة برّه فئاته — هيجبرها جوه واحدة منهم.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">3 — REASONING</div><div class="pc-title">استدلال</div><div class="qc-text">بيجمع السياق السريري والاحتمالات لدعم استدلال منظّم. بيسأل أسئلة متابعة — وأكثر عرضة للهلوسة.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">4 — TRIAGE</div><div class="pc-title">فرز</div><div class="qc-text">بيدعم ترتيب الأولوية أو تقدير الخطورة — <b>حيث الأداة مصمّمة ومُتحقَّق منها لده تحديدًا</b>. مقياس نجاحه مختلف: الحساسية قبل الدقة.</div></div>
+        </div>
+        <div class="callout ok" style="margin-top:16px;"><b>سؤالك الأول لأي أداة جديدة:</b> "إنت أي واحدة من الأربعة؟" — لأن نقد المخرج بيتغيّر تمامًا حسب الإجابة. تحاسب أداة استرجاع على إنها ما شخّصتش = خطأ منك إنت.</div>
+        <div class="callout" style="margin-top:10px;color:var(--danger);"><b>ما تفترضش إن كل أداة بتعمل الأربعة.</b> أغلب الأدوات بتعمل واحدة أو اتنين. والأداة اللي بتدّعي إنها بتعمل الأربعة — دي علامة تحذير مش علامة تفوّق.</div>
+      </div>
+      </div>
+
+<!--SLIDE|الوحدة 1 · يرى أم يفهم؟|قف — شنو اللي ما أعرفهوش؟-->
+      <div class="slide-scroll">
+      <div class="kicker reveal">عادة قبل كل سؤال</div>
+      <h2 class="hook reveal">السؤال الجيد بيبدأ<br><span class="accent">من تحديد الناقص.</span></h2>
+      <p class="sub reveal">أغلب الناس بتفتح الأداة وتسأل فورًا. العادة دي بتقلب الترتيب — وبتخلّي الأداة تملأ فراغاتك بافتراضات إنت ما قلتهاش.</p>
       <div class="content-wrap wide reveal">
         <div class="quad-grid" style="grid-template-columns:repeat(3,1fr);">
-          <div class="glass quad-card"><div class="qc-tool en">RETRIEVAL</div><div class="pc-title">استرجاع بصري</div><div class="qc-text">بيدوّر على صور شبيهة في قاعدة بيانات ويرجّعلك المعلومة المرتبطة بيها. ما بيشخّصش — بيقول "ده شبه ده".</div></div>
-          <div class="glass quad-card"><div class="qc-tool en">CLASSIFICATION</div><div class="pc-title">تصنيف</div><div class="qc-text">مدرّب على فئات محددة سلفًا ويحطّ الصورة في واحدة منها باحتمالية. لو الحالة برّه فئاته — هيجبرها جوه واحدة منهم.</div></div>
-          <div class="glass quad-card"><div class="qc-tool en">REASONING</div><div class="pc-title">استدلال</div><div class="qc-text">بياخد سياق سريري ويبني تشخيص تفريقي ويسأل أسئلة متابعة. أقرب للتفكير الطبي — وأكثر عرضة للهلوسة.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">STOP</div><div class="pc-title">قف</div><div class="qc-text">قبل ما تفتح أي أداة. ثانيتين بس.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">WHAT DON'T I KNOW?</div><div class="pc-title">شنو اللي ما أعرفهوش؟</div><div class="qc-text">اكتب الناقص صراحة — مدة، دواء، تاريخ، فحص.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">WHAT WOULD CHANGE IT?</div><div class="pc-title">شنو اللي يغيّر استدلالي؟</div><div class="qc-text">أي معلومة لو عرفتها تقلب الترتيب؟ دي اللي تسأل عنها.</div></div>
         </div>
-        <div class="callout ok" style="margin-top:16px;"><b>سؤالك الأول لأي أداة جديدة:</b> "إنت أي واحدة من الثلاثة؟" — لأن نقد المخرج بيتغيّر تمامًا حسب الإجابة. تحاسب أداة استرجاع على إنها ما شخّصتش = خطأ منك أنت.</div>
-        <div class="callout" style="margin-top:10px;"><b>وفيه رابع مخفي:</b> <span class="en">TRIAGE</span> — فرز. مش بيقول إيه المرض، بيقول "ده يستاهل إحالة ولا لأ". وده مقياس نجاحه مختلف تمامًا: الحساسية أهم من الدقة.</div>
+        <div class="callout ok" style="margin-top:16px;"><b>وبعدين بس — اسأل الذكاء الاصطناعي.</b> السؤال اللي بيبدأ بـ"شنو الناقص عندي؟" بيطلّع مخرج مختلف تمامًا عن السؤال اللي بيبدأ بـ"شنو التشخيص؟".</div>
+        <div class="callout" style="margin-top:10px;"><b>الربط بالجزء الأول:</b> دي خانة <span class="en">UNKNOWN</span> من الفصل الرباعي — ملاحظة / تفسير / استنتاج / مجهول. الفرق إننا دلوقتي بنحوّلها من خانة في ورقة إلى <b>عادة قبل كل سؤال</b>.</div>
       </div>
       </div>
 
@@ -136,7 +170,7 @@
       <div class="slide-scroll">
       <div class="live-badge reveal"><span class="live-dot"></span>أداة تطبيقية — مجانية بالكامل</div>
       <h2 class="hook reveal"><span class="accent en">Model Dermatology</span></h2>
-      <p class="sub reveal">أقوى أداة مجانية نبدأ بيها — لأنها بتوضّح الفرق بين الاسترجاع والتشخيص بشكل عملي، ولأن عندها دليل منشور نادر في المجال ده.</p>
+      <p class="sub reveal">نبدأ بيها لأنها بتوضّح الفرق بين الاسترجاع والتشخيص بشكل عملي، ولأن عندها دليل منشور — وده نادر في المجال ده.</p>
       <div class="content-wrap wide reveal">
         <div class="table-wrap">
           <table>
@@ -225,6 +259,28 @@
       </div>
       </div>
 
+<!--SLIDE|الوحدة 1 · يرى أم يفهم؟|بوابة جودة الصورة-->
+      <div class="slide-scroll">
+      <div class="live-badge reveal"><span class="live-dot"></span>قبل أي رفع — 2 دقيقة</div>
+      <h2 class="hook reveal"><span class="en">Garbage in</span><br><span class="accent">مخرج غير موثوق.</span></h2>
+      <p class="sub reveal">قبل ما ترفع أي صورة لأي أداة، عدّي على العشرة دول. أغلب "أخطاء الذكاء الاصطناعي" اللي بتشوفها في الحقيقة أخطاء تصوير.</p>
+      <div class="content-wrap wide reveal">
+        <div class="quad-grid" style="grid-template-columns:repeat(5,1fr);">
+          <div class="glass quad-card"><div class="pc-title">التركيز</div><div class="qc-text">الآفة حادة مش ضبابية</div></div>
+          <div class="glass quad-card"><div class="pc-title">الإضاءة</div><div class="qc-text">متجانسة بلا ظل قاطع</div></div>
+          <div class="glass quad-card"><div class="pc-title">التعريض</div><div class="qc-text">مش محروقة ولا مظلمة</div></div>
+          <div class="glass quad-card"><div class="pc-title">المقياس</div><div class="qc-text">مرجع قياس لو ممكن</div></div>
+          <div class="glass quad-card"><div class="pc-title">الاتجاه</div><div class="qc-text">واضح فين الأعلى</div></div>
+          <div class="glass quad-card"><div class="pc-title">مجال الرؤية</div><div class="qc-text">الآفة + جلد سليم حواليها</div></div>
+          <div class="glass quad-card"><div class="pc-title">التشويش</div><div class="qc-text">بلا انعكاس أو مرهم لامع</div></div>
+          <div class="glass quad-card"><div class="pc-title">نوع الصورة</div><div class="qc-text">سريرية ولا تنظير؟</div></div>
+          <div class="glass quad-card"><div class="pc-title">وضوح الآفة</div><div class="qc-text">الحواف والسطح باينين</div></div>
+          <div class="glass quad-card"><div class="pc-title">الجودة العامة</div><div class="qc-text">تنفع تتعرض على شاشة</div></div>
+        </div>
+        <div class="callout" style="margin-top:16px;color:var(--danger);"><b>لكن انتبه للعكس:</b> صورة ممتازة <b>ما بتضمنش</b> مخرج صحيح. جودة الصورة شرط لازم — مش شرط كافٍ. الأداة ممكن تغلط على أنضف صورة عندك.</div>
+      </div>
+      </div>
+
 <!--SLIDE|الوحدة 1 · يرى أم يفهم؟|تطبيق عملي — شغّل الأداة-->
       <div class="slide-scroll">
       <div class="live-badge reveal"><span class="live-dot"></span>تطبيق — 8 دقائق · على جهازك</div>
@@ -237,7 +293,7 @@
           <li class="glass"><b>سجّل أول 3 نتائج</b>اكتبهم في ورقة العمل جنب قائمتك إنت.</li>
           <li class="glass"><b>لاحظ شنو ما سألش عنه</b>ما سألش عن المدة، ولا الأعراض، ولا التاريخ العائلي. ليه؟</li>
         </ol>
-        <div class="callout" style="margin-top:14px;"><b>لو ما قدرتش تثبّت التطبيق:</b> افتح <span class="en mono" dir="ltr">scanskinai</span> من المتصفح — بدون تسجيل ولا تثبيت. الأداة مختلفة (فرز مش استرجاع)، لكنك تقدر تمشي مع التمرين كله وتشارك في المقارنة.</div>
+        <div class="callout" style="margin-top:14px;"><b>لو ما قدرتش تثبّت التطبيق:</b> افتح <span class="en mono" dir="ltr">scanskinai.com</span> من المتصفح — الفحص الأول بدون حساب. <b>القدرة مختلفة</b> — دي فرز مش استرجاع — فالمخرج حيبان مختلف، وده في حد ذاته مقارنة مفيدة تشارك بيها.</div>
         <div class="callout" style="margin-top:10px;"><b>لو النت وقع:</b> المدرّب عنده لقطات شاشة محفوظة للحالة. استمر بالنقاش على اللقطات — التمرين تفكيري، مش تقني.</div>
       </div>
       </div>
@@ -283,7 +339,7 @@
       <div class="slide-scroll">
       <div class="live-badge reveal"><span class="live-dot"></span>أداة تطبيقية — تجربة مجانية 7 أيام</div>
       <h2 class="hook reveal"><span class="accent en">VisualDx</span></h2>
-      <p class="sub reveal">أقرب أداة في السوق لطريقة تفكير الطبيب: ما بتكتفيش بالصورة — بتسألك أسئلة سريرية وتبني معاك تشخيص تفريقي.</p>
+      <p class="sub reveal">بتجمع معلومات الصورة مع السياق السريري لدعم بناء تشخيص تفريقي منظّم — يعني ما بتكتفيش بالصورة، بتسألك أسئلة سريرية كمان.</p>
       <div class="content-wrap wide reveal">
         <div class="table-wrap">
           <table>
@@ -394,6 +450,17 @@ E — Success = I finish knowing exactly which additional information
     Flag explicitly anything you are uncertain about.</pre>
         </div>
         <div class="callout ok" style="margin-top:14px;"><b>السطر الحاسم:</b> <span class="en">"What you CANNOT determine from an image"</span> — ده السطر اللي بيحوّل الأداة من مصدر إجابات لشريك تفكير. جرّب شيله وشوف الفرق.</div>
+        <div class="callout" style="margin-top:12px;"><b>ولو اختلط عليك <span class="en">P</span> و <span class="en">R</span> — دي أبسط صيغة:</b></div>
+        <div class="compare-grid" style="margin-top:10px;">
+          <div class="compare-col good">
+            <div class="col-title"><span class="en">P</span> = <span class="en">WHO</span> — مين يفكّر؟</div>
+            <div class="glass glass-pad" style="line-height:1.9;">وجهة النظر اللي تشتغل منها الأداة.<br><b>مثال:</b> استشاري جلدية.</div>
+          </div>
+          <div class="compare-col good">
+            <div class="col-title"><span class="en">R</span> = <span class="en">WHAT</span> — يعمل إيه؟</div>
+            <div class="glass glass-pad" style="line-height:1.9;">المهمة المطلوبة بالظبط.<br><b>مثال:</b> يبني تشخيصًا تفريقيًا ويرتّبه.</div>
+          </div>
+        </div>
       </div>
       </div>
 
@@ -455,7 +522,7 @@ E — Success = I finish knowing exactly which additional information
               <tr><td><b>القدرة</b></td><td>فاحص أعراض جلدية بالصورة — <span class="en">consumer symptom checker</span></td></tr>
               <tr><td><b>المستخدم المقصود</b></td><td><b>المريض</b>، مش الطبيب — نقطة حاسمة في التدقيق</td></tr>
               <tr><td><b>قاعدة الصور</b></td><td><span class="en">[VENDOR]</span> أكثر من 120 ألف صورة طبية · حوالي 200 حالة · كل أنواع <span class="en">Fitzpatrick</span></td></tr>
-              <tr><td><b>أنواع البشرة</b></td><td>نقطة قوتها الحقيقية — بُنيت على أرشيف صور غني في البشرة الداكنة</td></tr>
+              <tr><td><b>أنواع البشرة</b></td><td><span class="en">[VENDOR]</span> الشركة بتذكر تغطية عبر أنواع <span class="en">Fitzpatrick</span> المختلفة — قيّم الدليل بنفسك لكل استخدام</td></tr>
               <tr><td><b>التكلفة</b></td><td><span class="en">[VERIFY]</span> مجانية لفترة تعريفية ثم اشتراك سنوي رمزي — تأكّد قبل المحاضرة</td></tr>
               <tr><td><b>الدليل</b></td><td><span class="en">[EVIDENCE]</span> دراسة مقطعية منشورة 2024 على 700 مريض — الأرقام في الشريحة الجاية</td></tr>
             </tbody>
@@ -469,7 +536,7 @@ E — Success = I finish knowing exactly which additional information
       <div class="slide-scroll">
       <div class="kicker reveal">دليل منشور</div>
       <h2 class="hook reveal">%71 إجمالًا.<br><span class="accent">%10 للأورام الخبيثة.</span></h2>
-      <p class="sub reveal">دراسة منشورة في <span class="en">JMIR Dermatology</span> سنة 2024 على 700 مريض. الرقمين دول جنب بعض هما أهم شريحة في الدورة كلها.</p>
+      <p class="sub reveal"><span class="en">[EVIDENCE]</span> دراسة مقطعية منشورة في <span class="en">JMIR Dermatology</span> سنة 2024، على 700 مريض، لأداة <span class="en">Aysa</span> تحديدًا. الرقمين دول جنب بعض بيعلّموك إزاي تقرأ أي رقم أداء.</p>
       <div class="content-wrap wide reveal">
         <div class="evidence-bar-wrap">
           <div class="evidence-bar"><div class="eb-label">حساسية الاحتمال الأول إجمالًا</div><div class="eb-fill" style="width:71%;">%71</div></div>
@@ -547,7 +614,7 @@ E — Success = I finish knowing exactly which additional information
         <div class="quad-grid" style="grid-template-columns:repeat(2,1fr);">
           <div class="glass quad-card"><div class="qc-tool en">PATTERN 1</div><div class="pc-title">النظام اللغوي بيتكلم أكتر</div><div class="qc-text">مخرج طويل ومنظّم ومقنع — ودي مش علامة دقة، دي علامة طلاقة لغوية. الطول بيقلّل شكّك بدون مبرر.</div></div>
           <div class="glass quad-card"><div class="qc-tool en">PATTERN 2</div><div class="pc-title">أدوات الصورة بتتجاهل الدواء</div><div class="qc-text">الكورتيزون غيّر المظهر تمامًا — والأداة اللي بتشوف بكسلات فقط ما عندهاش أي طريقة تعرف ده.</div></div>
-          <div class="glass quad-card"><div class="qc-tool en">PATTERN 3</div><div class="pc-title">البشرة الداكنة بتقلّل الاتفاق</div><div class="qc-text">الحمامي أصعب في التقييم البصري على <span class="en">Fitzpatrick IV–VI</span> — ولو التدريب كان أغلبه بشرة فاتحة، الفجوة بتكبر.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">PATTERN 3</div><div class="pc-title">الاتفاق بيقلّ على أنواع بشرة معينة</div><div class="qc-text">الحمامي أصعب في التقييم البصري على البشرة الداكنة. والأداء بيختلف حسب اللي كان ممثَّل في التحقّق — <b>مش خاصية ثابتة في كل الأدوات</b>. اسأل عن دليل كل أداة على حدة.</div></div>
           <div class="glass quad-card"><div class="qc-tool en">PATTERN 4</div><div class="pc-title">محدش قال "ما أعرفش"</div><div class="qc-text">أندر مخرج في أدوات الذكاء الاصطناعي هو الامتناع. الأنظمة مصمّمة تجاوب دايمًا — حتى لما المعلومة مش كافية.</div></div>
         </div>
         <div class="callout" style="margin-top:16px;color:var(--danger);"><b>النمط الرابع هو الأخطر:</b> الطبيب الشاطر بيقول "المعلومة مش كافية، محتاج مسحة أو خزعة". النظام بيقول تشخيص. لو أخدت ثقته على إنها يقين — خسرت أهم مهارة عندك.</div>
@@ -570,10 +637,10 @@ E — Success = I finish knowing exactly which additional information
       </div>
       </div>
 
-<!--SLIDE|الوحدة 4 · خريطة الأدوات|الوحدة 4 — خريطة الأدوات العشرة-->
+<!--SLIDE|الوحدة 4 · خريطة الأدوات|الوحدة 4 — خريطة الذكاء الاصطناعي في الجلدية-->
       <div class="divider-num en">UNIT 04 / 06</div>
-      <h2 class="divider-title reveal">جرّبنا ثلاثة.<br><span class="accent">دي الخريطة كلها.</span></h2>
-      <p class="divider-sub reveal">مش هنشغّل كل واحدة — الوقت ما يسمحش والفايدة قليلة. لكن حتخرج بخريطة كاملة تعرف ترجعلها وتختار منها بعد الدورة.</p>
+      <h2 class="divider-title reveal"><span class="accent en">THE DERMATOLOGY<br>AI MAP</span></h2>
+      <p class="divider-sub reveal">غرض الخريطة إنك تفهم <b>المنظومة</b> — مش إنك تقتنع بمنتجات معيّنة. مقسّمة لثلاث مستويات حسب علاقتك بيها، مش حسب "الأحسن".</p>
 
 <!--SLIDE|الوحدة 4 · خريطة الأدوات|لا تحفظ أسماء — احفظ طبقات-->
       <div class="slide-scroll">
@@ -593,20 +660,23 @@ E — Success = I finish knowing exactly which additional information
             </tbody>
           </table>
         </div>
-        <div class="callout ok" style="margin-top:16px;"><b>القاعدة اللي اتعلمناها في الجزء الأول:</b> اختر القدرة قبل الأداة. الفرق هنا إن "القدرة" في الجلدية أوضح بكثير — أداة الفرز مش أداة تشخيص، وأداة التنظير مش أداة استرجاع.</div>
+        <div class="callout ok" style="margin-top:16px;"><b>ترتيب التفكير الصحيح — احفظه:</b><br>
+        <span class="en">TASK → CAPABILITY → TOOL → PRODUCT</span><br>
+        <b>1</b> شنو عايز أعمل بالظبط؟ · <b>2</b> أي قدرة تخدم ده؟ · <b>3</b> أي نوع أداة فيها القدرة دي؟ · <b>4</b> وبعدين بس — أي منتج متاح لي؟</div>
+      <div class="callout" style="margin-top:10px;color:var(--danger);"><b>الترتيب المقلوب هو الفخ:</b> تبدأ من اسم أداة سمعت عنها، وتلوي المهمة عشان تناسبها. ده بيربطك ببراند بدل ما يبني عندك مهارة تنتقل لأي أداة جاية.</div>
       </div>
       </div>
 
 <!--SLIDE|الوحدة 4 · خريطة الأدوات|الست المجانية — مرور سريع-->
       <div class="slide-scroll">
-      <div class="live-badge reveal"><span class="live-dot"></span>مرور سريع — 6 أدوات · مجانية · جرّبها بعد الدورة</div>
+      <div class="live-badge reveal"><span class="live-dot"></span>TRY TODAY — مناسبة للتجربة العملية</div>
       <h2 class="hook reveal">مجانية بالكامل.<br><span class="accent">افتحها بنفسك.</span></h2>
       <div class="content-wrap wide reveal">
         <div class="quad-grid" style="grid-template-columns:repeat(3,1fr);">
-          <div class="glass quad-card"><div class="qc-tool en">MODEL DERMATOLOGY</div><div class="pc-title">استرجاع بصري ✱ جرّبناها</div><div class="qc-text">مجانية · <b>تطبيق موبايل</b> · مدعومة بتجربة عشوائية محكّمة. أفضل أداة تعليمية مجانية — لكن نزّلها قبل المحاضرة.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">MODEL DERMATOLOGY</div><div class="pc-title">استرجاع بصري ✱ جرّبناها</div><div class="qc-text">مجانية · <b>تطبيق موبايل</b> · عندها تجربة عشوائية محكّمة منشورة. مفيدة تعليميًا للفرق بين الاسترجاع والتشخيص — نزّلها قبل المحاضرة.</div></div>
           <div class="glass quad-card"><div class="qc-tool en">AYSA</div><div class="pc-title">فاحص أعراض ✱ جرّبناها</div><div class="qc-text">تطبيق موبايل. قوّتها في البشرة الداكنة. انتبه: مصمّمة للمريض، وضعيفة في الأورام الخبيثة.</div></div>
           <div class="glass quad-card"><div class="qc-tool en">SKINIVE</div><div class="pc-title">فحص ومتابعة زمنية</div><div class="qc-text"><span class="en">[VENDOR]</span> تحليلات مجانية محدودة للحساب الجديد · موسومة <span class="en">CE</span> كبرمجية طبية. قوّتها في <b>المتابعة عبر الزمن</b> مش الفحص الواحد.</div></div>
-          <div class="glass quad-card"><div class="qc-tool en">SCANSKINAI</div><div class="pc-title">فرز بدون تسجيل</div><div class="qc-text"><span class="en">[VERIFY]</span> مجانية بدون حساب · رفع صورة · تغطية واسعة عبر <span class="en">Fitzpatrick I–VI</span>. تصف نفسها كـ<b>فرز</b> لا تشخيص.</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">SCANSKINAI</div><div class="pc-title">فرز من المتصفح</div><div class="qc-text"><span class="en">[VENDOR]</span> من المتصفح بدون تطبيق · <b>الفحص الأول مجاني بدون حساب</b> · الشركة بتذكر تغطية أكثر من 31 حالة. بتصف نفسها كـ<b>فرز أولي لا تشخيص</b> — وده بالظبط اللي بندرّسه.</div></div>
           <div class="glass quad-card"><div class="qc-tool en">DEELO</div><div class="pc-title">تقييم آفة و<span class="en">ABCDE</span></div><div class="qc-text"><span class="en">[VENDOR]</span> مجانية بالكامل · تقبل صور سريرية وتنظير · تقييم مخاطر وخريطة جسم. تعليمية بامتياز.</div></div>
           <div class="glass quad-card"><div class="qc-tool en">DERMAQ</div><div class="pc-title">أداة ناشئة</div><div class="qc-text"><span class="en">[VERIFY]</span> مجانية · تغطية محدودة نسبيًا · تركّز على أنواع البشرة. استخدمها كتمرين على تقييم أداة جديدة.</div></div>
         </div>
@@ -616,7 +686,7 @@ E — Success = I finish knowing exactly which additional information
 
 <!--SLIDE|الوحدة 4 · خريطة الأدوات|التجارب المجانية — سجّل قبل ما تحتاجها-->
       <div class="slide-scroll">
-      <div class="live-badge reveal"><span class="live-dot"></span>مرور سريع — أداتان بتجربة مجانية</div>
+      <div class="live-badge reveal"><span class="live-dot"></span>TRY TODAY — بتجربة مجانية · تحتاج تسجيل</div>
       <h2 class="hook reveal">أقوى أداتين<br><span class="accent">لكن بعدّاد.</span></h2>
       <div class="content-wrap wide reveal">
         <div class="compare-grid">
@@ -625,7 +695,7 @@ E — Success = I finish knowing exactly which additional information
             <div class="glass glass-pad" style="line-height:1.95;">
               <b>القدرة:</b> دعم قرار سريري كامل<br>
               <b>التجربة:</b> <span class="en">[VENDOR]</span> 7 أيام<br>
-              <b>الأقوى فيها:</b> بتسألك أسئلة وتبني تفريقي معاك<br>
+              <b>مصمّمة لـ:</b> دمج الصورة مع السياق السريري لبناء تفريقي<br>
               <b>لمن:</b> الطبيب اللي عايز يقوّي منطق التفريقي
             </div>
           </div>
@@ -634,7 +704,7 @@ E — Success = I finish knowing exactly which additional information
             <div class="glass glass-pad" style="line-height:1.95;">
               <b>القدرة:</b> منظومة جلدية رقمية كاملة<br>
               <b>التجربة:</b> <span class="en">[VENDOR]</span> 30 يومًا<br>
-              <b>الأقوى فيها:</b> ملف مريض · تنظير · مقارنة صور عبر الزمن · تتبّع آفة<br>
+              <b>مصمّمة لـ:</b> ملف مريض · تنظير · مقارنة صور عبر الزمن · تتبّع آفة<br>
               <b>لمن:</b> العيادة اللي عايزة تبني نظام، مش تستخدم تطبيق
             </div>
           </div>
@@ -646,8 +716,8 @@ E — Success = I finish knowing exactly which additional information
 
 <!--SLIDE|الوحدة 4 · خريطة الأدوات|الأربعة المتقدمة — دراسات حالة-->
       <div class="slide-scroll">
-      <div class="live-badge reveal"><span class="live-dot"></span>مرور سريع — دراسات حالة · لا تسجّل فيها</div>
-      <h2 class="hook reveal">مش حنفتح حساب.<br><span class="accent">بس لازم تعرفها.</span></h2>
+      <div class="live-badge reveal"><span class="live-dot"></span>CASE STUDIES — للفهم، مش للتسجيل</div>
+      <h2 class="hook reveal"><span class="accent en">KNOW ABOUT</span><br>مش حنفتح حساب.</h2>
       <p class="sub reveal">دي أدوات تجارية أو تحتاج أجهزة أو نشر مؤسسي. قيمتها التعليمية عالية جدًا، لكن مالهاش لازمة كتجربة فردية في 3 ساعات.</p>
       <div class="content-wrap wide reveal">
         <div class="quad-grid" style="grid-template-columns:repeat(2,1fr);">
@@ -685,7 +755,7 @@ E — Success = I finish knowing exactly which additional information
             </tbody>
           </table>
         </div>
-        <div class="callout" style="margin-top:14px;"><b>لاحظ:</b> مفيش عمود اسمه "الأفضل". لأن الأفضل بيتحدّد بالمهمة — والمهمة بتتحدّد بالمرحلة اللي إنت فيها من <span class="en">THINK → CHOOSE → STRUCTURE → CHALLENGE → VERIFY</span>.</div>
+        <div class="callout" style="margin-top:14px;"><b>لاحظ:</b> مفيش عمود اسمه "الأفضل" — بشكل مقصود. الأنسب بيتحدّد بالمهمة، والمهمة بتتحدّد بالمرحلة اللي إنت فيها من <span class="en">THINK → CHOOSE → STRUCTURE → CHALLENGE → VERIFY</span>. الجدول ده خريطة، مش ترتيب أفضلية.</div>
       </div>
       </div>
 
@@ -701,9 +771,9 @@ E — Success = I finish knowing exactly which additional information
           <li class="glass"><b>عايز تفهم مفهوم الفرز وتشرحه؟</b><span class="en">ScanSkinAI</span> — أسهل وصول، وبتصف نفسها كفرز بصراحة.</li>
           <li class="glass"><b>عايز تشرح <span class="en">ABCDE</span> لطالب أو مريض؟</b><span class="en">Deelo</span> — تقييم بصري مع تفكيك المعايير.</li>
           <li class="glass"><b>عايز تفكّر بصوت عالي في حالة معقّدة؟</b><span class="en">ChatGPT / Gemini</span> بـ<span class="en">PRIME</span> — استدلال لغوي، مش تحليل صورة. وتحقّق من كل ادعاء.</li>
-          <li class="glass"><b>الآفة مشبوهة فعلًا؟</b>مفيش أداة في القائمة دي بتحسم. <b>خزعة أو إحالة.</b> نقطة.</li>
+          <li class="glass"><b>الآفة مشبوهة فعلًا؟</b>مفيش أداة في القائمة دي بتحسم. مخرج الذكاء الاصطناعي <b>ما بيحلّش محل التقييم السريري</b> — والآفة المشبوهة ممكن تحتاج تقييم متخصص و/أو خزعة حسب حكمك السريري وسياق المريض والأدلة المعتمدة عندك.</li>
         </ol>
-        <div class="callout ok" style="margin-top:14px;"><b>السطر الأخير هو أهم سطر في الوحدة كلها.</b> كل الأدوات فوق بتساعدك تفكّر أحسن. ولا واحدة فيهم بتستبدل الخزعة.</div>
+        <div class="callout ok" style="margin-top:14px;"><b>السطر الأخير هو أهم سطر في الوحدة كلها.</b> كل الأدوات فوق بتساعدك تفكّر أحسن. ولا واحدة فيهم بتحلّ محلّ التقييم السريري ولا القرار بتاعك.</div>
       </div>
       </div>
 
@@ -712,11 +782,11 @@ E — Success = I finish knowing exactly which additional information
       <h2 class="divider-title reveal">دلوقتي<br><span class="accent">نخليها تغلط.</span></h2>
       <p class="divider-sub reveal">أهم مهارة مش إنك تعرف تشغّل الأداة — إنك تعرف تشوف غلطها. وأخطر غلط هو اللي بيجي في شكل منظّم وواثق.</p>
 
-<!--SLIDE|الوحدة 5 · مختبر الفشل|الفشل الأول — الحساسية تنهار عند الخطر-->
+<!--SLIDE|الوحدة 5 · مختبر الفشل|الفشل الأول — أداء غير متساوٍ عبر الفئات-->
       <div class="slide-scroll">
-      <div class="sim-tag en">FAILURE MODE 01 — SENSITIVITY COLLAPSE</div>
-      <h2 class="hook reveal">شاطرة في الشائع.<br><span class="accent">ضعيفة في القاتل.</span></h2>
-      <p class="sub reveal">رجعنا لأرقام <span class="en">Aysa</span> — مش عشان ننتقد أداة، عشان نشوف نمطًا بيتكرر في كل أدوات الصور تقريبًا.</p>
+      <div class="sim-tag en">FAILURE MODE 01 — CLASS IMBALANCE &amp; UNEVEN PERFORMANCE</div>
+      <h2 class="hook reveal">الأداء <span class="accent">مش متساوٍ</span><br>عبر الفئات.</h2>
+      <p class="sub reveal">رجعنا لأرقام <span class="en">Aysa</span> — مش عشان ننتقد أداة، ومش عشان نعمّم على كل أدوات الصور. عشان نشوف <b>إزاي نقرأ رقم أداء</b>.</p>
       <div class="content-wrap wide reveal">
         <div class="compare-grid">
           <div class="compare-col good">
@@ -728,7 +798,8 @@ E — Success = I finish knowing exactly which additional information
             <div class="glass glass-pad" style="line-height:2;font-size:15px;">الأمراض الضوئية — %33.3<br><br><b style="font-size:22px;color:var(--danger);">الأورام الخبيثة — %10</b></div>
           </div>
         </div>
-        <div class="callout" style="margin-top:18px;"><b>ليه بيحصل ده؟</b> النماذج بتتعلّم من البيانات المتاحة. الحالات الشائعة عندها آلاف الصور، والحالات النادرة الخطيرة عندها مئات. النموذج بيتحسّن حيث البيانات كثيرة — يعني بالظبط حيث إنت <b>ما بتحتاجهوش</b>.</div>
+        <div class="callout" style="margin-top:18px;"><b>ليه بيحصل ده؟</b> النماذج بتتعلّم من البيانات المتاحة. الفئات الشائعة عندها بيانات أكتر بكثير من النادرة. فالأداء بيتحسّن حيث البيانات كثيرة — واحتمال يقلّ حيث تكون أندر.</div>
+        <div class="callout" style="margin-top:10px;color:var(--danger);"><b>حدود القراءة دي:</b> الأرقام فوق من <b>دراسة واحدة، على أداة واحدة، على مجموعة بيانات واحدة</b>. ما تعمّمهاش على كل أدوات الجلدية. الأداء بيختلف حسب: انتشار المرض · الفئة · جودة الصورة · نوع البشرة · الجهاز · مجموعة البيانات · بيئة العمل · الاستخدام المقصود.</div>
         <div class="callout ok" style="margin-top:10px;"><b>السؤال:</b> لو الأداة قالتلك "غالبًا حميدة" على آفة إنت شاكك فيها — حتغيّر قرارك؟ لو الإجابة "ممكن"، ارجع للرقم %10.</div>
       </div>
       </div>
@@ -752,6 +823,7 @@ E — Success = I finish knowing exactly which additional information
         </div>
         <div class="callout" style="margin-top:16px;color:var(--danger);"><span class="en">[EVIDENCE]</span> <b>مثال حي:</b> <span class="en">Autoderm</span> عندها <span class="en">FDA Breakthrough Device Designation</span> — وفي نفس الوقت وثائقها التنظيمية بتقول صراحة إنها <b>في انتظار التصريح، وغير مطروحة للاستخدام السريري في أمريكا</b>. الكلمتين موجودين على نفس الموقع.</div>
         <div class="callout ok" style="margin-top:10px;"><b>مهارة عملية:</b> أي أداة تقول "<span class="en">FDA</span>" — دوّر على الكلمة اللي بعدها. <span class="en">Cleared</span> · <span class="en">Approved</span> · <span class="en">Designated</span> · <span class="en">Registered</span> — أربع كلمات، أربع معانٍ مختلفة تمامًا.</div>
+        <div class="callout" style="margin-top:10px;color:var(--danger);"><b>والأهم:</b> الوضع التنظيمي <b>مش إثبات فعالية سريرية</b> لكل استخدام. الموافقة بتقول "مسموح يتطرح لاستخدام محدد" — ما بتقولش "بيشتغل كويس في حالتك إنت". فرّق بين: نموذج بحثي · تطبيق مستهلك · برمجية طبية · جهاز طبي · تصريح تنظيمي · دليل تحقّق · فائدة سريرية فعلية. <b>دول سبع حاجات مختلفة.</b></div>
       </div>
       </div>
 
@@ -774,7 +846,8 @@ journal, year, sample size, and the reported sensitivity.</pre>
           <li class="glass"><b>الخطوة 3</b>لو ظهر — ممتاز، تحقّق من الرقم. لو ما ظهرش — ده الدرس.</li>
           <li class="glass"><b>الخطوة 4</b>ارجع للأداة واسألها: <span class="en" dir="ltr">"I could not find that paper on PubMed. Was it real?"</span> ولاحظ الرد.</li>
         </ol>
-        <div class="callout" style="margin-top:14px;"><b>لماذا الموضوع ده بالذات؟</b> لأن الأبحاث على البشرة الداكنة <b>قليلة فعلًا</b> — والفجوة في البيانات هي بالظبط المكان اللي النموذج بيملأه باختراع. الهلوسة بتزيد حيث المعرفة الحقيقية بتقلّ.</div>
+        <div class="callout" style="margin-top:14px;"><b>لماذا الموضوع ده بالذات؟</b> لأن الأدبيات في المنطقة دي أقل — والفجوة في المعرفة هي بالظبط المكان اللي النموذج بيملأه باختراع. الهلوسة بتزيد حيث المعرفة الحقيقية بتقلّ.</div>
+        <div class="callout ok" style="margin-top:10px;"><b class="en">CITATION ≠ EVIDENCE.</b> حتى لو المرجع موجود فعلًا، ممكن يكون: غير مرتبط بسؤالك · على فئة مرضى مختلفة · بيقيس مخرَجًا تاني · مفهوم غلط · قديم · أو ما بيدعمش الادعاء أصلًا. <b>التحقق يعني تفتح الورقة نفسها</b> — مش تتأكد إن العنوان موجود.</div>
       </div>
       </div>
 
@@ -794,10 +867,10 @@ journal, year, sample size, and the reported sensitivity.</pre>
       <h2 class="divider-title reveal"><span class="accent">DON'T TRUST</span> THE AI.<br>AUDIT THE AI.</h2>
       <p class="divider-sub reveal">دي الوحدة اللي حتفضل معاك بعد ما تنسى كل أسماء الأدوات. سبعة أسئلة تقدر تطبّقها على أي أداة ذكاء اصطناعي طبية تشوفها في حياتك.</p>
 
-<!--SLIDE|الوحدة 6 · دقّق لا تثق|الأسئلة السبعة-->
+<!--SLIDE|الوحدة 6 · دقّق لا تثق|الأسئلة الثمانية-->
       <div class="slide-scroll">
       <div class="kicker reveal">بطاقة التدقيق — احتفظ بيها</div>
-      <h2 class="hook reveal">سبعة أسئلة.<br><span class="accent">قبل أي ثقة.</span></h2>
+      <h2 class="hook reveal">ثمانية أسئلة.<br><span class="accent">قبل أي ثقة.</span></h2>
       <div class="content-wrap wide reveal">
         <div class="table-wrap">
           <table>
@@ -807,13 +880,14 @@ journal, year, sample size, and the reported sensitivity.</pre>
               <tr><td><b>2</b></td><td><b>الدليل</b> — إيه اللي بيدعم أداءها؟</td><td>أرقام بلا دراسة منشورة</td></tr>
               <tr><td><b>3</b></td><td><b>التحقّق</b> — اتحقّق منها فين؟ وهل كان مستقلًا؟</td><td>الشركة هي اللي عملت الدراسة الوحيدة</td></tr>
               <tr><td><b>4</b></td><td><b>الوضع التنظيمي</b> — جهاز طبي؟ أي فئة؟ أي تصريح؟</td><td>خلط <span class="en">Designation</span> بـ<span class="en">Approval</span></td></tr>
-              <tr><td><b>5</b></td><td><b>أنواع البشرة</b> — اتقيّمت على أنواع بشرة متنوعة؟</td><td>ما فيش ذكر لـ<span class="en">Fitzpatrick</span> إطلاقًا</td></tr>
-              <tr><td><b>6</b></td><td><b>الخصوصية</b> — الصورة بتروح فين؟ وبتتخزّن قد إيه؟</td><td>سياسة خصوصية غامضة أو غير موجودة</td></tr>
-              <tr><td><b>7</b></td><td><b>الإشراف البشري</b> — أي قرار بيفضل عندي أنا؟</td><td>الأداة بتقدّم نفسها كقرار نهائي</td></tr>
+              <tr><td><b>5</b></td><td><b>التمثيل</b> — أي مرضى وأنواع بشرة وحالات وأجهزة وبيئات كانت ممثَّلة؟</td><td>ما فيش ذكر لتركيبة العيّنة إطلاقًا</td></tr>
+              <tr><td><b>6</b></td><td><b>الخصوصية</b> — البيانات بتروح فين؟ وبتتخزّن قد إيه؟ وبتُستخدم في التدريب؟</td><td>سياسة خصوصية غامضة أو غير موجودة</td></tr>
+              <tr><td><b>7</b></td><td><b>الإشراف البشري</b> — فين المفروض أتدخّل أنا؟</td><td>الأداة بتقدّم نفسها كقرار نهائي</td></tr>
+              <tr><td><b>8</b></td><td><b>الحدود وأنماط الفشل</b> — إمتى النظام ده بيفشل أو يبقى غير موثوق؟</td><td>ما بتذكرش أي حدود — <b>أخطر إجابة</b></td></tr>
             </tbody>
           </table>
         </div>
-        <div class="callout ok" style="margin-top:16px;"><b>السؤال 7 هو الحاسم.</b> لو ما لقيتش إجابة واضحة عليه في وثائق الأداة — دي وحدها كافية إنك ما تعتمدش عليها في قرار سريري.</div>
+        <div class="callout ok" style="margin-top:16px;"><b>السؤالان 7 و 8 هما الحاسمان.</b> أداة ما بتقولش فين تتدخّل، ولا بتعترف بحدودها — دي وحدها كافية إنك ما تعتمدش عليها في قرار سريري.</div>
       </div>
       </div>
 
@@ -826,7 +900,7 @@ journal, year, sample size, and the reported sensitivity.</pre>
         <ol class="steps-list steps-compact">
           <li class="glass"><b>1 — استلم الأداة</b>المدرّب يوزّع اسم أداة مختلفة على كل مجموعة — من قائمة الأدوات اللي مرّينا عليها سريعًا وما جرّبناهاش.</li>
           <li class="glass"><b>2 — دوّر على الوثائق</b>موقع الشركة · صفحة الخصوصية · صفحة التنظيم · أي دراسة منشورة.</li>
-          <li class="glass"><b>3 — املأ البطاقة</b>سبعة أسئلة. اكتب "غير موجود" لو ما لقيتش — <b>ودي إجابة مهمة</b>، مش فراغ.</li>
+          <li class="glass"><b>3 — املأ البطاقة</b>ثمانية أسئلة. اكتب "غير موجود" لو ما لقيتش — <b>ودي إجابة مهمة</b>، مش فراغ.</li>
           <li class="glass"><b>4 — احكم</b>سؤال واحد: هل تغيّر قرار مريض بناءً على مخرج الأداة دي؟ ليه أو ليه لأ؟</li>
           <li class="glass"><b>5 — اعرض في 60 ثانية</b>كل مجموعة تقول أخطر حاجة لقتها.</li>
         </ol>
@@ -838,14 +912,14 @@ journal, year, sample size, and the reported sensitivity.</pre>
       <div class="kicker reveal">خلاصة الوحدة 6</div>
       <h2 class="hook reveal">الأدوات حتتغيّر.<br><span class="accent">البطاقة مش حتتغيّر.</span></h2>
       <div class="content-wrap wide reveal">
-        <div class="callout ok" style="font-size:16px;line-height:2;"><b>خرجت من الوحدة دي بحاجة واحدة:</b> قائمة سبعة أسئلة تقدر تطلّعها قدام أي أداة ذكاء اصطناعي طبية — النهارده، أو بعد خمس سنين، أو على أداة لسه ما اتعملتش.</div>
+        <div class="callout ok" style="font-size:16px;line-height:2;"><b>خرجت من الوحدة دي بحاجة واحدة:</b> قائمة ثمانية أسئلة تقدر تطلّعها قدام أي أداة ذكاء اصطناعي طبية — النهارده، أو بعد خمس سنين، أو على أداة لسه ما اتعملتش.</div>
         <div class="callout" style="margin-top:16px;"><b>والحقيقة اللي لازم تتقال:</b> سوق أدوات الجلدية بالذكاء الاصطناعي فيه أدوات ممتازة بأدلة قوية، وفيه أدوات بتستخدم كلمة "ذكاء اصطناعي" كتسويق. الفرق بينهم مش بيبان من الواجهة — بيبان من الوثائق.</div>
       </div>
 
-<!--SLIDE|الجزء ب · العرض الاحترافي|الجزء ب — من المعرفة إلى منتج مهني-->
-      <div class="divider-num en">SECTION B — 30 MIN</div>
+<!--SLIDE|الجزء ب · العرض الاحترافي|إضافي — صناعة محتوى طبي بالذكاء الاصطناعي-->
+      <div class="divider-num en">BONUS — 30 MIN</div>
       <h2 class="divider-title reveal">تفكيرك السريري<br><span class="accent">يستحق شكلًا مهنيًا.</span></h2>
-      <p class="divider-sub reveal">آخر نص ساعة. مش درس <span class="en">PowerPoint</span> — دي الخطوة الأخيرة من نفس المسار: من مشكلة سريرية، لتفكير منظّم، لمخرج طبي آمن. حنبني عرضًا واحدًا كاملًا، مع بعض، بأدوات مجانية.</p>
+      <p class="divider-sub reveal">آخر نص ساعة — <b>قسم إضافي</b>. مش مسار تشخيصي تاني، ومش درس <span class="en">PowerPoint</span>. ده مسار عمل عام بينفع في أي موضوع: من فكرة، لتفكير منظّم، لمخرج مهني تتحمّل مسؤوليته. حنبنيه مع بعض بأدوات مجانية.</p>
 
 <!--SLIDE|الجزء ب · العرض الاحترافي|القاعدة قبل ما نبدأ-->
       <div class="slide-scroll">
@@ -1141,7 +1215,7 @@ a number I have not given you, write [VERIFY] instead of a value.</pre>
               <tr><td><b>3</b></td><td>تقارن مخرجات أنظمة مختلفة على نفس الحالة</td></tr>
               <tr><td><b>4</b></td><td>تفرّق بين التعرّف على الصورة والاستدلال السريري</td></tr>
               <tr><td><b>5</b></td><td>تكتشف أنماط فشل الذكاء الاصطناعي</td></tr>
-              <tr><td><b>6</b></td><td>تدقّق أي أداة طبية بسبعة أسئلة قبل ما تثق فيها</td></tr>
+              <tr><td><b>6</b></td><td>تدقّق أي أداة طبية بثمانية أسئلة قبل ما تثق فيها</td></tr>
               <tr><td><b>7</b></td><td>تقيّم الدليل والتحقّق والتنظيم والخصوصية وتمثيل أنواع البشرة</td></tr>
               <tr><td><b>8</b></td><td>تدمج الذكاء الاصطناعي في استدلالك بدون ما تتنازل عن حكمك</td></tr>
               <tr><td><b>9</b></td><td>تبني عرضًا طبيًا احترافيًا بأدوات مجانية</td></tr>
@@ -1159,7 +1233,7 @@ a number I have not given you, write [VERIFY] instead of a value.</pre>
       <h2 class="hook reveal">كل حاجة في مكان واحد.</h2>
       <div class="content-wrap wide reveal">
         <div class="quad-grid" style="grid-template-columns:repeat(2,1fr);">
-          <div class="glass quad-card"><div class="qc-tool en">FRAMEWORKS</div><div class="pc-title">الأطر الخمسة</div><div class="qc-text"><span class="en">THINK → CHOOSE → STRUCTURE → CHALLENGE → VERIFY</span><br><span class="en">APPLY → COMPARE → AUDIT → CREATE → REVIEW</span><br><span class="en">PRIME</span> · <span class="en">VERIFY</span> · الأسئلة السبعة</div></div>
+          <div class="glass quad-card"><div class="qc-tool en">FRAMEWORKS</div><div class="pc-title">الأطر الخمسة</div><div class="qc-text"><span class="en">THINK → CHOOSE → STRUCTURE → CHALLENGE → VERIFY</span><br><span class="en">APPLY → COMPARE → AUDIT → CREATE → REVIEW</span><br><span class="en">PRIME</span> · <span class="en">VERIFY</span> · الأسئلة الثمانية</div></div>
           <div class="glass quad-card"><div class="qc-tool en">FREE TOOLS</div><div class="pc-title">ابدأ بيهم</div><div class="qc-text"><span class="en">Model Dermatology · Aysa · Skinive · ScanSkinAI · Deelo · DermaQ</span></div></div>
           <div class="glass quad-card"><div class="qc-tool en">TRIALS</div><div class="pc-title">سجّل لما تحتاج</div><div class="qc-text"><span class="en">VisualDx</span> — دعم قرار سريري<br><span class="en">DermEngine</span> — منظومة عيادة رقمية</div></div>
           <div class="glass quad-card"><div class="qc-tool en">THE RULE</div><div class="pc-title">القاعدة الواحدة</div><div class="qc-text">مخرج الذكاء الاصطناعي مش تشخيص. ومش دليل. وثقته مش يقين سريري. المسؤولية تفضل عندك.</div></div>
