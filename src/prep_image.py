@@ -23,7 +23,11 @@ import sys
 from PIL import Image
 
 WIDTH = 1100
-MAX_BYTES = 60 * 1024
+# Clinical images carry the teaching content — physicians read morphology off
+# them — so they get a larger budget and a quality floor. Decorative backgrounds
+# can be squeezed harder via --max-kb.
+MAX_BYTES = 150 * 1024
+MIN_QUALITY = 72
 OUT_DIR = 'img'
 
 
@@ -43,6 +47,10 @@ def main():
     ap.add_argument('name', help='output basename, no extension (e.g. case-01-inflammatory)')
     ap.add_argument('--crop', type=parse_crop, required=True,
                     help='fractions of the original: left,top,right,bottom')
+    ap.add_argument('--max-kb', type=int, default=MAX_BYTES // 1024,
+                    help='size budget in KB (default %d)' % (MAX_BYTES // 1024))
+    ap.add_argument('--min-quality', type=int, default=MIN_QUALITY,
+                    help='never go below this JPEG quality (default %d)' % MIN_QUALITY)
     args = ap.parse_args()
 
     im = Image.open(args.source)
@@ -60,13 +68,15 @@ def main():
     if im.width > WIDTH:
         im = im.resize((WIDTH, round(im.height * WIDTH / im.width)), Image.LANCZOS)
 
-    for quality in range(82, 39, -3):
+    budget = args.max_kb * 1024
+    for quality in range(92, args.min_quality - 1, -2):
         buf = io.BytesIO()
         im.save(buf, 'JPEG', quality=quality, optimize=True, progressive=True)
-        if buf.tell() <= MAX_BYTES:
+        if buf.tell() <= budget:
             break
     else:
-        print('warning: could not reach the size budget; keeping quality 40', file=sys.stderr)
+        print('note: held quality at %d rather than degrade the lesion detail'
+              % args.min_quality, file=sys.stderr)
 
     os.makedirs(OUT_DIR, exist_ok=True)
     out = os.path.join(OUT_DIR, args.name + '.jpg')

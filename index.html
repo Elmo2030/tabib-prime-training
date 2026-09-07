@@ -469,6 +469,13 @@
   /* inline-flex is blockified when it is a direct flex child of .slide, stretching the pill full width */
   .slide > .live-badge, .slide > .kicker{align-self:flex-start;}
 
+  /* clinical case figures (Part 2) */
+  .case-grid{display:grid;grid-template-columns:0.95fr 1.05fr;gap:18px;align-items:start;}
+  @media (max-width:900px){ .case-grid{grid-template-columns:1fr;} }
+  .clinical-fig{margin:0;}
+  .clinical-fig img{width:100%;max-height:44vh;object-fit:contain;border-radius:16px;border:1px solid var(--glass-line);background:#05080B;display:block;}
+  .clinical-fig figcaption{font-size:12.5px;color:var(--muted);margin-top:9px;line-height:1.6;}
+
   /* Last-resort rescue: if the deck script never activates a slide — for ANY reason, not just
      JS being disabled — stack every slide as a plain scrolling document. A readable page beats
      a black screen. Applied by the watchdog at the end of <body>. */
