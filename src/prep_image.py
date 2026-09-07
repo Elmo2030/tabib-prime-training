@@ -45,8 +45,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('source')
     ap.add_argument('name', help='output basename, no extension (e.g. case-01-inflammatory)')
-    ap.add_argument('--crop', type=parse_crop, required=True,
+    ap.add_argument('--crop', type=parse_crop,
                     help='fractions of the original: left,top,right,bottom')
+    ap.add_argument('--no-crop', action='store_true',
+                    help='licence forbids derivatives (e.g. CC BY-NC-ND): resize and '
+                         'compress only, and keep any watermark, which is the attribution')
     ap.add_argument('--max-kb', type=int, default=MAX_BYTES // 1024,
                     help='size budget in KB (default %d)' % (MAX_BYTES // 1024))
     ap.add_argument('--min-quality', type=int, default=MIN_QUALITY,
@@ -57,9 +60,16 @@ def main():
     orig_w, orig_h = im.size
     orig_bytes = os.path.getsize(args.source)
 
-    left, top, right, bottom = args.crop
-    box = (int(left * orig_w), int(top * orig_h), int(right * orig_w), int(bottom * orig_h))
-    im = im.crop(box)
+    if args.no_crop:
+        # A crop is a derivative work. Under a NoDerivatives licence the frame must
+        # stay whole and the watermark must stay in it — the watermark IS the credit.
+        pass
+    elif args.crop:
+        left, top, right, bottom = args.crop
+        box = (int(left * orig_w), int(top * orig_h), int(right * orig_w), int(bottom * orig_h))
+        im = im.crop(box)
+    else:
+        sys.exit('give either --crop l,t,r,b or --no-crop')
 
     # Re-encode through raw pixel data: this is what actually drops EXIF,
     # rather than trusting the encoder to omit it.
