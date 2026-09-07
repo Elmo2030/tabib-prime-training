@@ -6,10 +6,10 @@
 
 | الملف | الحالة | المصدر | الترخيص |
 | :--- | :--- | :--- | :--- |
-| `case-01-inflammatory.jpg` | 1 — شريحة 11 | `DermNet` / `Te Whatu Ora` — علامة مائية | `CC BY-NC-ND 4.0` |
-| `case-02-inflammatory-plaque.jpg` | 2 — شريحة 20 | `DermNet` — علامة مائية | `CC BY-NC-ND 4.0` |
-| `case-03-ambiguous.jpg` | 3 — شريحة 28 | صورة منشورة — **الإسناد قيد الاستكمال** | ⚠️ يحتاج تأكيد |
-| `case-final-scalp.jpg` | 4 — شريحة 59 | علامة `SFS` — **الإسناد قيد الاستكمال** | ⚠️ يحتاج تأكيد |
+| `case-01-inflammatory.jpg` | 1 — شريحة 11 | `DermNet` — علامة مائية<br>`dermnetnz.org/images/chronic-plaque-psoriasis-images` | `CC BY-NC-ND 4.0` |
+| `case-02-inflammatory-plaque.jpg` | 2 — شريحة 20 | `DermNet` — علامة مائية<br>`dermnetnz.org/images/chronic-plaque-psoriasis-images` | `CC BY-NC-ND 4.0` |
+| `case-03-ambiguous.jpg` | 3 — شريحة 28 | `PubMed Central`<br>`pmc.ncbi.nlm.nih.gov/articles/PMC12971098/` | ⚠️ يحتاج تأكيد |
+| `case-final-scalp.jpg` | 4 — شريحة 59 | `WikiDoc`<br>`wikidoc.org/index.php/Tinea_capitis` | `CC BY-SA` |
 
 ### الدورة مجانية
 
@@ -17,8 +17,18 @@
 
 ### ⚠️ ناقص — قبل أي مشاركة عامة
 
-- **رابط صفحة المصدر لكل صورة `DermNet`** — الروابط الحالية بتوديّ لصفحة الموضوع العامة، والترخيص بيطلب الصفحة اللي اتأخدت منها الصورة بالظبط
-- **مصدر وترخيص الصورتين 3 و 4** — لسه مجهولين
+- **الصورة 2** — الرابط الحالي بيوديّ لصفحة
+`chronic-plaque-psoriasis`
+بينما الملف
+`majocchi14.jpg`
+موضوعه مختلف. محتاجين رابط صفحته على
+`DermNet`
+- **الصورة 3** — لازم يتأكد إنها ضمن
+`PMC Open Access Subset`
+قبل أي نشر. مجاني للقراءة ≠ مجاني لإعادة النشر
+- **الصورة 4** — ترخيص
+`CC BY-SA`
+بيطلب كمان اسم صاحب الصورة الأصلي، مش بس اسم الموقع
 
 ### ملاحظة على الصورة 3
 
