@@ -2,9 +2,10 @@
 # so both decks are visually and behaviourally identical.
 import io, re, sys
 
+# Run from the repo root: python3 src/build_part2.py
 SRC = 'index.html'
 OUT = 'part2.html'
-SLIDES_FILE = 'part2_slides.html'
+SLIDES_FILE = 'src/part2_slides.html'
 
 src = io.open(SRC, encoding='utf-8').read()
 
