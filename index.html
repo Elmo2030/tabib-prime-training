@@ -139,6 +139,11 @@ h1 .accent{color:var(--primary);}
   align-items:center; justify-content:center; font-size:17px;
   background:rgba(201,169,107,.13); border:1px solid rgba(201,169,107,.3);
 }
+.doc .ic.pdf{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; font-size:11px;
+  letter-spacing:.02em; direction:ltr; unicode-bidi:isolate;
+  background:rgba(111,168,220,.13); border-color:rgba(111,168,220,.32); color:var(--secondary);
+}
 .doc b{display:block; font-family:'Changa', system-ui, sans-serif; font-size:15.5px; margin-bottom:2px;}
 .doc span{display:block; font-size:13.2px; color:var(--muted); line-height:1.7;}
 
@@ -215,6 +220,25 @@ footer{
     </a>
   </div>
 
+  <!-- Part 1's PDF appendices. Each card removes itself when its file is not
+       in docs/ yet, so a missing appendix is invisible rather than a dead link
+       in a physician's hands. Drop the PDF in under the documented name and
+       the card appears on its own. -->
+  <section id="appendixSection" hidden>
+    <div class="rule"></div>
+    <p class="sec-label">PART 01 · APPENDICES</p>
+    <div class="docs">
+      <a class="doc probe" href="docs/part1-appendix-01.pdf" hidden>
+        <span class="ic pdf" aria-hidden="true">PDF</span>
+        <span><b>الملحق الأول</b><span>ملف مرافق للجزء الأول — يفتح في تبويب جديد.</span></span>
+      </a>
+      <a class="doc probe" href="docs/part1-appendix-02.pdf" hidden>
+        <span class="ic pdf" aria-hidden="true">PDF</span>
+        <span><b>الملحق الثاني</b><span>ملف مرافق للجزء الأول — يفتح في تبويب جديد.</span></span>
+      </a>
+    </div>
+  </section>
+
   <div class="note">
     <b>القاعدة اللي بتحكم الدورة كلها:</b> مخرج الذكاء الاصطناعي مش تشخيص، ومش دليل، وثقته المعروضة مش يقين سريري.
     كل أداة هنا بتساعدك تفكّر أحسن — ولا واحدة فيهم بتحلّ محلّ تقييمك ولا قرارك.
@@ -225,5 +249,43 @@ footer{
   </footer>
 
 </main>
+
+<script>
+/* Reveal an appendix card only once its PDF is actually there. A HEAD request
+   is enough and costs nothing — it never downloads the file. Written to the
+   same ES5 floor as the decks (no fetch, no arrow functions, no Promise), so
+   the older in-app browsers the decks already had to survive do not throw.
+   Any failure leaves the card hidden, which is the safe direction. */
+(function () {
+  var cards = document.querySelectorAll('#appendixSection .probe');
+  if (!cards.length || !window.XMLHttpRequest) { return; }
+  var section = document.getElementById('appendixSection');
+  var pending = cards.length;
+
+  function settle() {
+    if (--pending > 0) { return; }
+    for (var i = 0; i < cards.length; i++) {
+      if (!cards[i].hidden) { section.hidden = false; return; }
+    }
+  }
+
+  for (var i = 0; i < cards.length; i++) {
+    (function (card) {
+      var xhr = new XMLHttpRequest();
+      xhr.open('HEAD', card.getAttribute('href'), true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState !== 4) { return; }
+        if (xhr.status >= 200 && xhr.status < 300) {
+          card.hidden = false;
+          card.target = '_blank';
+          card.rel = 'noopener';
+        }
+        settle();
+      };
+      try { xhr.send(); } catch (e) { settle(); }
+    })(cards[i]);
+  }
+})();
+</script>
 </body>
 </html>
