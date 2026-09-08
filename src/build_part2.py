@@ -3,7 +3,7 @@
 import io, re, sys
 
 # Run from the repo root: python3 src/build_part2.py
-SRC = 'index.html'
+SRC = 'part1.html'
 OUT = 'part2.html'
 SLIDES_FILE = 'src/part2_slides.html'
 
