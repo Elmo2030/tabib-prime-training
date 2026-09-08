@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#0D1420">
-<meta name="color-scheme" content="dark">
+<meta name="theme-color" content="#F4F7FA">
+<meta name="color-scheme" content="light">
 <meta name="description" content="طبيب PRIME — دورة الذكاء الاصطناعي للأطباء. الجزء الأول: إطار التفكير. الجزء الثاني: التطبيق في طب الجلدية. مع دليل أدوات وبطاقة تدقيق.">
 <title>طبيب PRIME — الرئيسية</title>
 <style>
@@ -21,13 +21,13 @@
   @font-face{font-family:'IBM Plex Mono';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/ibm-plex-mono-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
 </style>
 <style>
-/* Same tokens as the decks — this is the course's front door, so it wears the
-   projection palette rather than the paper one used by the handouts. */
+/* One palette across the whole site — decks, landing page and handouts. */
 :root{
-  --bg:#0D1420; --bg-2:#111A28; --surface:#141D2B; --surface-2:#1A2434;
-  --ink:#E8EEF5; --text-2:#A8B6C6; --muted:#8798A9;
-  --primary:#35D6C4; --primary-hover:#4EE3D2; --secondary:#6FA8DC; --accent:#C9A96B;
-  --border:rgba(255,255,255,.10); --border-strong:rgba(255,255,255,.17);
+  /* Same palette as the decks and handout.css — one system across the site. */
+  --bg:#F4F7FA; --bg-2:#EAF0F5; --surface:#FFFFFF; --surface-2:#FBFDFE;
+  --ink:#101B27; --text-2:#33475C; --muted:#55697A;
+  --primary:#0A6F64; --primary-hover:#08574F; --secondary:#2A5F8F; --accent:#795C1C;
+  --border:rgba(16,27,39,.13); --border-strong:rgba(16,27,39,.22);
   --radius:16px;
 }
 *{box-sizing:border-box;}
@@ -38,8 +38,8 @@ body{
   font-size:16px; line-height:1.85; -webkit-font-smoothing:antialiased;
   min-height:100vh;
   background-image:
-    radial-gradient(ellipse 70% 50% at 78% -8%, rgba(53,214,196,.10), transparent 62%),
-    radial-gradient(ellipse 60% 45% at 12% 4%, rgba(111,168,220,.07), transparent 60%);
+    radial-gradient(ellipse 70% 50% at 78% -8%, rgba(10,111,100,.07), transparent 62%),
+    radial-gradient(ellipse 60% 45% at 12% 4%, rgba(42,95,143,.05), transparent 60%);
   background-repeat:no-repeat;
 }
 .en{direction:ltr; unicode-bidi:isolate; font-weight:600;}
@@ -88,7 +88,7 @@ h1 .accent{color:var(--primary);}
 .part.two::before{background:var(--secondary);}
 .part:hover, .part:focus-visible{
   border-color:var(--border-strong); transform:translateY(-3px);
-  box-shadow:0 14px 34px rgba(0,0,0,.34);
+  box-shadow:0 12px 30px rgba(16,27,39,.10);
 }
 .part:hover::before, .part:focus-visible::before{opacity:1;}
 .part:focus-visible{outline:2px solid var(--primary); outline-offset:3px;}
@@ -137,12 +137,12 @@ h1 .accent{color:var(--primary);}
 .doc .ic{
   flex:none; width:38px; height:38px; border-radius:10px; display:flex;
   align-items:center; justify-content:center; font-size:17px;
-  background:rgba(201,169,107,.13); border:1px solid rgba(201,169,107,.3);
+  background:rgba(121,92,28,.09); border:1px solid rgba(121,92,28,.26);
 }
 .doc .ic.pdf{
   font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; font-size:11px;
   letter-spacing:.02em; direction:ltr; unicode-bidi:isolate;
-  background:rgba(111,168,220,.13); border-color:rgba(111,168,220,.32); color:var(--secondary);
+  background:rgba(42,95,143,.09); border-color:rgba(42,95,143,.26); color:var(--secondary);
 }
 .doc b{display:block; font-family:'Changa', system-ui, sans-serif; font-size:15.5px; margin-bottom:2px;}
 .doc span{display:block; font-size:13.2px; color:var(--muted); line-height:1.7;}
