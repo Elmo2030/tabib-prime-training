@@ -1,0 +1,22 @@
+# Cloudflare Pages / Workers static-asset headers.
+#
+# HTML needs no rule here: Cloudflare's default for static assets is already
+# `Cache-Control: public, max-age=0, must-revalidate` plus an ETag, which is
+# exactly the revalidate-always behaviour a lecture deck needs so a new deploy
+# reaches the room immediately.
+#
+# Only one splat (*) is allowed per pattern, so these are all directory rules.
+
+# Images are content-stable and replaced by filename, never edited in place.
+/img/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Self-hosted fonts are versioned by filename. CORS so the deck keeps working
+# if it is ever served from a second hostname during a migration.
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# Deck sources and build scripts are in the repo but are not the site.
+/src/*
+  X-Robots-Tag: noindex
