@@ -147,6 +147,38 @@ h1 .accent{color:var(--primary);}
 .doc b{display:block; font-family:'Changa', system-ui, sans-serif; font-size:15.5px; margin-bottom:2px;}
 .doc span{display:block; font-size:13.2px; color:var(--muted); line-height:1.7;}
 
+/* ---------- custom gems ---------- */
+.sec-intro{margin:-6px 0 18px; color:var(--muted); font-size:14px; max-width:66ch; line-height:1.85;}
+.gems{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px;}
+@media (max-width:900px){.gems{grid-template-columns:1fr;}}
+.gem{
+  display:flex; flex-direction:column; gap:9px; text-decoration:none; color:inherit;
+  background:var(--surface); border:1px solid var(--border); border-radius:13px;
+  padding:18px 18px 16px;
+  transition:border-color .18s ease, background .18s ease, transform .18s ease;
+}
+.gem:hover, .gem:focus-visible{
+  border-color:var(--border-strong); background:var(--surface-2); transform:translateY(-2px);
+}
+.gem:focus-visible{outline:2px solid var(--primary); outline-offset:3px;}
+.gem-tag{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600;
+  font-size:11px; letter-spacing:.16em; color:var(--accent);
+  direction:ltr; unicode-bidi:isolate; text-align:right;
+}
+.gem b{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700;
+  font-size:16.5px; line-height:1.45;
+}
+.gem-txt{font-size:13.4px; color:var(--muted); line-height:1.8;}
+/* the one line that keeps a shared assistant honest about its limits */
+.gem .flag{font-family:inherit; font-size:inherit; color:var(--ink); font-weight:700;}
+.gem-go{
+  margin-top:auto; padding-top:12px; border-top:1px solid var(--border);
+  font-family:'Changa', system-ui, sans-serif; font-weight:700;
+  font-size:13.5px; color:var(--primary);
+}
+
 /* ---------- footer note ---------- */
 .note{
   margin-top:clamp(30px,5vw,44px); background:var(--surface);
@@ -218,6 +250,36 @@ footer{
       <span class="ic" aria-hidden="true">✓</span>
       <span><b>بطاقة التدقيق</b><span>البوابات الثلاث قبل أي أداة — خصوصية، جودة صورة، ثمانية أسئلة.</span></span>
     </a>
+  </div>
+
+  <div class="rule"></div>
+  <p class="sec-label">CUSTOM GEMS · READY TO USE</p>
+  <p class="sec-intro">مساعدين مخصّصين مبنيين بنفس منطق الجزء الأول — الستة عناصر، بحدود مكتوبة. يفتحوا في
+  <span class="en">Gemini</span> ومحتاجين حساب <span class="en">Google</span>.</p>
+
+  <div class="gems">
+
+    <a class="gem" href="https://gemini.google.com/gem/1y00VDqa6-99hgbe2cejQ2xQDqP0vrWrQ?usp=sharing" target="_blank" rel="noopener">
+      <span class="gem-tag">PROMPTING</span>
+      <b>حوّل أي برومبت لـ<br><span class="en">PRIME</span></b>
+      <span class="gem-txt">تديله فكرتك الخام، يرجّعهالك أمر كامل بالعناصر الخمسة — ويسألك عن الناقص قبل ما يكتب.</span>
+      <span class="gem-go">افتح في <span class="en">Gemini</span> ↗</span>
+    </a>
+
+    <a class="gem" href="https://gemini.google.com/gem/1dVN5wPUPCY_rQprTtC7ivJpYebTW_5Es?usp=sharing" target="_blank" rel="noopener">
+      <span class="gem-tag">DERMATOLOGY</span>
+      <b>مساعدك في الأمراض الجلدية</b>
+      <span class="gem-txt">للتفكير في الحالة وتوسيع التفريقي. <b class="flag">مش أداة تشخيص</b> — القرار يفضل قرارك.</span>
+      <span class="gem-go">افتح في <span class="en">Gemini</span> ↗</span>
+    </a>
+
+    <a class="gem" href="https://gemini.google.com/gem/1g94kU4tKrz8nw3qx8I6ipzJG2xx-PO7f?usp=sharing" target="_blank" rel="noopener">
+      <span class="gem-tag">IMAGE</span>
+      <b>تحسين جودة صورة قديمة</b>
+      <span class="gem-txt">لصور المحاضرات والمواد التعليمية. <b class="flag">مش للصور السريرية</b> — التحسين بيخترع تفاصيل.</span>
+      <span class="gem-go">افتح في <span class="en">Gemini</span> ↗</span>
+    </a>
+
   </div>
 
   <!-- Part 1's PDF appendices. Each card removes itself when its file is not
