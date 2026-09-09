@@ -1,0 +1,777 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="عشرة أوامر جاهزة لـ NotebookLM — بحث، استخراج، فجوات، مقارنة، تلخيص، تعلّم، خطة دراسة، اختبار، محتوى، ومساعد دائم. مع مسار تشغيل متسلسل. ملحق دورة طبيب PRIME.">
+<meta name="theme-color" content="#F4F7FA">
+<meta name="color-scheme" content="light dark">
+<title>عشرة أوامر لـ NotebookLM — طبيب PRIME</title>
+<script>
+/* Before first paint, so a stored dark choice never flashes light. */
+(function(){var t=null;try{t=localStorage.getItem('tabib-theme');}catch(e){}
+if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
+<link rel="stylesheet" href="handout.css">
+<style>
+/* ---- page-specific: the sequence, the index, the prompt blocks ---- */
+
+/* the recommended run order, as a chain rather than a list — the order is
+   the actual lesson here, so it gets to look like a pipeline */
+.chain{
+  /* a grid rather than wrapping flex, so the second row lines up with the
+     first instead of three cards stretching to fill it */
+  display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px;
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); padding:18px; margin:0 0 16px;
+}
+.chain a{
+  min-width:0; text-decoration:none; border:none;
+  display:flex; flex-direction:column; gap:3px;
+  padding:11px 12px; border-radius:10px;
+  background:var(--tint); border:1px solid var(--line);
+  transition:border-color .16s ease, background .16s ease;
+}
+.chain a:hover, .chain a:focus-visible{background:var(--tint-2); border-color:var(--line-strong);}
+.chain a:focus-visible{outline:2px solid var(--primary); outline-offset:2px;}
+.chain .step{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; font-size:11.5px;
+  letter-spacing:.1em; color:var(--primary); direction:ltr; unicode-bidi:isolate;
+}
+.chain .who{font-size:13px; font-weight:700; color:var(--ink); line-height:1.5;}
+.chain .en-sm{
+  font-size:11px; color:var(--muted); direction:ltr; unicode-bidi:isolate;
+  font-family:'IBM Plex Mono', ui-monospace, monospace; overflow-wrap:anywhere;
+}
+
+/* jump index */
+.jump{display:flex; flex-wrap:wrap; gap:7px; margin:0 0 22px;}
+.jump a{
+  text-decoration:none; border:1px solid var(--line); background:var(--paper);
+  border-radius:100px; padding:6px 13px; font-size:13px; color:var(--ink-2);
+  transition:border-color .16s ease, color .16s ease;
+}
+.jump a:hover, .jump a:focus-visible{border-color:var(--primary); color:var(--primary);}
+.jump a:focus-visible{outline:2px solid var(--primary); outline-offset:2px;}
+.jump a b{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:11.5px;
+  color:var(--primary); direction:ltr; unicode-bidi:isolate; margin-left:5px;
+}
+
+/* one prompt */
+.prompt{
+  background:var(--paper); border:1px solid var(--line); border-radius:var(--radius);
+  box-shadow:var(--shadow); overflow:hidden; margin:0 0 16px; scroll-margin-top:14px;
+}
+.prompt-head{
+  display:flex; align-items:flex-start; gap:13px; flex-wrap:wrap;
+  padding:15px 18px; background:var(--tint); border-bottom:1px solid var(--line);
+}
+.pnum{
+  flex:none; width:30px; height:30px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--primary); color:var(--paper);
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:700; font-size:13px;
+}
+.ptitles{flex:1 1 220px; min-width:0;}
+.ptitles h3{
+  font-family:'Changa', system-ui, sans-serif; font-weight:700; font-size:17px;
+  margin:0; color:var(--ink); line-height:1.4;
+}
+.ptitles .en-name{
+  display:block; font-family:'IBM Plex Mono', ui-monospace, monospace;
+  font-size:11.5px; letter-spacing:.06em; color:var(--muted);
+  direction:ltr; unicode-bidi:isolate; margin-top:2px;
+}
+.copy-btn{
+  flex:none; font-family:'Changa', system-ui, sans-serif; font-weight:700; font-size:13px;
+  padding:8px 15px; border-radius:8px; cursor:pointer;
+  background:var(--primary); color:var(--paper); border:1px solid var(--primary);
+  transition:opacity .16s ease;
+}
+.copy-btn:hover{opacity:.86;}
+.copy-btn:focus-visible{outline:2px solid var(--primary); outline-offset:3px;}
+.copy-btn.done{background:var(--tint); color:var(--primary);}
+.puse{
+  padding:12px 18px; font-size:13.6px; line-height:1.8; color:var(--ink-2);
+  border-bottom:1px solid var(--line); background:var(--paper);
+}
+.puse b{color:var(--ink);}
+pre.ptext{
+  margin:0; padding:16px 18px; background:var(--paper);
+  font-family:'IBM Plex Sans Arabic', system-ui, sans-serif;
+  font-size:13.4px; line-height:1.95; color:var(--ink-2);
+  white-space:pre-wrap; word-wrap:break-word; overflow-wrap:anywhere;
+  /* The prompts mix Arabic body with LTR section labels. Under plain RTL the
+     line "PURPOSE:" reorders to ":PURPOSE"; plaintext gives every LINE its
+     own direction from its first strong character, so Latin headers read
+     correctly and Arabic lines stay RTL. Copying is unaffected — textContent
+     is source order either way. */
+  unicode-bidi:plaintext;
+  max-height:290px; overflow-y:auto;
+}
+.prompt.open pre.ptext{max-height:none;}
+.more{
+  display:block; width:100%; text-align:center; cursor:pointer;
+  background:var(--tint); border:none; border-top:1px solid var(--line);
+  padding:9px; font-family:'Changa', system-ui, sans-serif; font-weight:700;
+  font-size:12.5px; color:var(--primary);
+}
+.more:focus-visible{outline:2px solid var(--primary); outline-offset:-2px;}
+
+@media (max-width:760px){.chain{grid-template-columns:repeat(2,minmax(0,1fr));}}
+
+@media print{
+  .jump, .copy-btn, .more{display:none;}
+  pre.ptext{max-height:none; font-size:8.6pt; line-height:1.55; padding:8px 10px;}
+  .prompt{box-shadow:none; break-inside:avoid; page-break-inside:avoid;}
+  .chain{box-shadow:none;}
+  .chain{grid-template-columns:repeat(5,1fr);}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="brand">TABIB PRIME · HANDOUT 03</p>
+    <h1>عشرة أوامر<br>لـ <span class="en">NotebookLM</span></h1>
+    <p><span class="en">NotebookLM</span> بيقرا <b>مصادرك إنت بس</b> — مش معرفته العامة. الأوامر دي مبنية على المبدأ ده: كل واحد فيها بيجبر الأداة تشتغل على المرفقات، وتستشهد، وتعترف لما المصادر ما تكفيش.</p>
+    <span class="stamp">ملحق الجزء الأول · كل أمر بزرار نسخ</span>
+    <div class="actions">
+      <button class="btn solid" type="button" onclick="window.print()">اطبع أو احفظ PDF</button>
+      <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false" aria-label="تبديل بين السمة الفاتحة والغامقة">☀</button>
+      <a class="btn" href="part1.html">شرائح الجزء الأول</a>
+      <a class="btn" href="index.html">الرئيسية</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="note info">
+    <span class="lab">◈ إزاي تستخدمهم</span>
+    ارفع مصادرك في <span class="en">Notebook</span> واحد، وبعدين <b>الصق الأمر كما هو</b>.
+    الأوامر مكتوبة بهيكل <span class="en">PURPOSE → ROLE → INPUT → METHOD → EXPECTED OUTPUT</span> —
+    نفس منطق <span class="en">PRIME</span> اللي اتعلمناه في الجزء الأول، مطبّق على أداة بتشتغل على مصادر مقفولة.
+  </div>
+
+  <!-- ============ THE SEQUENCE ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>المسار المتسلسل — الأهم في الملحق</h2>
+      <span class="sec-count">شغّلهم بالترتيب ده</span>
+    </div>
+    <p class="sec-note">ما تستخدمهمش كعشرة أوامر منفصلة. لو بتعمل بحث عميق، <b>الترتيب ده أقوى بكتير</b> من إنك ترمي سؤال ضخم مرة واحدة — لأنك بتستخرج المادة الأول وبعدين تحلّلها، وده بالظبط اللي بيفرق لما الإجابة موزّعة على مصادر كتير.</p>
+
+    <nav class="chain" aria-label="ترتيب تشغيل الأوامر">
+      <a href="#p1"><span class="step">01</span><span class="who">الباحث الذكي</span><span class="en-sm">Research</span></a>
+      <a href="#p7"><span class="step">02</span><span class="who">استخراج المعرفة</span><span class="en-sm">Extract</span></a>
+      <a href="#p3"><span class="step">03</span><span class="who">مكتشف الفجوات</span><span class="en-sm">Find Gaps</span></a>
+      <a href="#p4"><span class="step">04</span><span class="who">مقارنة المصادر</span><span class="en-sm">Compare</span></a>
+      <a href="#p6"><span class="step">05</span><span class="who">التلخيص العميق</span><span class="en-sm">Synthesize</span></a>
+      <a href="#p2"><span class="step">06</span><span class="who">المدرس الشخصي</span><span class="en-sm">Learn</span></a>
+      <a href="#p9"><span class="step">07</span><span class="who">خطة الدراسة</span><span class="en-sm">Study</span></a>
+      <a href="#p5"><span class="step">08</span><span class="who">الاختبار التفاعلي</span><span class="en-sm">Test</span></a>
+      <a href="#p8"><span class="step">09</span><span class="who">تحويل لمحتوى</span><span class="en-sm">Create</span></a>
+      <a href="#p10"><span class="step">10</span><span class="who">المساعد الدائم</span><span class="en-sm">Copilot</span></a>
+    </nav>
+
+    <div class="note">
+      <b>لاحظ إن الترتيب مش 1 ← 10.</b> هو
+      <span class="en mono" dir="ltr">1 → 7 → 3 → 4 → 6 → 2 → 9 → 5 → 8 → 10</span> —
+      لأن الاستخراج بييجي قبل التحليل، واكتشاف الفجوات قبل المقارنة، والتعلّم بعد ما المادة تبقى منظّمة.
+    </div>
+  </section>
+
+  <!-- ============ THE TEN ============ -->
+  <section>
+    <div class="sec-head">
+      <h2>الأوامر العشرة</h2>
+      <span class="sec-count">انسخ · الصق · شغّل</span>
+    </div>
+
+    <nav class="jump" aria-label="انتقال سريع">
+      <a href="#p1"><b>01</b>الباحث الذكي</a>
+      <a href="#p2"><b>02</b>المدرس الشخصي</a>
+      <a href="#p3"><b>03</b>مكتشف الفجوات</a>
+      <a href="#p4"><b>04</b>مقارنة المصادر</a>
+      <a href="#p5"><b>05</b>الاختبار التفاعلي</a>
+      <a href="#p6"><b>06</b>التلخيص العميق</a>
+      <a href="#p7"><b>07</b>استخراج المعرفة</a>
+      <a href="#p8"><b>08</b>تحويل لمحتوى</a>
+      <a href="#p9"><b>09</b>خطة الدراسة</a>
+      <a href="#p10"><b>10</b>المساعد الدائم</a>
+    </nav>
+
+    <article class="prompt" id="p1">
+      <div class="prompt-head">
+        <span class="pnum">01</span>
+        <div class="ptitles"><h3>الباحث الذكي</h3><span class="en-name">SMART RESEARCHER</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> أول أمر تشغّله على أي <span class="en">Notebook</span> جديد — بيبني خريطة المعرفة الموثّقة قبل أي تحليل.</p>
+      <pre class="ptext">PURPOSE:
+أريد بناء فهم دقيق وشامل للمعلومات الموجودة في جميع المصادر المرفقة.
+
+ROLE:
+تصرف كباحث أكاديمي وخبير في تحليل المصادر والمعلومات، مهمتك استخراج المعرفة الموثقة وليس مجرد تلخيص النصوص.
+
+INPUT:
+استخدم جميع المصادر المرفقة في هذا Notebook باعتبارها قاعدة المعرفة الأساسية.
+
+METHOD:
+1. حلل جميع المصادر ذات الصلة بالموضوع.
+2. استخرج أهم الحقائق، النتائج، المفاهيم، الأرقام، الادعاءات والاستنتاجات.
+3. اربط كل معلومة مهمة بالمصدر الذي يدعمها.
+4. ميّز بين الحقائق الصريحة والاستنتاجات التي يمكن استخلاصها من المصادر.
+5. إذا اختلفت المصادر، لا توحّد المعلومات قسرًا؛ أشر إلى الاختلاف.
+6. لا تستخدم معلومات خارج المصادر إلا إذا طلبت منك ذلك صراحة.
+7. لا تعتبر تكرار المعلومة في عدة مصادر دليلًا إضافيًا على صحتها.
+
+EXPECTED OUTPUT:
+أنشئ تقريرًا منظمًا يتضمن:
+- أهم 10–20 معلومة.
+- أهم النتائج والاستنتاجات.
+- الأرقام والبيانات المهمة.
+- أهم المفاهيم.
+- نقاط الخلاف أو عدم اليقين.
+- مصدر كل معلومة رئيسية.
+- خلاصة تنفيذية في النهاية.
+
+استخدم الاستشهادات داخل الإجابة بحيث يمكنني الرجوع إلى المصدر الأصلي والتحقق من كل ادعاء مهم.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+    <article class="prompt" id="p2">
+      <div class="prompt-head">
+        <span class="pnum">02</span>
+        <div class="ptitles"><h3>المدرس الشخصي</h3><span class="en-name">PERSONAL TUTOR</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> لما تكون عايز <b>تتعلّم</b> المادة مش تقراها — بيبني المفاهيم بالتدريج ويختبرك بعد كل مرحلة.</p>
+      <pre class="ptext">PURPOSE:
+أريد أن أتعلم محتوى المصادر بطريقة تدريجية وعميقة، وليس مجرد قراءته أو تلخيصه.
+
+ROLE:
+تصرف كمدرس شخصي خبير، لديه قدرة عالية على تبسيط المفاهيم المعقدة وبناء المعرفة تدريجيًا.
+
+INPUT:
+اعتمد على المصادر المرفقة باعتبارها المنهج الدراسي الأساسي.
+
+METHOD:
+1. ابدأ بتحديد المعرفة الأساسية التي أحتاجها لفهم الموضوع.
+2. اشرح المفاهيم من الأسهل إلى الأكثر تقدمًا.
+3. استخدم أمثلة موجودة في المصادر كلما أمكن.
+4. اربط كل مفهوم جديد بالمفاهيم السابقة.
+5. لا تفترض أنني أعرف التفاصيل التي لم يتم تأسيسها.
+6. عند وجود مفهوم معقد، اشرحه أولًا ببساطة ثم قدم المستوى التقني الأدق.
+7. استخدم الاستشهادات للمعلومات المهمة.
+8. إذا كانت المصادر لا تشرح نقطة بشكل كافٍ، أخبرني بذلك بدلًا من اختراع شرح من خارجها.
+
+EXPECTED OUTPUT:
+أنشئ مسارًا تعليميًا يتكون من:
+- المستوى الأساسي.
+- المفاهيم المتوسطة.
+- المفاهيم المتقدمة.
+- أمثلة تطبيقية.
+- أسئلة قصيرة لاختبار الفهم بعد كل مرحلة.
+- ملخص "ماذا يجب أن أتذكر؟"
+
+لا تنتقل إلى المستوى التالي قبل التأكد من فهم المستوى الحالي إذا كان الحوار تفاعليًا.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+    <article class="prompt" id="p3">
+      <div class="prompt-head">
+        <span class="pnum">03</span>
+        <div class="ptitles"><h3>مكتشف الفجوات</h3><span class="en-name">GAP DETECTOR</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> أقوى أمر في القائمة لو بتعمل بحث حقيقي — بيقولك <b>مصادرك ناقصها إيه</b> بدل ما تكتشف ده متأخر.</p>
+      <pre class="ptext">PURPOSE:
+أريد اكتشاف ما ينقصني من معلومات وما إذا كانت المصادر الحالية كافية للإجابة عن الموضوع بشكل موثوق.
+
+ROLE:
+تصرف كمدقق أبحاث ومراجع علمي يقوم بمراجعة مجموعة مصادر بحثية بحثًا عن الفجوات والتناقضات ونقاط عدم اليقين.
+
+INPUT:
+حلل جميع المصادر المرفقة.
+
+METHOD:
+ابحث تحديدًا عن:
+1. معلومات مهمة غير موجودة.
+2. أسئلة رئيسية لم تجب عنها المصادر.
+3. ادعاءات تحتاج إلى أدلة إضافية.
+4. تناقضات بين المصادر.
+5. معلومات قديمة أو غير مكتملة، إذا كان ذلك واضحًا من المصادر.
+6. مصطلحات أو مفاهيم مستخدمة دون تعريف كافٍ.
+7. بيانات أو أرقام تحتاج إلى تفسير أو سياق.
+8. استنتاجات تبدو أقوى من الأدلة التي تدعمها.
+
+بعد ذلك، حوّل كل فجوة إلى سؤال بحث واضح وقابل للإجابة.
+
+EXPECTED OUTPUT:
+أنشئ جدولًا يتضمن:
+
+| الفجوة | لماذا هي مهمة؟ | المصدر/المصادر المرتبطة | مستوى التأثير | سؤال البحث المقترح |
+
+ثم صنّف الفجوات إلى:
+- حرجة.
+- مهمة.
+- ثانوية.
+
+وفي النهاية أعطني قائمة بأهم 10 أسئلة يجب البحث عنها بعد ذلك.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+    <article class="prompt" id="p4">
+      <div class="prompt-head">
+        <span class="pnum">04</span>
+        <div class="ptitles"><h3>مقارنة المصادر</h3><span class="en-name">SOURCE COMPARATOR</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> لما يكون عندك أكتر من مصدر بيقولوا حاجات مختلفة — وعايز تعرف مين أقوى دليلًا وليه.</p>
+      <pre class="ptext">PURPOSE:
+أريد مقارنة المصادر المرفقة بطريقة منهجية لمعرفة أين تتفق وأين تختلف وأي الأدلة أقوى.
+
+ROLE:
+تصرف كمراجع علمي مستقل ومحايد يقوم بتقييم ومقارنة الأدلة.
+
+INPUT:
+استخدم جميع المصادر ذات الصلة الموجودة في Notebook.
+
+METHOD:
+1. حدد الادعاءات أو الموضوعات المشتركة بين المصادر.
+2. قارن موقف كل مصدر من كل ادعاء.
+3. حدد نقاط الاتفاق.
+4. حدد نقاط الاختلاف.
+5. حدد التناقضات الصريحة إن وجدت.
+6. قيّم قوة الأدلة كما تظهر من المصادر نفسها.
+7. لا تفضل مصدرًا لمجرد أنه أحدث أو أطول؛ وضح سبب أي تقييم.
+8. لا تحسم الخلاف إذا كانت المصادر لا تسمح بحسمه.
+9. استشهد بالمصدر عند كل نقطة رئيسية.
+
+EXPECTED OUTPUT:
+أنشئ:
+
+### Executive Summary
+خلاصة المقارنة في نقاط.
+
+### Comparison Matrix
+| الموضوع/الادعاء | المصدر A | المصدر B | المصدر C | الاتفاق/الاختلاف |
+
+### Evidence Assessment
+لكل نقطة خلاف:
+- ما الذي يقوله كل مصدر؟
+- ما الدليل الذي يقدمه؟
+- أين توجد نقاط القوة؟
+- أين توجد نقاط الضعف؟
+- هل يمكن حسم الخلاف من المصادر؟
+
+### Final Assessment
+حدد:
+- أقوى الأدلة.
+- أكبر نقاط الخلاف.
+- ما يزال غير محسوم.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+    <article class="prompt" id="p5">
+      <div class="prompt-head">
+        <span class="pnum">05</span>
+        <div class="ptitles"><h3>الاختبار التفاعلي</h3><span class="en-name">INTERACTIVE EXAMINER</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> بعد ما تذاكر — بيختبر <b>فهمك</b> مش حفظك، سؤال واحد في المرة، وبيتتبّع أخطاءك.</p>
+      <pre class="ptext">PURPOSE:
+أريد اختبار مدى فهمي للمحتوى الموجود في المصادر وليس مجرد معرفة قدرتي على تذكره.
+
+ROLE:
+تصرف كأستاذ جامعي وممتحن متخصص في الموضوع.
+
+INPUT:
+استخدم المصادر المرفقة فقط لبناء الاختبار والإجابات النموذجية.
+
+METHOD:
+1. أنشئ بنك أسئلة يغطي أهم المفاهيم.
+2. اجعل الأسئلة متنوعة:
+   - فهم مباشر.
+   - تطبيق.
+   - تحليل.
+   - مقارنة.
+   - استنتاج.
+3. اجعل مستويات الصعوبة:
+   - سهل.
+   - متوسط.
+   - متقدم.
+4. لا تعرض الإجابة الصحيحة قبل أن أجيب.
+5. قدم سؤالًا واحدًا في كل مرة.
+6. بعد إجابتي:
+   - قيّمها.
+   - وضح الصحيح.
+   - اشرح الخطأ إن وجد.
+   - استشهد بالمصدر.
+7. تتبع أخطائي أثناء الاختبار.
+8. في النهاية حدد نقاط ضعفي وأعد اختباري فيها.
+
+EXPECTED OUTPUT:
+ابدأ الآن بالسؤال الأول فقط.
+
+بعد انتهاء الاختبار أعطني:
+- الدرجة.
+- نسبة الإتقان.
+- المفاهيم التي أتقنتها.
+- المفاهيم التي أحتاج إلى مراجعتها.
+- أكثر الأخطاء تكرارًا.
+- خطة مراجعة قصيرة مبنية على أخطائي.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+    <article class="prompt" id="p6">
+      <div class="prompt-head">
+        <span class="pnum">06</span>
+        <div class="ptitles"><h3>التلخيص العميق</h3><span class="en-name">DEEP SYNTHESIS</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> لما تكون عايز تختصر من غير ما تخسر — بيدمج المتكرر ويحتفظ بالأرقام والاستثناءات.</p>
+      <pre class="ptext">PURPOSE:
+أريد اختصار جميع المصادر مع الحفاظ على المعرفة المهمة وليس مجرد تقليل عدد الكلمات.
+
+ROLE:
+تصرف كمحرر علمي وخبير في استخلاص المعرفة.
+
+INPUT:
+استخدم جميع المصادر المرفقة.
+
+METHOD:
+1. حدد الأفكار المركزية لكل مصدر.
+2. ادمج المعلومات المتكررة بدل تكرارها.
+3. احتفظ بالتفاصيل التي تغيّر فهم الموضوع.
+4. احتفظ بالأرقام والإحصاءات والأمثلة المهمة.
+5. لا تحذف الاستثناءات أو التحفظات المهمة.
+6. اربط الأفكار ببعضها بدل تلخيص كل مصدر بشكل منفصل فقط.
+7. ميّز بين المعلومات الأساسية والثانوية.
+8. أضف الاستشهادات للمعلومات المهمة.
+
+EXPECTED OUTPUT:
+أنشئ التلخيص بهذا الهيكل:
+
+1. Executive Summary
+2. أهم الأفكار
+3. المفاهيم الأساسية
+4. أهم الأرقام والبيانات
+5. أهم الأمثلة
+6. العلاقات بين الأفكار
+7. نقاط الخلاف أو التحفظات
+8. ما الذي يجب تذكره؟
+9. One-page revision sheet
+
+الهدف ليس "تلخيص كل شيء"، بل إنتاج نسخة مختصرة تحتفظ بأكبر قدر من القيمة المعرفية.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+    <article class="prompt" id="p7">
+      <div class="prompt-head">
+        <span class="pnum">07</span>
+        <div class="ptitles"><h3>استخراج المعرفة</h3><span class="en-name">KNOWLEDGE EXTRACTOR</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> تانى خطوة في المسار — بيحوّل المصادر الخام لخريطة معرفة مرتّبة بتلات طبقات أولوية.</p>
+      <pre class="ptext">PURPOSE:
+أريد تحويل المصادر الخام إلى خريطة معرفة منظمة يمكن استخدامها للدراسة أو البحث أو صناعة المحتوى.
+
+ROLE:
+تصرف كخبير Knowledge Management وباحث يقوم باستخراج المعرفة المنظمة من مجموعة مصادر كبيرة.
+
+INPUT:
+حلل جميع المصادر المرفقة.
+
+METHOD:
+استخرج وصنف:
+
+1. الأفكار الرئيسية.
+2. المفاهيم.
+3. المصطلحات المهمة.
+4. الأرقام والإحصاءات.
+5. الأمثلة.
+6. النماذج والأطر.
+7. الأسباب والنتائج.
+8. العلاقات بين المفاهيم.
+9. الادعاءات المهمة.
+10. الاستنتاجات.
+
+ثم:
+- أزل التكرار.
+- اجمع المعلومات المتشابهة.
+- رتب العناصر حسب الأهمية.
+- اربط كل عنصر بمصدره.
+- لا تضف معلومات غير موجودة في المصادر.
+
+EXPECTED OUTPUT:
+أنشئ:
+
+### Tier 1 — Must Know
+أهم المعلومات التي لا يمكن فهم الموضوع بدونها.
+
+### Tier 2 — Important
+المعلومات التي تعمق الفهم.
+
+### Tier 3 — Supporting
+الأمثلة والتفاصيل الإضافية.
+
+ثم أنشئ Knowledge Map توضح العلاقات بين أهم المفاهيم.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+    <article class="prompt" id="p8">
+      <div class="prompt-head">
+        <span class="pnum">08</span>
+        <div class="ptitles"><h3>تحويل البحث إلى محتوى</h3><span class="en-name">RESEARCH → CONTENT</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> لما تيجي تكتب منشور أو مقال من بحثك. <b>عدّل خانتَي</b> <span class="en">AUDIENCE</span> و<span class="en">PLATFORM</span> قبل ما تلصق.</p>
+      <pre class="ptext">PURPOSE:
+أريد تحويل المعرفة الموثقة في المصادر إلى محتوى تعليمي جذاب وسهل الفهم دون التضحية بالدقة.
+
+ROLE:
+تصرف كمحرر محتوى تعليمي محترف لديه خبرة في تبسيط الأبحاث وتحويلها إلى محتوى قابل للقراءة والمشاركة.
+
+INPUT:
+استخدم المعلومات الموجودة في المصادر المرفقة فقط.
+
+METHOD:
+1. حدد أهم فكرة يمكن أن يبدأ بها المحتوى.
+2. استخرج المعلومات الأكثر قيمة للقارئ.
+3. نظمها في تسلسل منطقي.
+4. استخدم لغة واضحة وغير معقدة.
+5. استخدم الأمثلة الموجودة في المصادر.
+6. لا تضف أي معلومة factual غير موجودة في المصادر.
+7. لا تغير معنى النتائج أو الادعاءات.
+8. ضع الاستشهادات بجوار المعلومات المهمة.
+9. إذا كانت معلومة ضرورية غير موجودة في المصادر، ضع علامة [تحتاج إلى مصدر] بدل اختلاقها.
+
+AUDIENCE:
+[حدد الجمهور المستهدف هنا]
+
+PLATFORM:
+[Facebook / LinkedIn / YouTube / Blog / X / Instagram]
+
+EXPECTED OUTPUT:
+أنشئ:
+- Hook قوي.
+- عنوانًا واضحًا.
+- المحتوى الأساسي.
+- أمثلة عند الحاجة.
+- خلاصة.
+- CTA مناسب للمنصة.
+
+ثم أضف قسمًا منفصلًا:
+"Fact Check"
+يوضح أن كل معلومة رئيسية في المحتوى مدعومة بالمصادر.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+    <article class="prompt" id="p9">
+      <div class="prompt-head">
+        <span class="pnum">09</span>
+        <div class="ptitles"><h3>بناء خطة دراسة</h3><span class="en-name">STUDY ARCHITECT</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> لما يكون عندك مادة كبيرة ووقت محدود — بيرتّبها بالمتطلبات السابقة، وبيديك <b>أقصر مسار</b> لفهم عملي.</p>
+      <pre class="ptext">PURPOSE:
+أريد تحويل المصادر الموجودة في Notebook إلى خطة دراسة عملية ومنطقية.
+
+ROLE:
+تصرف كخبير في تصميم المناهج والتعلم المتدرج، وابنِ لي مسارًا تعليميًا منظمًا.
+
+INPUT:
+استخدم جميع المصادر المرفقة لتحديد ما يجب تعلمه وترتيبه.
+
+METHOD:
+1. حدد الموضوعات الرئيسية.
+2. فكك كل موضوع إلى مفاهيم أصغر.
+3. حدد المتطلبات السابقة لكل مفهوم.
+4. رتب المفاهيم من الأساسيات إلى المتقدم.
+5. حدد الموضوعات ذات الأولوية العالية.
+6. حدد الموضوعات التي يمكن تأجيلها.
+7. أنشئ نقاط مراجعة واختبارات قصيرة.
+8. اربط كل مرحلة بالمصادر التي يجب قراءتها.
+9. لا تفترض معلومات غير موجودة في المصادر دون الإشارة إلى ذلك.
+
+EXPECTED OUTPUT:
+أنشئ خطة دراسة في صورة:
+
+| المرحلة | الموضوع | ما يجب تعلمه | المصدر | الأولوية | طريقة التحقق من الفهم |
+
+ثم أنشئ:
+- خطة يومية/أسبوعية حسب حجم المادة.
+- أهداف تعلم واضحة لكل مرحلة.
+- اختبار نهاية كل مرحلة.
+- قائمة "راجع أولًا".
+- قائمة "يمكن تأجيله".
+
+وفي النهاية أعطني أقصر مسار ممكن للوصول إلى فهم عملي جيد للموضوع.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+    <article class="prompt" id="p10">
+      <div class="prompt-head">
+        <span class="pnum">10</span>
+        <div class="ptitles"><h3>مساعد البحث المتكامل</h3><span class="en-name">RESEARCH COPILOT</span></div>
+        <button class="copy-btn" type="button">نسخ الأمر</button>
+      </div>
+      <p class="puse"><b>امتى تستخدمه:</b> حطّه كـ<span class="en">Custom Instruction</span> لأي <span class="en">Notebook</span> متخصص — بيخلّي كل إجابة جاية بعد كده منظّمة ومستشهدة وبمستوى ثقة معلن.</p>
+      <pre class="ptext">PURPOSE:
+أريدك أن تعمل كمساعد بحث دائم لهذا Notebook، يساعدني على استخراج المعلومات وتحليلها والإجابة عن أسئلتي اعتمادًا على قاعدة المعرفة الموجودة في المصادر.
+
+ROLE:
+تصرف كباحث ومحلل معلومات ومراجع علمي دقيق ومحايد.
+
+INPUT:
+المصادر المرفقة بهذا Notebook هي قاعدة المعرفة الأساسية التي يجب الاعتماد عليها.
+
+METHOD:
+عند كل سؤال أطرحه:
+
+1. حدد أولًا ما المعلومات المطلوبة للإجابة.
+2. ابحث في المصادر ذات الصلة.
+3. اجمع الأدلة المرتبطة بالسؤال.
+4. قارن الأدلة إذا كانت من أكثر من مصدر.
+5. افصل بين:
+   - ما تنص عليه المصادر صراحة.
+   - ما يمكن استنتاجه منها.
+   - ما لا يمكن إثباته من المصادر.
+6. استشهد بالمصادر التي تدعم كل ادعاء مهم.
+7. إذا كانت المصادر متناقضة، وضح التناقض بدل اختيار إجابة عشوائية.
+8. إذا لم تجد الإجابة، قل بوضوح:
+   "لا تحتوي المصادر المرفقة على معلومات كافية للإجابة عن هذا السؤال."
+9. لا تخترع أرقامًا أو مراجع أو معلومات.
+10. لا تستخدم المعرفة الخارجية إلا إذا طلبت منك ذلك صراحة.
+
+عند وجود أكثر من تفسير للسؤال، اسألني سؤال توضيحيًا قبل إعطاء إجابة نهائية.
+
+EXPECTED OUTPUT:
+اجعل إجابتك دائمًا بهذا الهيكل عندما يكون مناسبًا:
+
+### الإجابة المختصرة
+الإجابة المباشرة.
+
+### الأدلة
+أهم المعلومات التي تدعم الإجابة.
+
+### المصادر
+الاستشهادات المرتبطة بكل معلومة مهمة.
+
+### مستوى الثقة
+- مرتفع: الأدلة واضحة ومتوافقة.
+- متوسط: توجد بعض القيود أو الاختلافات.
+- منخفض: الأدلة غير كافية.
+
+### ما لا نعرفه
+أي معلومات مهمة لا يمكن إثباتها من المصادر.
+
+لا تملأ الفراغات بالتخمين.
+الدقة أهم من إعطاء إجابة تبدو مكتملة.</pre>
+      <button class="more" type="button">اعرض الأمر كامل</button>
+    </article>
+
+  </section>
+
+  <footer>
+    <div class="rule">
+      <b>الأوامر دي بتحسّن المخرج — بس ما بتلغيش التحقّق.</b><br>
+      <span class="en">NotebookLM</span> بيقرا مصادرك بس، وده بيقلّل الهلوسة — <b>ما بيمنعهاش</b>.
+      الاستشهاد اللي بيديهولك دليل على إن المعلومة <b>في المصدر</b>، مش دليل على إن المصدر <b>صح</b>.
+      قيّم المصدر نفسه بالأسئلة الثمانية في <a href="audit-card.html">بطاقة التدقيق</a>.
+    </div>
+    <p>
+      دورة <b>طبيب <span class="en">PRIME</span></b> — ملحق الجزء الأول.<br>
+      <a href="part1.html">شرائح الجزء الأول</a> · <a href="toolkit.html">دليل الأدوات</a> · <a href="audit-card.html">بطاقة التدقيق</a> · <a href="index.html">الرئيسية</a>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+/* ES5 only — same floor as the rest of the site. */
+(function () {
+  var btn = document.getElementById('themeBtn'), root = document.documentElement,
+      meta = document.querySelector('meta[name="theme-color"]');
+  function paint() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    btn.innerHTML = dark ? '☾' : '☀';
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    btn.title = dark ? 'التبديل للسمة الفاتحة' : 'التبديل للسمة الغامقة';
+    if (meta) { meta.setAttribute('content', dark ? '#0D1420' : '#F4F7FA'); }
+  }
+  btn.onclick = function () {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    if (dark) { root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme', 'dark'); }
+    try { localStorage.setItem('tabib-theme', dark ? 'light' : 'dark'); } catch (e) {}
+    paint();
+  };
+  paint();
+})();
+
+(function () {
+  /* Copy the prompt exactly as written. navigator.clipboard needs a secure
+     context, which a doctor opening this over plain http will not have, so
+     the textarea + execCommand path stays as the fallback. */
+  function copyText(text, done) {
+    if (window.navigator && navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () { done(true); },
+                                              function () { done(legacy(text)); });
+      return;
+    }
+    done(legacy(text));
+  }
+  function legacy(text) {
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed';
+    ta.style.top = '-1000px';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
+  }
+
+  var cards = document.querySelectorAll('.prompt');
+  for (var i = 0; i < cards.length; i++) {
+    (function (card) {
+      var pre = card.querySelector('pre.ptext'),
+          copy = card.querySelector('.copy-btn'),
+          more = card.querySelector('.more');
+
+      copy.onclick = function () {
+        copyText(pre.textContent, function (ok) {
+          copy.innerHTML = ok ? '✓ اتنسخ' : 'حدّد وانسخ يدويًا';
+          copy.className = 'copy-btn done';
+          setTimeout(function () {
+            copy.innerHTML = 'نسخ الأمر';
+            copy.className = 'copy-btn';
+          }, 2200);
+        });
+      };
+
+      /* Only offer the expander when the text is actually clipped. */
+      if (pre.scrollHeight <= pre.clientHeight + 4) {
+        more.parentNode.removeChild(more);
+        return;
+      }
+      more.onclick = function () {
+        var open = card.className.indexOf('open') !== -1;
+        card.className = open ? 'prompt' : 'prompt open';
+        more.innerHTML = open ? 'اعرض الأمر كامل' : 'اطوِ الأمر';
+        if (open) { card.scrollIntoView({ block: 'nearest' }); }
+      };
+    })(cards[i]);
+  }
+})();
+</script>
+</body>
+</html>

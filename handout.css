@@ -255,6 +255,11 @@ footer .rule{
 }
 footer .rule b{color:#35D6C4;}
 
+/* .rule stays a dark navy card in BOTH themes, so a link inside it cannot use
+   the theme primary — that is dark teal on light, which measured 3.05:1. */
+footer .rule a{color:#35D6C4; border-bottom-color:rgba(53,214,196,.42);}
+footer .rule a:hover{border-bottom-color:#35D6C4;}
+
 .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:22px;}
 .btn{
   font-family:'Changa', system-ui, sans-serif; font-weight:700; font-size:14px;
@@ -297,4 +302,5 @@ footer .rule b{color:#35D6C4;}
   footer .rule{background:#fff; color:var(--ink); border:1.5pt solid var(--nav);}
   footer .rule b{color:var(--primary);}
   a{color:var(--ink); border-bottom:none;}
+  footer .rule a{color:var(--ink);}
 }
