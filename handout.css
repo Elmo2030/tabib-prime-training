@@ -42,6 +42,38 @@
   --radius:12px;
   --shadow:0 1px 2px rgba(16,27,39,.05), 0 6px 18px rgba(16,27,39,.05);
 }
+/* Dark, so a reader who picked it elsewhere on the site keeps it here. The
+   print block below forces light back regardless — a dark handout wastes
+   toner and reads worse on paper, which is what these two pages are for. */
+:root[data-theme="dark"]{
+  --paper:#141D2B;
+  --tint:#0D1420;
+  --tint-2:#1A2434;
+  --ink:#E8EEF5;
+  --ink-2:#C2CFDA;
+  --muted:#8798A9;
+  --line:rgba(255,255,255,.10);
+  --line-strong:rgba(255,255,255,.19);
+  --primary:#35D6C4;
+  --primary-soft:rgba(53,214,196,.12);
+  --accent:#C9A96B;
+  --accent-soft:rgba(201,169,107,.12);
+  --danger:#FF7A6B;
+  --danger-soft:rgba(255,122,107,.12);
+  --info:#6FA8DC;
+  --info-soft:rgba(111,168,220,.12);
+  --shadow:0 1px 2px rgba(0,0,0,.30), 0 6px 18px rgba(0,0,0,.26);
+}
+
+/* the toggle, shared by both handouts */
+.theme-btn{
+  flex:none; width:38px; height:38px; border-radius:10px; cursor:pointer;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2);
+  color:#E8EEF5; font-size:15px; line-height:1;
+}
+.theme-btn:hover{background:rgba(255,255,255,.14);}
+.theme-btn:focus-visible{outline:2px solid #35D6C4; outline-offset:3px;}
+
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}
 body{
@@ -235,6 +267,17 @@ footer .rule b{color:#35D6C4;}
 
 /* ---------- print ---------- */
 @media print{
+  /* A handout is printed. Force the paper palette even if the reader is in
+     dark mode, or the page comes out as a black rectangle. */
+  :root, :root[data-theme="dark"]{
+    --paper:#FFFFFF; --tint:#F5F8FA; --tint-2:#EDF2F6;
+    --ink:#101B27; --ink-2:#33475C; --muted:#55697A;
+    --line:#DBE3EA; --line-strong:#C2CFDA;
+    --primary:#0A6F64; --primary-soft:#E4F3F1;
+    --accent:#795C1C; --accent-soft:#F6F0E1;
+    --danger:#A63525; --danger-soft:#FBEBE8;
+    --info:#2A5F8F; --info-soft:#E8F0F7;
+  }
   @page{size:A4; margin:14mm 12mm;}
   body{background:#fff; font-size:10.5pt; line-height:1.65;}
   header.masthead{background:#fff; color:var(--ink); padding:0 0 14px; margin-bottom:20px;

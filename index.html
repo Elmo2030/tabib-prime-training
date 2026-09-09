@@ -4,9 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#F4F7FA">
-<meta name="color-scheme" content="light">
+<meta name="color-scheme" content="light dark">
 <meta name="description" content="طبيب PRIME — دورة الذكاء الاصطناعي للأطباء. الجزء الأول: إطار التفكير. الجزء الثاني: التطبيق في طب الجلدية. مع دليل أدوات وبطاقة تدقيق.">
 <title>طبيب PRIME — الرئيسية</title>
+<script>
+/* Before first paint, so a stored dark choice never flashes light. */
+(function(){var t=null;try{t=localStorage.getItem('tabib-theme');}catch(e){}
+if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
 <style>
   @font-face{font-family:'Changa';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/changa-latin-600-normal.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
   @font-face{font-family:'Changa';font-style:normal;font-weight:600;font-display:swap;src:url('fonts/changa-arabic-600-normal.woff2') format('woff2');unicode-range:U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0898-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FEFF,U+102E0-102FB,U+10E60-10E7E,U+10EFD-10EFF,U+1EE00-1EEFF;}
@@ -28,7 +33,22 @@
   --ink:#101B27; --text-2:#33475C; --muted:#55697A;
   --primary:#0A6F64; --primary-hover:#08574F; --secondary:#2A5F8F; --accent:#795C1C;
   --border:rgba(16,27,39,.13); --border-strong:rgba(16,27,39,.22);
+  --glow-a:rgba(10,111,100,.07); --glow-b:rgba(42,95,143,.05);
+  --lift:0 12px 30px rgba(16,27,39,.10);
+  --ic-bg:rgba(121,92,28,.09); --ic-line:rgba(121,92,28,.26);
+  --ic-bg-2:rgba(42,95,143,.09); --ic-line-2:rgba(42,95,143,.26);
   --radius:16px;
+}
+/* Dark, for a projector or a dim room. Same roles, inverted. */
+:root[data-theme="dark"]{
+  --bg:#0D1420; --bg-2:#111A28; --surface:#141D2B; --surface-2:#1A2434;
+  --ink:#E8EEF5; --text-2:#A8B6C6; --muted:#8798A9;
+  --primary:#35D6C4; --primary-hover:#4EE3D2; --secondary:#6FA8DC; --accent:#C9A96B;
+  --border:rgba(255,255,255,.10); --border-strong:rgba(255,255,255,.17);
+  --glow-a:rgba(53,214,196,.10); --glow-b:rgba(111,168,220,.07);
+  --lift:0 14px 34px rgba(0,0,0,.34);
+  --ic-bg:rgba(201,169,107,.13); --ic-line:rgba(201,169,107,.30);
+  --ic-bg-2:rgba(111,168,220,.13); --ic-line-2:rgba(111,168,220,.32);
 }
 *{box-sizing:border-box;}
 html{-webkit-text-size-adjust:100%;}
@@ -38,14 +58,23 @@ body{
   font-size:16px; line-height:1.85; -webkit-font-smoothing:antialiased;
   min-height:100vh;
   background-image:
-    radial-gradient(ellipse 70% 50% at 78% -8%, rgba(10,111,100,.07), transparent 62%),
-    radial-gradient(ellipse 60% 45% at 12% 4%, rgba(42,95,143,.05), transparent 60%);
+    radial-gradient(ellipse 70% 50% at 78% -8%, var(--glow-a), transparent 62%),
+    radial-gradient(ellipse 60% 45% at 12% 4%, var(--glow-b), transparent 60%);
   background-repeat:no-repeat;
 }
 .en{direction:ltr; unicode-bidi:isolate; font-weight:600;}
 .mono{direction:ltr; unicode-bidi:isolate; font-family:'IBM Plex Mono', ui-monospace, monospace;}
 
 .wrap{max-width:1000px; margin:0 auto; padding:clamp(38px,7vw,76px) 20px clamp(48px,8vw,84px);}
+.top-row{display:flex; align-items:center; justify-content:space-between; gap:14px;}
+.top-row .brand{margin-bottom:0;}
+.theme-btn{
+  flex:none; width:38px; height:38px; border-radius:10px; cursor:pointer;
+  background:var(--surface); border:1px solid var(--border); color:var(--text-2);
+  font-size:15px; line-height:1; transition:border-color .18s ease, background .18s ease;
+}
+.theme-btn:hover{border-color:var(--border-strong); background:var(--surface-2);}
+.theme-btn:focus-visible{outline:2px solid var(--primary); outline-offset:3px;}
 
 /* ---------- masthead ---------- */
 .brand{
@@ -88,7 +117,7 @@ h1 .accent{color:var(--primary);}
 .part.two::before{background:var(--secondary);}
 .part:hover, .part:focus-visible{
   border-color:var(--border-strong); transform:translateY(-3px);
-  box-shadow:0 12px 30px rgba(16,27,39,.10);
+  box-shadow:var(--lift);
 }
 .part:hover::before, .part:focus-visible::before{opacity:1;}
 .part:focus-visible{outline:2px solid var(--primary); outline-offset:3px;}
@@ -137,12 +166,12 @@ h1 .accent{color:var(--primary);}
 .doc .ic{
   flex:none; width:38px; height:38px; border-radius:10px; display:flex;
   align-items:center; justify-content:center; font-size:17px;
-  background:rgba(121,92,28,.09); border:1px solid rgba(121,92,28,.26);
+  background:var(--ic-bg); border:1px solid var(--ic-line);
 }
 .doc .ic.pdf{
   font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:600; font-size:11px;
   letter-spacing:.02em; direction:ltr; unicode-bidi:isolate;
-  background:rgba(42,95,143,.09); border-color:rgba(42,95,143,.26); color:var(--secondary);
+  background:var(--ic-bg-2); border-color:var(--ic-line-2); color:var(--secondary);
 }
 .doc b{display:block; font-family:'Changa', system-ui, sans-serif; font-size:15.5px; margin-bottom:2px;}
 .doc span{display:block; font-size:13.2px; color:var(--muted); line-height:1.7;}
@@ -195,7 +224,10 @@ footer{
 <body>
 <main class="wrap">
 
-  <p class="brand">TABIB PRIME</p>
+  <div class="top-row">
+    <p class="brand">TABIB PRIME</p>
+    <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false" aria-label="تبديل بين السمة الفاتحة والغامقة">☀</button>
+  </div>
   <h1>الذكاء الاصطناعي<br><span class="accent">للطبيب الممارس</span></h1>
   <p class="lede">دورة من جزأين. الأول يبني طريقة التفكير، والثاني ينزل بيها على أرض طب الجلدية. اختر من فين تبدأ.</p>
 
@@ -311,6 +343,27 @@ footer{
   </footer>
 
 </main>
+
+<script>
+(function(){
+  var btn=document.getElementById('themeBtn'), root=document.documentElement,
+      meta=document.querySelector('meta[name="theme-color"]');
+  function paint(){
+    var dark=root.getAttribute('data-theme')==='dark';
+    btn.innerHTML=dark?'☾':'☀';
+    btn.setAttribute('aria-pressed',dark?'true':'false');
+    btn.title=dark?'التبديل للسمة الفاتحة':'التبديل للسمة الغامقة';
+    if(meta){meta.setAttribute('content',dark?'#0D1420':'#F4F7FA');}
+  }
+  btn.onclick=function(){
+    var dark=root.getAttribute('data-theme')==='dark';
+    if(dark){root.removeAttribute('data-theme');}else{root.setAttribute('data-theme','dark');}
+    try{localStorage.setItem('tabib-theme',dark?'light':'dark');}catch(e){}
+    paint();
+  };
+  paint();
+})();
+</script>
 
 <script>
 /* Reveal an appendix card only once its PDF is actually there. A HEAD request
