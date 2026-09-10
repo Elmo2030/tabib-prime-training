@@ -1,0 +1,597 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="سياق المحاضر لكل شريحة في الجزء الثاني — للمحاضر وحده.">
+<meta name="theme-color" content="#F4F7FA">
+<meta name="color-scheme" content="light dark">
+<title>سياق المحاضر — الجزء الثاني</title>
+<script>
+(function(){var t=null;try{t=localStorage.getItem('tabib-theme');}catch(e){}
+if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');}})();
+</script>
+<link rel="stylesheet" href="handout.css">
+<style>
+.private{
+  background:var(--danger-soft); border:1px solid var(--danger);
+  border-radius:var(--radius); padding:14px 17px; margin:0 0 20px;
+  font-size:14.5px; line-height:1.85; color:var(--ink-2);
+}
+.private b{color:var(--danger);}
+
+.unit-bar{
+  display:flex; align-items:baseline; justify-content:space-between; gap:12px; flex-wrap:wrap;
+  background:var(--tint); border:1px solid var(--line); border-radius:11px;
+  padding:11px 16px; margin:26px 0 14px;
+}
+.unit-bar h2{font-size:17px; margin:0; border:none; padding:0;}
+.unit-bar .mins{
+  font-family:'IBM Plex Mono', ui-monospace, monospace; font-size:12.5px;
+  color:var(--primary); direction:ltr; unicode-bidi:isolate; white-space:nowrap;
+}
+
+.sn{
+  background:var(--paper); border:1px solid var(--line); border-radius:12px;
+  padding:14px 17px 15px; margin:0 0 10px; break-inside:avoid;
+}
+.sn-head{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap; margin-bottom:9px;}
+.sn-n{
+  flex:none; font-family:'IBM Plex Mono', ui-monospace, monospace; font-weight:700;
+  font-size:12px; color:var(--paper); background:var(--primary);
+  border-radius:6px; padding:2px 8px; direction:ltr; unicode-bidi:isolate;
+}
+.sn-t{font-family:'Changa', system-ui, sans-serif; font-weight:700; font-size:15.5px; color:var(--ink); line-height:1.45;}
+.sn-m{
+  margin-inline-start:auto; font-family:'IBM Plex Mono', ui-monospace, monospace;
+  font-size:11.5px; color:var(--muted); direction:ltr; unicode-bidi:isolate; white-space:nowrap;
+}
+.sn p{margin:0 0 7px; font-size:14.2px; line-height:1.9; color:var(--ink-2);}
+.sn p:last-child{margin-bottom:0;}
+.sn .lbl{
+  display:inline-block; min-width:52px; font-family:'Changa', system-ui, sans-serif;
+  font-weight:700; font-size:12.5px; color:var(--primary);
+}
+.sn .say{color:var(--ink); font-weight:600;}
+.sn .warn{color:var(--danger); font-weight:700;}
+.sn.act{border-inline-start:3px solid var(--accent); background:var(--accent-soft);}
+.sn.act .sn-n{background:var(--accent);}
+
+@media print{
+  @page{size:A4; margin:12mm 11mm;}
+  .sn{box-shadow:none; padding:8px 11px; margin-bottom:6px;}
+  .sn p{font-size:9.4pt; line-height:1.6; margin-bottom:4px;}
+  .sn-t{font-size:11pt;}
+  .unit-bar{margin:14px 0 8px; padding:7px 11px;}
+  .actions{display:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="wrap">
+    <p class="brand">TABIB PRIME · SPEAKER NOTES</p>
+    <h1>سياق المحاضر<br>الجزء الثاني</h1>
+    <p>إيه اللي بيتقال على كل شريحة من الـ63 — الجملة اللي تفتح بيها، النقاط اللي تغطّيها، والجملة اللي تعدّي بيها. مش نص يتقرا حرفيًا، ده عمود فقري تمشي عليه.</p>
+    <span class="stamp">للمحاضر وحده · إجمالي الزمن التقديري ‎223 دقيقة</span>
+    <div class="actions">
+      <button class="btn solid" type="button" onclick="window.print()">اطبع أو احفظ PDF</button>
+      <button class="theme-btn" id="themeBtn" type="button" aria-pressed="false" aria-label="تبديل بين السمة الفاتحة والغامقة">☀</button>
+      <a class="btn" href="part2.html">افتح الشرائح</a>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <div class="private">
+    <b>الملف ده مش للمشاركين.</b> شِلنا ملاحظات المحاضر من الشرائح عن قصد، فالسياق ده عايش هنا لوحده.
+    الصفحة موسومة <span class="en">noindex</span> ومش مربوطة من أي صفحة عامة — بس اللي معاه الرابط يقدر يفتحها.
+    لو عايزها تتشال من الموقع المنشور خالص، قولّي.
+  </div>
+
+  <div class="note info">
+    <span class="lab">◈ إزاي تقرا الكارت</span>
+    <b>افتح بـ</b> الجملة اللي تكسر بيها الصمت وتوجّه الانتباه ·
+    <b>قول</b> النقاط اللي لازم تتغطّى ·
+    <b>عدّي بـ</b> الجملة اللي بتربط بالشريحة اللي بعدها.
+    الأزمنة تقديرية — الأنشطة بس هي اللي مدتها محسوبة من الشريحة نفسها.
+  </div>
+
+  <div class="unit-bar"><h2>الافتتاحية — الشرائح 1–5</h2><span class="mins">~18 min</span></div>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">01</span><span class="sn-t">الجزء الثاني — من التفكير إلى التطبيق</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الجزء الأول علّمكم تفكّروا مع الذكاء الاصطناعي. النهارده حنشتغل بيه — على حالات حقيقية وأدوات حقيقية.»</span></p>
+    <p><span class="lbl">قول</span>إن اليوم مش إعادة ولا توسيع نظري: كل إطار اتعلّموه حيتحوّل لإجراء على أداة تفتحها بإيدك. اذكر المسار الثلاثي اللي على الشريحة — من الصورة، إلى الدليل، إلى الحكم السريري — وإن الكلمة الأخيرة في السطر ده هي «الحكم»، مش «الأداة».</p>
+    <p><span class="lbl">عدّي بـ</span>«قبل ما نبدأ، خلينا نرجع ثلاثين ثانية لفين وصلنا.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">02</span><span class="sn-t">أين وصلنا — الجزء الأول في شريحة واحدة</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«مش حنعيد الجزء الأول — حنشغّله.»</span></p>
+    <p><span class="lbl">قول</span>مُرّ على الأطر بسرعة، وقف عند واحدة بس واسأل القاعة: «مين طبّقها فعلًا الأسبوع اللي فات؟» الإجابة بتديك مستوى القاعة الحقيقي وتضبط بيها سرعتك بقية اليوم. اللي مطبّقش، طمّنه إن النهارده كله تطبيق.</p>
+    <p><span class="lbl">عدّي بـ</span>«وأول تطبيق حيكون على حاجة إنتوا بنيتوها بنفسكم.»</p>
+  </article>
+
+  <article class="sn act">
+    <div class="sn-head"><span class="sn-n">03</span><span class="sn-t">الواجب — الـ Custom Gem بتاعك</span><span class="sn-m">5 min · نشاط</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«افتحوا الـ Custom Gem اللي بنيتوه. مين فتحه؟»</span></p>
+    <p><span class="lbl">قول</span>ده كان واجب النشاط 05. خُد عيّنة صوتية سريعة: مين بناه، ومين لأ. اللي ما بناهوش <b>ما تحرجهوش</b> — قوله يشتغل مع جاره النهارده. الفكرة إن الواجب مش شيء اتسلّم واتنسى، ده أداة عمل حية حنستخدمها بعد شوية.</p>
+    <p><span class="lbl">عدّي بـ</span>«خلّوه مفتوح على جنب. حنرجعله.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">04</span><span class="sn-t">ما الذي يتغيّر اليوم</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«خمس خطوات جديدة فوق الخمسة اللي عندكم.»</span></p>
+    <p><span class="lbl">قول</span>اعرض خريطة اليوم بسرعة — الست وحدات والجزء الإضافي. الرسالة: الجزء الأول كان <b>تفكير</b>، والنهارده <b>تنفيذ + تدقيق</b>. قول صراحة إن فيه وحدة كاملة اسمها «مختبر الفشل» — ودي مقصودة، لأن اللي ما شافش الأداة وهي بتغلط بيثق فيها أكتر من اللازم.</p>
+    <p><span class="lbl">عدّي بـ</span>«بس قبل أي صورة تترفع، فيه قواعد.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">05</span><span class="sn-t">قواعد المعمل — قبل أي صورة</span><span class="sn-m">5 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«النهارده حنرفع صور. وده يستوجب قواعد — دي مش شريحة نعدّيها.»</span></p>
+    <p><span class="lbl">قول</span>اقرا عمود «ممنوع تمامًا» بصوت عالي، بند بند. الصورة نفسها بيانات مش النص بس — فيها موقع التصوير وتاريخه ونوع الجهاز جوّه الملف. وقف عند القاعدة الذهبية وكرّرها: <b>لو ما عندكش إجابة على «الصورة رايحة فين ومين بيخزّنها وقد إيه» — ما ترفعش.</b> عدّي على بوابة الخصوصية التسعة سريعًا.</p>
+    <p><span class="lbl">عدّي بـ</span>«اتفقنا. نبدأ بأول سؤال: الأداة دي بتشوف ولا بتفهم؟»</p>
+  </article>
+
+  <div class="unit-bar"><h2>الوحدة 1 — يرى أم يفهم؟ · الشرائح 6–16</h2><span class="mins">~46 min</span></div>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">06</span><span class="sn-t">الوحدة 1 — فاصل</span><span class="sn-m">1 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الوحدة الأولى: يرى أم يفهم؟»</span></p>
+    <p><span class="lbl">قول</span>جملة واحدة بس: كل الخلط في المجال ده بيبدأ من إن الناس بتفترض إن الأداة «فاهمة»، وهي في الحقيقة بتعمل حاجة أضيق بكتير.</p>
+    <p><span class="lbl">عدّي بـ</span>«وعلشان نفهم الفرق، لازم نعرف الأربع قدرات.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">07</span><span class="sn-t">أربع قدرات — لا تخلط بينها</span><span class="sn-m">6 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«جملة ”أداة ذكاء اصطناعي جلدية“ — دي جملة بلا معنى.»</span></p>
+    <p><span class="lbl">قول</span>امشِ على الكروت الأربعة: استرجاع، تصنيف، استدلال، فرز. لكل واحد اقرا <b>المدخل والمخرج والحد</b>. المفتاح: نفس الصورة تدخل الأربعة وتطلع بأربع أنواع مخرجات مختلفة <b>في طبيعتها</b> — يعني معيار الحكم على كل نوع مختلف. حاسب أداة استرجاع على إنها ما شخّصتش = الخطأ منك.</p>
+    <p><span class="lbl">عدّي بـ</span>«فسؤالك الأول لأي أداة جديدة: إنتِ أي واحدة من الأربعة؟»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">08</span><span class="sn-t">قف — شنو اللي ما أعرفهوش؟</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«أغلبنا بيفتح الأداة ويسأل على طول. العادة دي بتقلب الترتيب.»</span></p>
+    <p><span class="lbl">قول</span>لما تسأل قبل ما تحدّد الناقص، الأداة بتملأ فراغاتك بافتراضات <b>إنت ما قلتهاش</b> — وبعدين تبني على افتراضاتها وإنت فاكرها معلوماتك. العادة البديلة: قبل أي سؤال، اكتب سطر واحد «اللي ما أعرفهوش هو…».</p>
+    <p><span class="lbl">عدّي بـ</span>«خلينا نجرّب ده على أول أداة حقيقية النهارده.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">09</span><span class="sn-t">الأداة الأولى — Model Dermatology</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«بنبدأ بيها لسببين — مجانية بالكامل، وعندها دليل منشور.»</span></p>
+    <p><span class="lbl">قول</span>وضّح إنها بتعمل <b>استرجاع بصري</b>: بترجّع حالات شبيهة مرتّبة، مش تشخيص. ونبّه من دلوقتي إنها بقت <b>تطبيق موبايل</b> — الرفع من المتصفح مابقاش متاح، فاللي مثبّتهاش يستخدم البديل من المتصفح.</p>
+    <p><span class="lbl">عدّي بـ</span>«وكلمة ”دليل منشور“ دي — تعالوا نفهم بتعني إيه بالظبط.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">10</span><span class="sn-t">الدليل — ماذا تعني تجربة عشوائية محكّمة هنا</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«ليه بدأنا بالأداة اللي عندها دراسة؟»</span></p>
+    <p><span class="lbl">قول</span>معظم أدوات الجلدية بتعرض أرقام دقة <b>من الشركة نفسها</b>. القليل جدًا اتحطّ في تجربة عشوائية محكّمة. اشرح الفرق: رقم من الشركة بيقول «الأداة عملت كذا على بياناتنا»، والتجربة المحكّمة بتسأل سؤال تاني خالص — <b>هل الطبيب بقى أدق وهو بيستخدمها؟</b> دي نقلة في نوع السؤال مش في حجم الرقم.</p>
+    <p><span class="lbl">عدّي بـ</span>«طيب. أول حالة.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">11</span><span class="sn-t">الحالة 1 — طفح التهابي شائع</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الحالة الأولى — اقروا الجدول بس. ما تتكلموش لسه.»</span></p>
+    <p><span class="lbl">قول</span>اعرض الصورة وبيانات الحالة، وسيبهم يقروا في صمت. <b>ما تديش رأيك ولا تلمّح لتشخيص</b> — أي كلمة منك دلوقتي حتلوّن تفكيرهم في النشاط الجاي. ذكّرهم إن الصورة من أرشيف تعليمي مفتوح، ومصدرها مكتوب تحتها.</p>
+    <p><span class="lbl">عدّي بـ</span>«اقفلوا اللابتوبات. النشاط الجاي من غير أدوات.»</p>
+  </article>
+
+  <article class="sn act">
+    <div class="sn-head"><span class="sn-n">12</span><span class="sn-t">نشاط 06 — فكّر قبل الذكاء الاصطناعي</span><span class="sn-m">6 min · نشاط</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«اقفلوا اللابتوب. فكّروا إنتوا الأول.»</span></p>
+    <p><span class="lbl">قول</span>دي أهم ست دقايق في الوحدة، والسبب مهم يتقال: <b>لو شفت مخرج الأداة قبل ما تفكّر، تفكيرك حيتلوّن بيها ومش حتقدر ترجع.</b> ده تحيّز إرساء حقيقي، مش نصيحة تنظيمية. طوّف في القاعة واتأكد إن الأجهزة مقفولة فعلًا.</p>
+    <p><span class="lbl">عدّي بـ</span>«خلّوا ورقتكم مقلوبة. قبل ما نفتح الأداة، فيه بوابة.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">13</span><span class="sn-t">بوابة جودة الصورة</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«أغلب اللي بنسمّيه ”أخطاء الذكاء الاصطناعي“ هو في الحقيقة أخطاء تصوير.»</span></p>
+    <p><span class="lbl">قول</span>عدّي على العشر بنود بسرعة، وقف عند <b>نوع الصورة</b> — سريرية ولا تنظير؟ لأن أداة مبنية لواحدة ممكن ما تقبلش التانية أصلًا. وبعدين اقلب الرسالة فورًا: <b>صورة ممتازة ما بتضمنش مخرج صحيح.</b> جودة الصورة شرط لازم مش كافٍ.</p>
+    <p><span class="lbl">عدّي بـ</span>«دلوقتي بس — افتحوا الأداة.»</p>
+  </article>
+
+  <article class="sn act">
+    <div class="sn-head"><span class="sn-n">14</span><span class="sn-t">تطبيق عملي — شغّل الأداة</span><span class="sn-m">8 min · نشاط</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«ارفعوا الصورة، وسجّلوا أول ثلاث نتايج زي ما هي.»</span></p>
+    <p><span class="lbl">قول</span>خلّيهم يسجّلوا المخرج <b>حرفيًا</b> من غير تعليق. طوّف واتأكد إن حد ما بيقفزش لتفسير. اللي التثبيت فشل معاه يفتح البديل من المتصفح — ونبّه إن قدرته مختلفة (فرز مش استرجاع)، وده في حد ذاته مقارنة مفيدة يشاركها.</p>
+    <p><span class="lbl">عدّي بـ</span>«دلوقتي اقلبوا الورقة.»</p>
+  </article>
+
+  <article class="sn act">
+    <div class="sn-head"><span class="sn-n">15</span><span class="sn-t">المقارنة — أنت، الأداة، ثم أنت</span><span class="sn-m">6 min · نشاط</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«عندنا دلوقتي ثلاث نسخ من التفكير في نفس الحالة.»</span></p>
+    <p><span class="lbl">قول</span>المقارنة نفسها هي الدرس — <b>مش أي واحدة ”صح“</b>. اسأل سؤالين: مين غيّر رأيه بعد ما شاف المخرج؟ ومين اتمسّك برأيه ليه؟ الإجابتين مفيدتين. لو حد قال «الأداة أقنعتني» — قف عندها، دي بالظبط اللحظة اللي الوحدة كلها بتحذّر منها.</p>
+    <p><span class="lbl">عدّي بـ</span>«فالدرس مش عن الأداة. الدرس عن السؤال.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">16</span><span class="sn-t">الدرس — غيّر السؤال</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«ما تسألش ”شنو التشخيص؟“»</span></p>
+    <p><span class="lbl">قول</span>السؤال ده بيطلب من الأداة حاجة مش قادرة عليها، وبيخلّيك تستقبل إجابتها كحكم. بدّله بأسئلة الأداة تعرف تجاوب عليها فعلًا: «إيه اللي شبه ده؟» «إيه اللي ما خطرش على بالي؟» — وسيب أنت الحسم.</p>
+    <p><span class="lbl">عدّي بـ</span>«الوحدة الجاية: إزاي نبني تفريقي منظّم مش مجرد قائمة.»</p>
+  </article>
+
+  <div class="unit-bar"><h2>الوحدة 2 — من الصورة إلى التفريقي · الشرائح 17–23</h2><span class="mins">~26 min</span></div>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">17</span><span class="sn-t">الوحدة 2 — فاصل</span><span class="sn-m">1 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«من الصورة إلى التشخيص التفريقي.»</span></p>
+    <p><span class="lbl">قول</span>الفرق بين الوحدة اللي فاتت ودي: هناك الأداة بترجّع، هنا الأداة <b>بتبني معاك</b>.</p>
+    <p><span class="lbl">عدّي بـ</span>«والأداة اللي حنشوفها دلوقتي ليها سلوك غريب — بتسأل قبل ما تجاوب.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">18</span><span class="sn-t">الأداة الثانية — VisualDx</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«دي الوحيدة في اليوم اللي بتسألك.»</span></p>
+    <p><span class="lbl">قول</span>بتدمج الصورة مع <b>السياق السريري</b> — العمر، المدة، التوزّع، الأعراض — علشان تبني تفريقي منظّم. نبّه على نقطة عملية: التجربة <b>مدتها بتختلف حسب الباقة</b> وغالبًا بتطلب بطاقة دولية، فاللي حيسجّل يسجّل قبل ما يحتاجها مش وهو قدّام حالة.</p>
+    <p><span class="lbl">عدّي بـ</span>«خلينا نشرّح مسار عملها — الترتيب نفسه هو الدرس.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">19</span><span class="sn-t">مسار العمل — لاحظ الترتيب</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«لاحظوا إنها بتسأل قبل ما تجاوب.»</span></p>
+    <p><span class="lbl">قول</span>ده مش تفصيلة واجهة — ده <b>موقف تصميمي</b>. الأداة بتقول ضمنيًا: الصورة لوحدها ما تكفيش. قارن بالأدوات اللي بتاخد صورة وترمي إجابة فورًا، واسأل القاعة: أنهي سلوك أقرب لطريقتك في العيادة؟</p>
+    <p><span class="lbl">عدّي بـ</span>«طيب. الحالة التانية.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">20</span><span class="sn-t">الحالة 2 — لويحة التهابية على الساق</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الحالة التانية — نفس القاعدة، اقروا الأول.»</span></p>
+    <p><span class="lbl">قول</span>اعرض الصورة وبيانات الحالة في صمت. الحالة دي حتتشغّل ثلاث مرات في النشاط الجاي بكميات معلومات مختلفة، فما تديش أي سياق زيادة دلوقتي — السياق هو المتغيّر اللي بنقيسه.</p>
+    <p><span class="lbl">عدّي بـ</span>«نفس الآفة. ثلاث كميات معلومات. يلا.»</p>
+  </article>
+
+  <article class="sn act">
+    <div class="sn-head"><span class="sn-n">21</span><span class="sn-t">نشاط 07 — تدرّج المعلومة</span><span class="sn-m">10 min · نشاط</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«ثلاث جولات على نفس الحالة — وسجّلوا الفرق بعد كل جولة.»</span></p>
+    <p><span class="lbl">قول</span>الجولة الأولى صورة بس، التانية صورة + سياق، التالتة البرومبت المنظّم. ده <b>إثبات عملي</b> لمبدأ الجزء الأول: جودة المخرج بتتبع جودة المدخل. المهم إنهم يكتبوا المخرج بعد كل جولة — الفرق بيبان في المقارنة مش في الذاكرة.</p>
+    <p><span class="lbl">عدّي بـ</span>«الجولة التالتة محتاجة برومبت معيّن — ده على الشريحة الجاية.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">22</span><span class="sn-t">البرومبت المنظّم — انسخه حرفيًا</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«لاحظوا إن كل حرف من PRIME ليه سطر.»</span></p>
+    <p><span class="lbl">قول</span>امشِ على السطور وأشِر لكل حرف وهو مطبّق. ده مش قالب سحري — ده <b>الإطار وهو بيتنفّذ</b>. اطلب منهم يدوسوا زرار النسخ ويلصقوه مع الصورة. <b>الشريحة دي أطول من الشاشة</b> — انزل لتحت وإنت بتشرح علشان يشوفوا السطور كلها.</p>
+    <p><span class="lbl">عدّي بـ</span>«شغّلوه، وشوفوا الفرق عن الجولة الأولى.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">23</span><span class="sn-t">النتيجة — ما الذي تغيّر</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الأداة ما اتغيّرتش. إنتوا اللي اتغيّرتوا.»</span></p>
+    <p><span class="lbl">قول</span>نفس النموذج، نفس الصورة، نفس اليوم — والمخرج اختلف تمامًا. يبقى المتغيّر الوحيد هو المدخل، والمدخل مسؤوليتك إنت. دي أوضح لحظة في اليوم بتثبت إن المهارة عند الطبيب مش في الأداة.</p>
+    <p><span class="lbl">عدّي بـ</span>«طيب — لو شغّلنا نفس الحالة على ثلاث أدوات مختلفة؟»</p>
+  </article>
+
+  <div class="unit-bar"><h2>الوحدة 3 — معركة الذكاء الاصطناعي · الشرائح 24–32</h2><span class="mins">~39 min</span></div>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">24</span><span class="sn-t">الوحدة 3 — فاصل</span><span class="sn-m">1 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«معركة الذكاء الاصطناعي.»</span></p>
+    <p><span class="lbl">قول</span>الاسم مثير بس الهدف عكس المتوقّع — إحنا مش بندوّر على فايز.</p>
+    <p><span class="lbl">عدّي بـ</span>«وده لازم يتقال بوضوح قبل ما نبدأ.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">25</span><span class="sn-t">قواعد المعركة — السؤال ليس «من أصاب»</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«السؤال مش ”مين صح“. السؤال ”كل واحد فكّر إزاي“.»</span></p>
+    <p><span class="lbl">قول</span>وضّح الفخ صراحة: لو حوّلنا التمرين لمسابقة دقة، حنطلع بأداة «فايزة» ونثق فيها — <b>وده بالظبط الخطر</b>. حالة واحدة ما بتقيسش أداة. الهدف إننا نشوف <b>طبيعة</b> كل نظام: أنهي واحد بيسأل، أنهي بيصنّف، أنهي بيتكلم كتير.</p>
+    <p><span class="lbl">عدّي بـ</span>«الأداة التالتة في المعركة ليها مفاجأة.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">26</span><span class="sn-t">الأداة الثالثة — Aysa</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«Aysa من نفس الشركة اللي عاملة VisualDx.»</span></p>
+    <p><span class="lbl">قول</span>سيب المفاجأة تقع، وبعدين اشرح: نفس البيت، لكن دي <b>موجّهة للمستهلك</b> مش للطبيب — ولغتها ومخرجاتها وحدودها كلها اتغيّرت بناءً على ده. <b>الفرق ده هو الدرس</b>: الجمهور المستهدف بيغيّر الأداة أكتر ما التقنية بتغيّرها. نقطة قوتها الحقيقية: أداؤها على البشرة الداكنة.</p>
+    <p><span class="lbl">عدّي بـ</span>«وعندها رقمين لازم تحفظوهم.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">27</span><span class="sn-t">الرقم الذي يجب أن تحفظه</span><span class="sn-m">5 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«واحد وسبعين بالمية إجمالًا. عشرة بالمية للأورام الخبيثة.»</span></p>
+    <p><span class="lbl">قول</span>سيب الرقمين في الهوا ثانيتين. دراسة مقطعية منشورة في <span class="en">JMIR Dermatology</span> سنة 2024 على 700 مريض. الرقم الأول لوحده بيبان محترم؛ والتاني بيقول إن الأداة <b>بتفشل بالظبط عند أخطر فئة</b>. الدرس ينتقل لأي أداة: <b>الرقم الإجمالي بيخبّي الفئة اللي بتهمّك.</b> اسأل دايمًا عن الأداء داخل الفئة الحرجة، مش المتوسط.</p>
+    <p><span class="lbl">عدّي بـ</span>«الحالة التالتة — دي مصمّمة عشان الأدوات تختلف عليها.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">28</span><span class="sn-t">الحالة 3 — الحالة الغامضة</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الحالة دي مختارة عشان يختلفوا عليها — مش صدفة.»</span></p>
+    <p><span class="lbl">قول</span>اعرض الحالة. قول صراحة إن الغموض مقصود، لأن الأدوات بتبان متشابهة على الحالات السهلة وبتفترق على الصعبة — وإنت في العيادة بتحتاجها في الصعبة. الصورة فيها <b>سهم أحمر من المصدر الأصلي</b>؛ نبّه إنه عنصر دخيل لو اترفعت الصورة على أداة تحليل.</p>
+    <p><span class="lbl">عدّي بـ</span>«شغّلوها على التلاتة. عندكم ربع ساعة.»</p>
+  </article>
+
+  <article class="sn act">
+    <div class="sn-head"><span class="sn-n">29</span><span class="sn-t">نشاط 08 — ورقة المعركة</span><span class="sn-m">15 min · نشاط</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«مجموعات ثنائية. نفس الحالة على التلات أدوات. عشر إجابات.»</span></p>
+    <p><span class="lbl">قول</span>أطول نشاط في اليوم — قسّم الوقت بصوت عالي: خمسة لكل أداة. طوّف وشوف مين بيسجّل ومين بس بيتفرّج. لو مجموعة خلصت بدري، اطلب منها تكتب <b>ليه</b> اختلفوا مش بس إنهم اختلفوا. جهّز جرس أو تنبيه لآخر دقيقتين.</p>
+    <p><span class="lbl">عدّي بـ</span>«قبل ما نسمع نتايجكم — خليني أقول لكم إيه اللي حتلاقوه.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">30</span><span class="sn-t">الأنماط المتوقّعة — ماذا سترى</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الأنماط دي حتتكرر في كل القاعة تقريبًا.»</span></p>
+    <p><span class="lbl">قول</span>امشِ على الأنماط، وبعد كل واحد اسأل: «مين شاف ده؟» ورفع الأيدي بيحوّل الكلام من ادعاء منك لملاحظة منهم. أقوى نمط هو إن <b>النظام اللغوي بيتكلم أكتر</b> — وده مدخل الشريحة الجاية.</p>
+    <p><span class="lbl">عدّي بـ</span>«وده بيوصلنا لأخطر فخ في اليوم كله.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">31</span><span class="sn-t">فخ الثقة — الطلاقة ليست دقة</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الطلاقة مش دقة. النظام اللي بيتكلم أحسن مش بالضرورة صح.»</span></p>
+    <p><span class="lbl">قول</span>المخرج الطويل المنظّم المقنع بيقلّل شكّك <b>بدون أي مبرر</b> — الطول والترتيب مش أدلة. اربطها بلحظة النشاط: مين حسّ إن أداة معيّنة «مقنعة أكتر»؟ على أي أساس؟ لو الإجابة «لأنها شرحت أكتر» — دي بالظبط الفخ.</p>
+    <p><span class="lbl">عدّي بـ</span>«خلينا نربط المعركة كلها بالإطار.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">32</span><span class="sn-t">اربط المعركة بالإطار</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«اللي عملتوه في ربع ساعة ده كان الإطار كله.»</span></p>
+    <p><span class="lbl">قول</span>ارجع خطوة خطوة: حدّدتوا المهمة، اخترتوا الأدوات، نظّمتوا المدخل، تحدّيتوا المخرج، وقارنتوه. يعني الإطار مش نظري — إنتوا لسه منفّذينه.</p>
+    <p><span class="lbl">عدّي بـ</span>«دلوقتي — الخريطة الكاملة للمجال.»</p>
+  </article>
+
+  <div class="unit-bar"><h2>الوحدة 4 — خريطة الجلدية · الشرائح 33–39</h2><span class="mins">~25 min</span></div>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">33</span><span class="sn-t">الوحدة 4 — فاصل</span><span class="sn-m">1 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«خريطة الذكاء الاصطناعي في الجلدية.»</span></p>
+    <p><span class="lbl">قول</span>حذّرهم من دلوقتي: الوحدة دي فيها أسماء كتير، وأنا <b>مش عايزكم تحفظوها</b>.</p>
+    <p><span class="lbl">عدّي بـ</span>«لأن السبب على الشريحة الجاية.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">34</span><span class="sn-t">لا تحفظ أسماء — احفظ طبقات</span><span class="sn-m">5 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«لو حفظتوا عشر أسماء، بعد سنة نصّهم يتغيّر.»</span></p>
+    <p><span class="lbl">قول</span>اعرض الخمس طبقات. ولو حفظت الطبقات، تقدر تحطّ أي أداة جديدة في مكانها فورًا. وقف عند ترتيب التفكير — <span class="en">TASK → CAPABILITY → TOOL → PRODUCT</span> — وقول إن <b>الترتيب المقلوب هو الفخ</b>: تبدأ من أداة سمعت عنها وتلوي المهمة عشان تناسبها.</p>
+    <p><span class="lbl">عدّي بـ</span>«نبدأ بالطبقة اللي تقدروا تفتحوها النهارده.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">35</span><span class="sn-t">الست المجانية — مرور سريع</span><span class="sn-m">5 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الستة دول مجانيين بالكامل — افتحوهم بنفسكم.»</span></p>
+    <p><span class="lbl">قول</span>مرور سريع — <b>سطر واحد لكل أداة</b>، ما تشرحهاش كلها. أشِر إن الوسم <span class="en">[VENDOR]</span> معناه المعلومة من الشركة نفسها. وقول صراحة إن الأسعار والتوفّر <b>اتراجعوا في سبتمبر 2026</b> والسوق ده بيتغيّر كل شهرين — الأرقام إرشادية.</p>
+    <p><span class="lbl">عدّي بـ</span>«واتنين تانيين أقوى — بس بعدّاد.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">36</span><span class="sn-t">التجارب المجانية — سجّل قبل ما تحتاجها</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«سجّلوا فيهم قبل ما تحتاجوهم — مش وإنتوا قدّام حالة.»</span></p>
+    <p><span class="lbl">قول</span>الدرس من <span class="en">DermEngine</span> مش الذكاء الاصطناعي — إنه ممكن يكون <b>جزء من بنية العيادة</b> مش شات بوت منفصل: صورة تدخل ملف المريض، تتقارن مع صورة قديمة، وتتتبّع آفة عبر شهور. نبّه على العائق العملي: بطاقة دولية، ومدة التجربة بتختلف حسب الباقة.</p>
+    <p><span class="lbl">عدّي بـ</span>«والأربعة اللي جايين — دول للفهم بس.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">37</span><span class="sn-t">الأربعة المتقدمة — دراسات حالة</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«مش حنفتح فيهم حساب — كل واحد فيهم بيعلّمنا مفهوم.»</span></p>
+    <p><span class="lbl">قول</span>سطر واحد لكل واحد، والتركيز على <b>الدرس</b> مش المنتج: التنظير مدخل مختلف · التطبيق لما يبقى جهاز طبي يدخل عالم تنظيمي تاني · الفرز المؤسسي بيغيّر الخدمة كلها مش قرار طبيب · و<span class="en">DermaSensor</span> مثال على <b>مستوى دليل نادر</b> — تصريح <span class="en">FDA de novo</span> ودراسة على أكتر من 1000 مريض. وأشِر لـ<span class="en">Autoderm</span>: مش تطبيق، ده <span class="en">API</span> — يعني ممكن تكون بتستخدمه من جوّه تطبيق تاني وإنت ما تعرفش.</p>
+    <p><span class="lbl">عدّي بـ</span>«كل ده في جدول واحد.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">38</span><span class="sn-t">جدول المقارنة الشامل</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«لاحظوا إن مفيش عمود اسمه ”الأفضل“ — وده مقصود.»</span></p>
+    <p><span class="lbl">قول</span>ما تقراش الجدول سطر سطر — قول إنه <b>مرجع يحتفظوا بيه</b>، وأشِر لعمود «الوصول من ليبيا» تحديدًا لأنه العمود العملي. الرسالة: الجدول ده خريطة، مش ترتيب أفضلية. <b>الشريحة أطول من الشاشة</b> — انزل لتحت.</p>
+    <p><span class="lbl">عدّي بـ</span>«وعلشان تستخدموه بكرة — شجرة قرار.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">39</span><span class="sn-t">شجرة القرار — أي أداة لأي مهمة</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«ابدأ من المهمة. مش من الأداة.»</span></p>
+    <p><span class="lbl">قول</span>امشِ على البنود بسرعة. وبعدين <b>قف عند السطر الأخير واقراه بالكامل</b>: الآفة المشبوهة — مفيش أداة في القائمة دي بتحسم، ومخرج الذكاء الاصطناعي ما بيحلّش محل التقييم السريري. ده أهم سطر في الوحدة كلها، سيب بعده ثانيتين صمت.</p>
+    <p><span class="lbl">عدّي بـ</span>«طيب. دلوقتي نشوف الأدوات وهي بتغلط.»</p>
+  </article>
+
+  <div class="unit-bar"><h2>الوحدة 5 — مختبر الفشل · الشرائح 40–44</h2><span class="mins">~16 min</span></div>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">40</span><span class="sn-t">الوحدة 5 — فاصل</span><span class="sn-m">1 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«مختبر الفشل.»</span></p>
+    <p><span class="lbl">قول</span>الوحدة دي مش عشان نقلّل من الأدوات — عشان تعرفوا شكل الغلط <b>قبل</b> ما تقابلوه في العيادة.</p>
+    <p><span class="lbl">عدّي بـ</span>«تلات أنماط فشل. الأول رقمي.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">41</span><span class="sn-t">الفشل الأول — أداء غير متساوٍ عبر الفئات</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«رجعنا لأرقام Aysa — مش عشان ننتقد أداة.»</span></p>
+    <p><span class="lbl">قول</span>قول ده بوضوح: مش بننتقد أداة بعينها ومش بنعمّم على كل أدوات الصور — بنتعلّم <b>إزاي نقرا رقم أداء</b>. المتوسط بيتحسب على كل الفئات، والفئة النادرة الخطيرة بتتوه جوّاه. السؤال اللي يمشي معاهم: «الرقم ده متوسط على إيه؟»</p>
+    <p><span class="lbl">عدّي بـ</span>«النمط التاني مش رقمي — ده لغوي.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">42</span><span class="sn-t">الفشل الثاني — كلمة تنظيمية تخدعك</span><span class="sn-m">4 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«Breakthrough Designation مش موافقة.»</span></p>
+    <p><span class="lbl">قول</span>اقرا السطرين اللي على الشريحة بصوت عالي وببطء. الفرق بين <span class="en">Designation</span> و<span class="en">Approval</span> بيضيع على معظم الأطباء، والشركات بتستخدم الكلمة الأولى في التسويق. القاعدة: <b>أي كلمة تنظيمية — دوّر على نصّها الأصلي قبل ما تبني عليها ثقة.</b></p>
+    <p><span class="lbl">عدّي بـ</span>«والتالت حنشوفه حي دلوقتي.»</p>
+  </article>
+
+  <article class="sn act">
+    <div class="sn-head"><span class="sn-n">43</span><span class="sn-t">الفشل الثالث — الاستشهاد المهلوس</span><span class="sn-m">4 min · عرض حي</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«حنطلب مرجع، وحنشوف سوا هو موجود ولا لأ.»</span></p>
+    <p><span class="lbl">قول</span>الصق البرومبت واعرض النتيجة على الشاشة. المخرج حيجيلك مرجع <b>كامل الشكل</b> — عنوان، مجلة، سنة، صفحات. وبعدين دوّر عليه قدّامهم. <b>جهّز خطة بديلة</b>: لو النت وقع أو الأداة رفضت، فيه لقطات شاشة محفوظة — التمرين تفكيري مش تقني.</p>
+    <p><span class="lbl">عدّي بـ</span>«والسؤال اللي المفروض يزعجكم دلوقتي…»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">44</span><span class="sn-t">السؤال الذي يجب أن يزعجك</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«كنت حتلاحظ لو كنت واثق؟»</span></p>
+    <p><span class="lbl">قول</span>سيب السؤال معلّق. الأنماط التلاتة بتشترك في حاجة: <b>مفيش واحد فيهم بيبان كغلط</b>. الرقم بيبان معقول، الكلمة التنظيمية بتبان رسمية، والمرجع بيبان حقيقي. فالحماية مش في إنك تلاحظ — في إنك <b>تدقّق بشكل منهجي</b>.</p>
+    <p><span class="lbl">عدّي بـ</span>«وده اللي الوحدة الجاية بتديكم إياه.»</p>
+  </article>
+
+  <div class="unit-bar"><h2>الوحدة 6 — دقّق ولا تثق · الشرائح 45–48</h2><span class="mins">~19 min</span></div>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">45</span><span class="sn-t">الوحدة 6 — فاصل</span><span class="sn-m">1 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«دقّق ولا تثق.»</span></p>
+    <p><span class="lbl">قول</span>دي الوحدة اللي حتفضل معاهم بعد ما كل الأدوات اللي شفناها النهارده تتغيّر.</p>
+    <p><span class="lbl">عدّي بـ</span>«ثمانية أسئلة بس.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">46</span><span class="sn-t">الأسئلة الثمانية</span><span class="sn-m">6 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«ثمانية أسئلة قبل أي ثقة.»</span></p>
+    <p><span class="lbl">قول</span>امشِ على الثمانية مع <b>علامة الخطر</b> لكل واحد. وبعدين قول اللي يستاهل يتقال: <b>السؤالان 7 و 8 هما الحاسمان</b> — فين المفروض أتدخّل أنا، وإمتى النظام ده بيفشل. أداة ما بتقولش فين تتدخّل ولا بتعترف بحدودها، دي وحدها كافية إنك ما تعتمدش عليها. <b>الشريحة أطول من الشاشة</b> — انزل لتحت.</p>
+    <p><span class="lbl">عدّي بـ</span>«وحنجرّبها دلوقتي على أداة ما شفناهاش.»</p>
+  </article>
+
+  <article class="sn act">
+    <div class="sn-head"><span class="sn-n">47</span><span class="sn-t">نشاط 09 — دقّق أداة لم ترها من قبل</span><span class="sn-m">10 min · نشاط</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«كل مجموعة تاخد أداة ما شرحناهاش — ودقّقوها في عشر دقايق.»</span></p>
+    <p><span class="lbl">قول</span>ده <b>الامتحان الحقيقي للدورة</b>: مش «هل تعرف الأدوات اللي شرحناها» بل «هل تقدر تقيّم واحدة ما شرحناهاش». أهم تعليمة: اللي ما تلاقوش له إجابة، اكتبوا <b>«غير موجود»</b> — دي إجابة مهمة مش فراغ. في العرض، خلّي كل مجموعة تقول أخطر حاجة لقتها في 60 ثانية، واعدّوا كام مرة اتكتب «غير موجود».</p>
+    <p><span class="lbl">عدّي بـ</span>«الرقم ده هو خلاصة الوحدة.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">48</span><span class="sn-t">المخرج — بطاقة تمشي معك</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الأدوات حتتغيّر. البطاقة مش حتتغيّر.»</span></p>
+    <p><span class="lbl">قول</span>والحقيقة اللي لازم تتقال: السوق فيه أدوات ممتازة بأدلة قوية، وفيه أدوات بتستخدم كلمة «ذكاء اصطناعي» كتسويق — <b>والفرق مش بيبان من الواجهة، بيبان من الوثائق</b>. وجّههم لبطاقة التدقيق المطبوعة.</p>
+    <p><span class="lbl">عدّي بـ</span>«فاضل جزء إضافي — وده عن إنتاجكم إنتوا.»</p>
+  </article>
+
+  <div class="unit-bar"><h2>الجزء ب — العرض الاحترافي · الشرائح 49–57</h2><span class="mins">~22 min</span></div>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">49</span><span class="sn-t">إضافي — صناعة محتوى طبي</span><span class="sn-m">1 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الجزء ده عن حاجة تعملوها كل شهر — تحضير عرض.»</span></p>
+    <p><span class="lbl">قول</span>عرض احترافي في تلاتين دقيقة، بنفس الإطار.</p>
+    <p><span class="lbl">عدّي بـ</span>«بس فيه قاعدة الأول.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">50</span><span class="sn-t">القاعدة قبل ما نبدأ</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«نفس الإطار. مخرج مختلف.»</span></p>
+    <p><span class="lbl">قول</span>الإطار اللي استخدمناه على الحالات هو نفسه اللي حيبني العرض — الفرق إن المخرج هنا <b>منتج بتوقيعك إنت</b>. وده بيرفع مستوى المسؤولية مش بيقلّله.</p>
+    <p><span class="lbl">عدّي بـ</span>«أول خمس دقايق — تحديد.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">51</span><span class="sn-t">0–5 — الأساس</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«خمس دقايق تحديد بتوفّر ساعة تصليح.»</span></p>
+    <p><span class="lbl">قول</span>أغلب الناس بتفتح الأداة وتقول «اعملي عرض عن كذا» وتقضي بعدها ساعة تصلّح. عدّي على الستة عناصر اللي لازم تتحدّد قبل أول طلب.</p>
+    <p><span class="lbl">عدّي بـ</span>«وبعدين الهيكل — مش الشرائح.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">52</span><span class="sn-t">5–10 — المعمار</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«ابنِ الهيكل. مش الشرائح.»</span></p>
+    <p><span class="lbl">قول</span>الخطأ الشائع إنك تطلب شرائح جاهزة فتلاقي نفسك بتعيد ترتيب حاجة مبنية غلط. اطلب <b>الهيكل الأول</b>، وافّق عليه، وبعدين املاه.</p>
+    <p><span class="lbl">عدّي بـ</span>«ولما تملاه — بقالب ثابت.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">53</span><span class="sn-t">10–15 — شريحة بشريحة</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«قالب واحد لكل شريحة.»</span></p>
+    <p><span class="lbl">قول</span>القالب الثابت بيخلّي المخرج متسق وقابل للمراجعة السريعة — وبيمنع الأداة إنها تخترع تنسيق جديد كل شوية.</p>
+    <p><span class="lbl">عدّي بـ</span>«ودلوقتي أهم خمس دقايق في الجزء ده.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">54</span><span class="sn-t">15–20 — المراجع المتشكك</span><span class="sn-m">5 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«خلّي الأداة تهاجم اللي هي نفسها كتبته.»</span></p>
+    <p><span class="lbl">قول</span>دي <span class="en">CHALLENGE</span> من الجزء الأول، مطبّقة على منتجك إنت — <b>وبتشتغل بشكل مدهش</b>. اطلب منها تلاقي الادعاءات غير المدعومة والمبالغات والقفزات المنطقية في نصّها. لو عندك وقت، اعمل ده حي على الشاشة.</p>
+    <p><span class="lbl">عدّي بـ</span>«وبعد ما يتنضّف — البصريات.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">55</span><span class="sn-t">20–25 — الاتجاه البصري</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«مخططات. مش زخرفة.»</span></p>
+    <p><span class="lbl">قول</span>البصريات اللي بتخدم المعنى بتوضّح علاقة أو تسلسل. اللي بتزوّق بس بتاخد مساحة وانتباه من غير مقابل. القاعدة: لو المخطط ما بيوضّحش علاقة، شيله.</p>
+    <p><span class="lbl">عدّي بـ</span>«وآخر خمسة — الإخراج.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">56</span><span class="sn-t">25–30 — الإخراج النهائي</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«من نص لعرض في خمس دقايق.»</span></p>
+    <p><span class="lbl">قول</span>عدّي على خطوات التصدير بسرعة. النقطة: <b>الإخراج آخر خطوة</b> — واللي بيبدأ بيه بيقضي وقته في التنسيق بدل المحتوى.</p>
+    <p><span class="lbl">عدّي بـ</span>«وفي الآخر — مين المسؤول؟»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">57</span><span class="sn-t">DRAFT → REVIEW → VERIFY → PRESENT</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الذكاء الاصطناعي كتب المسودة. إنت المسؤول عن المحتوى.»</span></p>
+    <p><span class="lbl">قول</span>المسار الرباعي ده هو خلاصة الجزء ب. مفيش خطوة اسمها «انشر» من غير <span class="en">VERIFY</span> — والاسم اللي على العرض اسمك إنت.</p>
+    <p><span class="lbl">عدّي بـ</span>«خلينا نجمّع اليوم كله في صورة واحدة.»</p>
+  </article>
+
+  <div class="unit-bar"><h2>الختام — الشرائح 58–63</h2><span class="mins">~12 min</span></div>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">58</span><span class="sn-t">التكامل — الجزءان في صورة واحدة</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«عشر خطوات. طبيب واحد مسؤول.»</span></p>
+    <p><span class="lbl">قول</span>اربط الخمسة من الجزء الأول بالخمسة من النهارده. الرسالة: ما اتعلمتوش عشر حاجات منفصلة — اتعلمتوا <b>مسار واحد</b>.</p>
+    <p><span class="lbl">عدّي بـ</span>«والمسار ده شكله إيه بكرة في العيادة؟»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">59</span><span class="sn-t">رحلة الطبيب الكاملة</span><span class="sn-m">3 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«من مشكلة سريرية لمخرج آمن.»</span></p>
+    <p><span class="lbl">قول</span>امشِ على الرحلة بسرعة كأنها يوم عمل حقيقي. ده الجزء اللي بيحوّل اليوم من «محاضرة حلوة» لـ«حاجة أعملها الأسبوع الجاي».</p>
+    <p><span class="lbl">عدّي بـ</span>«وعلشان تبدأوا — فيه تحدي.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">60</span><span class="sn-t">التحدي النهائي</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«حالة واحدة. ثمان خطوات. بعد المحاضرة.»</span></p>
+    <p><span class="lbl">قول</span>اشرح الواجب بوضوح وحدّد <b>ميعاد</b> — واجب بلا ميعاد ما بيتعملش. وقول إن اللي حيعمله يبعتلك النتيجة.</p>
+    <p><span class="lbl">عدّي بـ</span>«طيب — بتخرجوا بإيه النهارده؟»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">61</span><span class="sn-t">ماذا تخرج به اليوم</span><span class="sn-m">2 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«عشر قدرات — مش عشر معلومات.»</span></p>
+    <p><span class="lbl">قول</span>اقرا القدرات بصيغة «تقدر…». الفرق بين معلومة وقدرة إن القدرة بتتنفّذ. لو حد حسّ إنه ما بيقدرش على واحدة منهم، دي اللي يرجعلها.</p>
+    <p><span class="lbl">عدّي بـ</span>«وكل ده في مكان واحد.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">62</span><span class="sn-t">المرجع السريع</span><span class="sn-m">1 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«صوّروا الشريحة دي.»</span></p>
+    <p><span class="lbl">قول</span>سيبها على الشاشة وأنت ساكت شوية — دي الشريحة اللي بيتصوّرها الناس. وجّههم كمان لدليل الأدوات وبطاقة التدقيق على الموقع. كرّر تنبيه سبتمبر 2026.</p>
+    <p><span class="lbl">عدّي بـ</span>«وجملة أخيرة.»</p>
+  </article>
+
+  <article class="sn">
+    <div class="sn-head"><span class="sn-n">63</span><span class="sn-t">ختام الجزء الثاني</span><span class="sn-m">1 min</span></div>
+    <p><span class="lbl">افتح بـ</span><span class="say">«الأداة بتشوف بكسلات. إنت بتشوف مريض.»</span></p>
+    <p><span class="lbl">قول</span>قولها وقف. <b>ما تضيفش عليها.</b> دي أقوى جملة في اليوم وأي كلام بعدها بيضعّفها. استنى ثانيتين، وبعدين اشكرهم وافتح باب الأسئلة.</p>
+    <p><span class="lbl">عدّي بـ</span>—</p>
+  </article>
+
+  <footer>
+    <div class="rule">
+      <b>تنبيه أخير قبل ما تقف قدّام القاعة:</b><br>
+      <b>29 شريحة من 63 أطول من شاشة اللاب توب</b> — بيظهر عليها تنبيه «فيه باقي تحت ↓».
+      اعمل بروفة على <b>نفس الجهاز والبروجكتر</b> اللي حتقدّم بيهم، ونزّل على الشرائح دي وإنت بتشرح.
+      ولو القاعة مطفّية النور، دوس زرار السمة الغامقة قبل ما تبدأ.
+    </div>
+    <p>
+      دورة <b>طبيب <span class="en">PRIME</span></b> — سياق المحاضر للجزء الثاني · 63 شريحة · ~223 دقيقة.<br>
+      <a href="part2.html">الشرائح</a> · <a href="toolkit.html">دليل الأدوات</a> · <a href="audit-card.html">بطاقة التدقيق</a>
+    </p>
+  </footer>
+
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('themeBtn'), root = document.documentElement,
+      meta = document.querySelector('meta[name="theme-color"]');
+  function paint() {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    btn.innerHTML = dark ? '☾' : '☀';
+    btn.setAttribute('aria-pressed', dark ? 'true' : 'false');
+    if (meta) { meta.setAttribute('content', dark ? '#0D1420' : '#F4F7FA'); }
+  }
+  btn.onclick = function () {
+    var dark = root.getAttribute('data-theme') === 'dark';
+    if (dark) { root.removeAttribute('data-theme'); } else { root.setAttribute('data-theme', 'dark'); }
+    try { localStorage.setItem('tabib-theme', dark ? 'light' : 'dark'); } catch (e) {}
+    paint();
+  };
+  paint();
+})();
+</script>
+</body>
+</html>

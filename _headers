@@ -20,3 +20,7 @@
 # Deck sources and build scripts are in the repo but are not the site.
 /src/*
   X-Robots-Tag: noindex
+
+# Presenter script — deliberately not linked from any public page.
+/speaker-notes.html
+  X-Robots-Tag: noindex, nofollow
