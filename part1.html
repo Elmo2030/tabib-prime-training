@@ -273,6 +273,12 @@
   .slide::-webkit-scrollbar-thumb,.slide-scroll::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:100px;}
   .slide::-webkit-scrollbar-thumb:hover,.slide-scroll::-webkit-scrollbar-thumb:hover{background:var(--scroll-thumb-hover);}
   @media (max-width:900px){ .slide{padding:88px 22px 70px;} }
+  /* On a laptop the chrome bar and nav row were eating 172px of a 768px
+     screen, which pushed 32 of 63 slides into overflow. Short viewports get
+     tighter gutters — the chrome still clears, and far fewer slides scroll. */
+  @media (max-height:820px) and (min-width:901px){
+    .slide{padding:64px clamp(40px,5vw,72px) 82px;}
+  }
 
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
   .slide.in .reveal.show{opacity:1;transform:translateY(0);}
@@ -584,6 +590,24 @@
   .connect-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;direction:ltr;}
   .connect-link{display:inline-flex;align-items:center;gap:8px;font-size:12.8px;font-weight:700;padding:9px 18px;border-radius:100px;border:1px solid var(--glass-line);background:var(--fill-subtle);color:var(--ink);text-decoration:none;transition:.15s;}
   .connect-link:hover{border-color:var(--neon-line);color:var(--neon);background:var(--neon-soft);}
+  /* A slide taller than the viewport scrolls, but the scrollbar is an overlay
+     one that only appears WHILE scrolling — so on a laptop half a slide could
+     be hidden with nothing on screen saying so. This fades the bottom edge and
+     shows a hint until the reader reaches the end. */
+  .scroll-hint{
+    position:absolute; left:0; right:0; bottom:70px; height:74px; z-index:3;
+    pointer-events:none; opacity:0; transition:opacity .25s ease;
+    background:linear-gradient(to top, var(--bg) 12%, transparent);
+    display:flex; align-items:flex-end; justify-content:center; padding-bottom:10px;
+  }
+  .slide.has-more > .scroll-hint{opacity:1;}
+  .scroll-hint span{
+    font-family:var(--font-body); font-size:12px; font-weight:600; color:var(--muted);
+    background:var(--surface); border:1px solid var(--border-strong);
+    border-radius:100px; padding:5px 14px; box-shadow:var(--shadow-1);
+  }
+  @media print{ .scroll-hint{display:none;} }
+
   .has-bg{background-size:cover;background-position:center;background-repeat:no-repeat;}
   .has-bg::before{content:"";position:absolute;inset:0;background:var(--scrim);pointer-events:none;z-index:0;}
   .has-bg > *{position:relative;z-index:1;}
@@ -2874,6 +2898,44 @@ E: يفهم القارئ بالظبط شنو يعمل، من غير ما يحس 
     paint();
   };
   paint();
+})();
+</script>
+<script>
+/* Overflow affordance. ES5 only, same floor as the deck engine. */
+(function () {
+  function hostOf(slide) { return slide.querySelector('.slide-scroll') || slide; }
+
+  function update() {
+    var slide = document.querySelector('.slide.active');
+    if (!slide) { return; }
+    if (!slide.querySelector(':scope > .scroll-hint')) {
+      var h = document.createElement('div');
+      h.className = 'scroll-hint';
+      h.innerHTML = '<span>\u0641\u064a\u0647 \u0628\u0627\u0642\u064a \u062a\u062d\u062a \u2193</span>';
+      slide.appendChild(h);
+    }
+    var host = hostOf(slide);
+    var left = host.scrollHeight - host.scrollTop - host.clientHeight;
+    if (left > 12) { slide.className = slide.className.replace(/\s*has-more/g, '') + ' has-more'; }
+    else { slide.className = slide.className.replace(/\s*has-more/g, ''); }
+  }
+
+  // scroll fires on the inner container, which does not bubble — capture it
+  document.addEventListener('scroll', update, true);
+  window.addEventListener('resize', update);
+
+  // recompute whenever the deck changes slide
+  if (typeof window.go === 'function') {
+    var realGo = window.go;
+    window.go = function () {
+      var r = realGo.apply(this, arguments);
+      setTimeout(update, 60);
+      setTimeout(update, 700);   // again once reveal transitions have settled
+      return r;
+    };
+  }
+  setTimeout(update, 300);
+  setTimeout(update, 1000);
 })();
 </script>
 </body>

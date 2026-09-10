@@ -273,6 +273,12 @@
   .slide::-webkit-scrollbar-thumb,.slide-scroll::-webkit-scrollbar-thumb{background:var(--scroll-thumb);border-radius:100px;}
   .slide::-webkit-scrollbar-thumb:hover,.slide-scroll::-webkit-scrollbar-thumb:hover{background:var(--scroll-thumb-hover);}
   @media (max-width:900px){ .slide{padding:88px 22px 70px;} }
+  /* On a laptop the chrome bar and nav row were eating 172px of a 768px
+     screen, which pushed 32 of 63 slides into overflow. Short viewports get
+     tighter gutters — the chrome still clears, and far fewer slides scroll. */
+  @media (max-height:820px) and (min-width:901px){
+    .slide{padding:64px clamp(40px,5vw,72px) 82px;}
+  }
 
   .reveal{opacity:0;transform:translateY(16px);transition:opacity .6s ease, transform .6s ease;}
   .slide.in .reveal.show{opacity:1;transform:translateY(0);}
@@ -584,6 +590,24 @@
   .connect-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;direction:ltr;}
   .connect-link{display:inline-flex;align-items:center;gap:8px;font-size:12.8px;font-weight:700;padding:9px 18px;border-radius:100px;border:1px solid var(--glass-line);background:var(--fill-subtle);color:var(--ink);text-decoration:none;transition:.15s;}
   .connect-link:hover{border-color:var(--neon-line);color:var(--neon);background:var(--neon-soft);}
+  /* A slide taller than the viewport scrolls, but the scrollbar is an overlay
+     one that only appears WHILE scrolling — so on a laptop half a slide could
+     be hidden with nothing on screen saying so. This fades the bottom edge and
+     shows a hint until the reader reaches the end. */
+  .scroll-hint{
+    position:absolute; left:0; right:0; bottom:70px; height:74px; z-index:3;
+    pointer-events:none; opacity:0; transition:opacity .25s ease;
+    background:linear-gradient(to top, var(--bg) 12%, transparent);
+    display:flex; align-items:flex-end; justify-content:center; padding-bottom:10px;
+  }
+  .slide.has-more > .scroll-hint{opacity:1;}
+  .scroll-hint span{
+    font-family:var(--font-body); font-size:12px; font-weight:600; color:var(--muted);
+    background:var(--surface); border:1px solid var(--border-strong);
+    border-radius:100px; padding:5px 14px; box-shadow:var(--shadow-1);
+  }
+  @media print{ .scroll-hint{display:none;} }
+
   .has-bg{background-size:cover;background-position:center;background-repeat:no-repeat;}
   .has-bg::before{content:"";position:absolute;inset:0;background:var(--scrim);pointer-events:none;z-index:0;}
   .has-bg > *{position:relative;z-index:1;}
@@ -881,7 +905,7 @@
       <p class="sub reveal">لازم تعرف أي قدرة بالظبط قدامك قبل ما تحكم على المخرج. نفس الصورة تدخل أربع أنظمة وتطلع بأربع أنواع مخرجات مختلفة في طبيعتها — ومعايير الحكم على كل نوع مختلفة.</p>
       <div class="content-wrap wide reveal">
         <div class="quad-grid">
-          iv class="glass quad-card"><div class="qc-tool en">1 — RETRIEVAL</div><div class="pc-title">استرجاع</div>
+          <div class="glass quad-card"><div class="qc-tool en">1 — RETRIEVAL</div><div class="pc-title">استرجاع</div>
             <dl style="margin:10px 0 0;">
               <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);">المدخل</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">صورة أو سؤال</dd>
               <dt style="font-family:var(--font-mono);font-size:12.5px;color:var(--muted);margin-top:8px;">المخرج</dt><dd style="margin:2px 0 0;font-size:12.8px;color:var(--text-2);">معلومة أو حالات شبيهة</dd>
@@ -1056,7 +1080,6 @@
             <span class="gs-label">ابدأ الفحص</span>
             <span class="gs-note"></span>
           </div>
-        </div><div class="qc-text">تنفع تتعرض على شاشة</div></div>
         </div>
         <div class="callout danger" data-label="⚠ تحذير" style="margin-top:16px;"><b>لكن انتبه للعكس:</b> صورة ممتازة <b>ما بتضمنش</b> مخرج صحيح. جودة الصورة شرط لازم — مش شرط كافٍ. الأداة ممكن تغلط على أنضف صورة عندك.</div>
       </div>
@@ -1226,7 +1249,7 @@
       <p class="sub reveal">ده البرومبت اللي بتلصقه في <span class="en">ChatGPT</span> أو <span class="en">Gemini</span> مع الصورة. لاحظ إن كل حرف من <span class="en">PRIME</span> ليه سطر.</p>
       <div class="content-wrap wide reveal">
         <div class="glass glass-pad output-box">
-          <div class="output-head"><span class="output-label en">PROMPT — PASTE AS IS</span><button class="btn btn-copy" data-copy="p2-prime">نسخ</button></div>
+          <div class="output-head"><span class="output-label en">PROMPT — PASTE AS IS</span><button class="btn btn-copy" data-copy-target="p2-prime">نسخ</button></div>
           <pre id="p2-prime" dir="ltr" style="text-align:left;">P — You are a consultant dermatologist reviewing a lesion with a colleague.
 
 R — Do NOT give me a single diagnosis. Build a ranked differential and
@@ -1714,7 +1737,7 @@ E — Success = I finish knowing exactly which additional information
       <p class="sub reveal">عرض حي — 4 دقائق. البرومبت ده بيتلصق، والنتيجة بتتعرض على الشاشة.</p>
       <div class="content-wrap wide reveal">
         <div class="glass glass-pad output-box">
-          <div class="output-head"><span class="output-label en">LIVE DEMO PROMPT</span><button class="btn btn-copy" data-copy="p2-halluc">نسخ</button></div>
+          <div class="output-head"><span class="output-label en">LIVE DEMO PROMPT</span><button class="btn btn-copy" data-copy-target="p2-halluc">نسخ</button></div>
           <pre id="p2-halluc" dir="ltr" style="text-align:left;">Give me three peer-reviewed studies published after 2020 on the
 diagnostic accuracy of smartphone AI applications for melanoma
 detection in Fitzpatrick V-VI skin. For each, give the authors,
@@ -1847,7 +1870,7 @@ journal, year, sample size, and the reported sensitivity.</pre>
       <p class="sub reveal">أغلب الناس بتفتح الأداة وتقول "اعملي عرض عن كذا" — وتقضي بعدها ساعة تصلّح. حدّد الستة دول الأول.</p>
       <div class="content-wrap wide reveal">
         <div class="glass glass-pad output-box">
-          <div class="output-head"><span class="output-label en">STEP 1 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b1">نسخ</button></div>
+          <div class="output-head"><span class="output-label en">STEP 1 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy-target="p2-b1">نسخ</button></div>
           <pre id="p2-b1" dir="ltr" style="text-align:left;">I am preparing a medical talk. Before writing anything, help me lock
 the specification. Ask me any question you need, then output a single
 filled specification block:
@@ -1877,7 +1900,7 @@ observable verb (identify, differentiate, decide), not "understand".</pre>
       <h2 class="hook reveal">ابنِ الهيكل.<br><span class="accent">مش الشرائح.</span></h2>
       <div class="content-wrap wide reveal">
         <div class="glass glass-pad output-box">
-          <div class="output-head"><span class="output-label en">STEP 2 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b2">نسخ</button></div>
+          <div class="output-head"><span class="output-label en">STEP 2 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy-target="p2-b2">نسخ</button></div>
           <pre id="p2-b2" dir="ltr" style="text-align:left;">Using the specification above, produce the ARCHITECTURE only.
 No slide content yet.
 
@@ -1910,7 +1933,7 @@ Rules:
       <h2 class="hook reveal">قالب واحد.<br><span class="accent">لكل شريحة.</span></h2>
       <div class="content-wrap wide reveal">
         <div class="glass glass-pad output-box">
-          <div class="output-head"><span class="output-label en">STEP 3 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b3">نسخ</button></div>
+          <div class="output-head"><span class="output-label en">STEP 3 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy-target="p2-b3">نسخ</button></div>
           <pre id="p2-b3" dir="ltr" style="text-align:left;">Now expand the architecture into slides. Use EXACTLY this template
 for every slide, and never break it:
 
@@ -1942,7 +1965,7 @@ Hard rules:
       <p class="sub reveal">دي <span class="en">CHALLENGE</span> من الجزء الأول، مطبّقة على منتجك إنت. الأداة اللي كتبت العرض هي اللي حتنقده — وده بيشتغل بشكل مدهش.</p>
       <div class="content-wrap wide reveal">
         <div class="glass glass-pad output-box">
-          <div class="output-head"><span class="output-label en">STEP 4 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b4">نسخ</button></div>
+          <div class="output-head"><span class="output-label en">STEP 4 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy-target="p2-b4">نسخ</button></div>
           <pre id="p2-b4" dir="ltr" style="text-align:left;">Change role completely. You are now a skeptical consultant
 dermatologist and a medical education reviewer. You did not write
 this deck and you have no attachment to it. Your job is to find
@@ -1974,7 +1997,7 @@ End with the single most dangerous slide in this deck and why.</pre>
       <h2 class="hook reveal">مخططات.<br><span class="accent">مش زخرفة.</span></h2>
       <div class="content-wrap wide reveal">
         <div class="glass glass-pad output-box">
-          <div class="output-head"><span class="output-label en">STEP 5 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy="p2-b5">نسخ</button></div>
+          <div class="output-head"><span class="output-label en">STEP 5 — PASTE INTO GEMINI</span><button class="btn btn-copy" data-copy-target="p2-b5">نسخ</button></div>
           <pre id="p2-b5" dir="ltr" style="text-align:left;">Now the visual direction. For this deck produce:
 
 1. A clinical decision algorithm for the pigmented lesion pathway,
@@ -2651,6 +2674,44 @@ a number I have not given you, write [VERIFY] instead of a value.</pre>
     paint();
   };
   paint();
+})();
+</script>
+<script>
+/* Overflow affordance. ES5 only, same floor as the deck engine. */
+(function () {
+  function hostOf(slide) { return slide.querySelector('.slide-scroll') || slide; }
+
+  function update() {
+    var slide = document.querySelector('.slide.active');
+    if (!slide) { return; }
+    if (!slide.querySelector(':scope > .scroll-hint')) {
+      var h = document.createElement('div');
+      h.className = 'scroll-hint';
+      h.innerHTML = '<span>\u0641\u064a\u0647 \u0628\u0627\u0642\u064a \u062a\u062d\u062a \u2193</span>';
+      slide.appendChild(h);
+    }
+    var host = hostOf(slide);
+    var left = host.scrollHeight - host.scrollTop - host.clientHeight;
+    if (left > 12) { slide.className = slide.className.replace(/\s*has-more/g, '') + ' has-more'; }
+    else { slide.className = slide.className.replace(/\s*has-more/g, ''); }
+  }
+
+  // scroll fires on the inner container, which does not bubble — capture it
+  document.addEventListener('scroll', update, true);
+  window.addEventListener('resize', update);
+
+  // recompute whenever the deck changes slide
+  if (typeof window.go === 'function') {
+    var realGo = window.go;
+    window.go = function () {
+      var r = realGo.apply(this, arguments);
+      setTimeout(update, 60);
+      setTimeout(update, 700);   // again once reveal transitions have settled
+      return r;
+    };
+  }
+  setTimeout(update, 300);
+  setTimeout(update, 1000);
 })();
 </script>
 </body>
